@@ -1,0 +1,98 @@
+<div class="container">
+  <h1 class="mt-3">Registration Form</h1>
+
+  <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+    <div class="mt-2">
+      <!--Email-->
+      <div class="mt-3">
+        <label class="form-label" for="email">Email</label>
+        <input type="email"
+        id="email"
+        class="form-control"
+        name="email" [(ngModel)] = "model.email">
+      </div>
+      <!--Password-->
+      <div class="mt-3">
+        <label class="form-label" for="password">Password</label>
+        <br>
+        <small class="fw-bold">Password must be 8 characters long, start with a letter, have a number, and a special character.</small>
+        <input type="password"
+        id="password"
+        minlength="8"
+        pattern="^(?=[a-zA-Z])(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+        class="form-control"
+        autocomplete="off"
+        name="password" [(ngModel)] = "model.password">
+      </div>
+
+      <!--First Name-->
+      <div class="mt-3">
+        <label class="form-label" for="firstName">First Name</label>
+        <input type="text"
+        id="firstName"
+        class="form-control"
+        name="firstName" [(ngModel)] = "model.firstName">
+      </div>
+      <!--Last Name-->
+      <div class="mt-3">
+        <label class="form-label" for="lastName">Last Name</label>
+        <input type="text"
+        id="lastName"
+        class="form-control"
+        name="lastName" [(ngModel)] = "model.lastName">
+      </div>
+      <!--Address-->
+      <div class="mt-3">
+        <label class="form-label" for="address">Address</label>
+        <input type="text"
+        id="address"
+        class="form-control"
+        name="address" [(ngModel)] = "model.address">
+      </div>
+      <!--Date Of Birth-->
+      <div class="mt-3">
+        <label class="form-label" for="dateOfBirth">Date of Birth</label>
+        <input type="date"
+        id="dateOfBirth"
+        class="form-control"
+        name="dateOfBirth" [(ngModel)] = "model.dateOfBirth">
+      </div>
+      <!--Security Question #1-->
+      <div class="mt-3">
+        <label class="form-label" for="securityQuestionOne">Security Question One</label>
+        <input type="number"
+        id="securityQuestionOne"
+        class="form-control"
+        name="securityQuestionOne" [(ngModel)] = "model.securityQuestion1Id">
+      </div>
+      <!--Security Question #1 Answer-->
+      <div class="mt-3">
+        <label class="form-label" for="securityQuestionOneAnswer">Security Question One Answer</label>
+        <input type="text"
+        id="securityQuestionOneAnswer"
+        class="form-control"
+        name="securityQuestionOneAnswer" [(ngModel)] = "model.securityQuestion1Answer">
+      </div>
+      <!--Security Question #2-->
+      <div class="mt-3">
+        <label class="form-label" for="securityQuestionTwo">Security Question Two</label>
+        <input type="number"
+        id="securityQuestionTwo"
+        class="form-control"
+        name="securityQuestionTwo" [(ngModel)] = "model.securityQuestion2Id">
+      </div>
+      <!--Security Question #2 Answer-->
+      <div class="mt-3">
+        <label class="form-label" for="securityQuestionTwoAnswer">Security Question Two Answer</label>
+        <input type="text"
+        id="securityQuestionTwoAnswer"
+        class="form-control"
+        name="securityQuestionTwoAnswer" [(ngModel)] = "model.securityQuestion2Answer">
+      </div>
+    </div>
+
+    <div class="mt-3 d-flex">
+      <button type="submit" class="btn btn-success">Send Registration Request</button>
+    </div>
+  </form>
+</div>

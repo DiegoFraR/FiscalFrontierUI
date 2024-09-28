@@ -1,0 +1,43 @@
+<div class="container">
+
+  <h1 class="mt-3">User Registration Request List</h1>
+
+  <div class="d-flex justify-content-end mt-3">
+    <a class="btn btn-primary" [routerLink]="['/admin/users']">View Users</a>
+  </div>
+
+  <ng-container *ngIf="userRegistrationRequests">
+
+    <table class="table table-bordered mt-3">
+      <thead>
+        <tr>
+          <th>Creation Request Id</th>
+          <th>Email</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Address</th>
+          <th>Date Of Birth</th>
+          <th>Approve User</th>
+          <th>Deny User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let userRequest of userRegistrationRequests">
+          <td>{{userRequest.userCreationRequestId}}</td>
+          <td>{{userRequest.email}}</td>
+          <td>{{userRequest.firstName}}</td>
+          <td>{{userRequest.lastName}}</td>
+          <td>{{userRequest.address}}</td>
+          <td>{{userRequest.dateOfBirth}}</td>
+          <td>
+            <button class="btn btn-success" (click)="approveUserCreation(userRequest.userCreationRequestId)">Approve</button>
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="denyUserCreation(userRequest.userCreationRequestId)">Deny</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </ng-container>
+</div>
