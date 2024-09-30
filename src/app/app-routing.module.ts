@@ -7,7 +7,7 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { authGuard } from './features/auth/guards/auth.guard';
 import { RegistrationComponent } from './features/user/registration/registration.component';
 import { RegistrationSuccessComponent } from './features/user/registration-success/registration-success.component';
-
+import { HomeComponent } from './features/home/home.component';
 const routes: Routes = [
   /*
   {
@@ -17,7 +17,10 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  
+  {
+    path: 'home',
+    component: HomeComponent
+  },
   {
     path: 'register',
     component: RegistrationComponent

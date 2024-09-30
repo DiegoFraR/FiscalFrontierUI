@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { RegistrationComponent } from './features/user/registration/registration.component';
 import { RegistrationSuccessComponent } from './features/user/registration-success/registration-success.component';
+import { HomeComponent } from './features/home/home.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { RegistrationSuccessComponent } from './features/user/registration-succe
     LoginComponent,
     RegistrationComponent,
     RegistrationSuccessComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

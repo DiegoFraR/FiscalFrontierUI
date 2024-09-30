@@ -1,0 +1,19 @@
+body,html {
+    margin: 0;
+    padding:0;
+
+  }
+  
+  .about-section {
+    padding: 50px;
+    text-align: center;
+    color: rgb(65, 61, 61);
+    max-width: 600px;
+    width: 100%;
+    margin: 0;
+    padding:0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
