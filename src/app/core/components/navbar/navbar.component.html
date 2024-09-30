@@ -50,13 +50,13 @@
       <div class="d-flex">
         <ng-container *ngIf="user === undefined; else showLogout">
           <!--Show Login Button-->
-          <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
+          <a [routerLink]="['/login']" class="btn btn-primary" style="background-color: #3f51b5; border-color: #3f51b5;">Login</a>
         </ng-container>
 
         <ng-template #showLogout>
           <div class="d-flex align-items-center">
             <span>{{ user?.username }}</span>
-            <button class="btn btn-primary ms-3" (click)="onLogout()">
+            <button class="btn btn-primary ms-3" style="background-color: #3f51b5; border-color: #3f51b5;" (click)="onLogout()">
               Logout
             </button>
           </div>
