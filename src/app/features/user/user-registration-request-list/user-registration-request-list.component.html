@@ -30,10 +30,10 @@
           <td>{{userRequest.address}}</td>
           <td>{{userRequest.dateOfBirth}}</td>
           <td>
-            <button class="btn btn-success" (click)="approveUserCreation(userRequest.userCreationRequestId)">Approve</button>
+            <button class="btn btn-success" (click)="approveUserCreation(userRequest.userCreationRequestId)" [routerLink]="['/admin/users']">Approve</button>
           </td>
           <td>
-            <button class="btn btn-danger" (click)="denyUserCreation(userRequest.userCreationRequestId)">Deny</button>
+            <button class="btn btn-danger" (click)="denyUserCreation(userRequest.userCreationRequestId)" [routerLink]="['/admin/users']">Deny</button>
           </td>
         </tr>
       </tbody>

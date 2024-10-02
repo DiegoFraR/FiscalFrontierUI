@@ -8,17 +8,18 @@ import { authGuard } from './features/auth/guards/auth.guard';
 import { RegistrationComponent } from './features/user/registration/registration.component';
 import { RegistrationSuccessComponent } from './features/user/registration-success/registration-success.component';
 import { HomeComponent } from './features/home/home.component';
+import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 const routes: Routes = [
-  /*
-  {
-    path: '/'
-  },*/
   {
     path: 'login',
     component: LoginComponent
   },
   {
-    path: 'home',
+    path: 'forgotPassword',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: '',
     component: HomeComponent
   },
   {

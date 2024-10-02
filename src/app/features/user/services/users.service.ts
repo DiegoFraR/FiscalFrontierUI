@@ -6,6 +6,7 @@ import { User } from '../models/user.model';
 import { environment } from 'src/environments/environment';
 import { UserRegistrationRequest } from '../models/userRegistrationRequest.model';
 import { AddUserRegistrationRequest } from '../models/add-user-registration-request.model';
+import { SecurityQuestion } from '../models/securityQuestion.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class UsersService {
   }
 
   approveUserCreation(id: Number): Observable<User> {
-    return this.http.post<User>(`${environment.apiBaseUrl}/api/Users/register?addAuth=true`, id);
+    return this.http.post<User>(`${environment.apiBaseUrl}/api/Users/register/${id}?addAuth=true`, id);
   }
 
   denyUserCreation(id: Number): Observable<User> {
@@ -43,4 +44,9 @@ export class UsersService {
   addUserRegistrationRequest(model: AddUserRegistrationRequest) : Observable<void> {
     return this.http.post<void>(`${environment.apiBaseUrl}/api/Users/Create?addAuth=false`, model)
   }
+
+  getSecurityQuestions(): Observable<SecurityQuestion[]> {
+    return this.http.get<SecurityQuestion[]>(`${environment.apiBaseUrl}/api/Auth`);
+  }
 }
+

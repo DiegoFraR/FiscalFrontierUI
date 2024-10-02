@@ -13,6 +13,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { RegistrationComponent } from './features/user/registration/registration.component';
 import { RegistrationSuccessComponent } from './features/user/registration-success/registration-success.component';
 import { HomeComponent } from './features/home/home.component';
+import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HomeComponent } from './features/home/home.component';
     RegistrationComponent,
     RegistrationSuccessComponent,
     HomeComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
