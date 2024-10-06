@@ -78,7 +78,7 @@
       <!--Security Question #2-->
       <div class="mt-3">
         <label class="form-label" for="securityQuestionOne">Security Question One</label>
-        <select id="securityQuestionOne" class="form-control" name="securityQuestionOne" [(ngModel)] = "model.securityQuestion1Id">
+        <select id="securityQuestionOne" class="form-control" name="securityQuestionOne" [(ngModel)] = "model.securityQuestion2Id">
           <option value="" disabled>Select a Question</option>
           <option *ngFor="let securityQuestion of securityQuestions" [value]="securityQuestion.securityQuestionId">
             {{securityQuestion.securityQuestion}}
