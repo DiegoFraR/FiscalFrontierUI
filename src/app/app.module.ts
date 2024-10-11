@@ -14,6 +14,11 @@ import { RegistrationComponent } from './features/user/registration/registration
 import { RegistrationSuccessComponent } from './features/user/registration-success/registration-success.component';
 import { HomeComponent } from './features/home/home.component';
 import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-password.component';
+import { AddAccountComponent } from './features/admin/add-account/add-account.component';
+import { EditAccountComponent } from './features/admin/edit-account/edit-account.component';
+import { ViewAccountComponent } from './features/admin/view-account/view-account.component';
+import { DeactivateAccountComponent } from './features/admin/deactivate-account/deactivate-account.component';
+import { ViewChartOfAccountComponent } from './features/view-chart-of-account/view-chart-of-account.component';
 
 @NgModule({
   declarations: [
@@ -27,12 +32,18 @@ import { ForgotPasswordComponent } from './features/auth/forgot-password/forgot-
     RegistrationSuccessComponent,
     HomeComponent,
     ForgotPasswordComponent,
+    AddAccountComponent,
+    EditAccountComponent,
+    ViewAccountComponent,
+    DeactivateAccountComponent,
+    ViewChartOfAccountComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    
   ],
   providers: [
     {

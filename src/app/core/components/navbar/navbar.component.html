@@ -6,6 +6,7 @@
       src="assets/pictures/FiscalFrontierLogo.png"
       alt="Fiscal Frontier Logo"
     />
+    
     <button
       class="navbar-toggler"
       type="button"
@@ -24,7 +25,51 @@
             >Home</a
           >
         </li>
-
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" [routerLink]="['']"
+            >Event Log</a
+          >
+        </li>
+        <ng-container *ngIf="user?.roles?.includes('Administrator')||user?.roles?.includes('Manager')||user?.roles?.includes('Accountant')">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Chart of Account
+            </a>
+            <ul class="dropdown-menu">
+              <!------Only show these options for Admins------->
+              <ng-container *ngIf="user?.roles?.includes('Administrator')">
+              <li>          
+                <a class="dropdown-item" [routerLink]="['/admin/add-account']"
+                  >Add Account</a
+                >
+                <a class="dropdown-item" [routerLink]="['/admin/view-account']"
+                  >View Account</a
+                >
+                <a class="dropdown-item" [routerLink]="['/admin/edit-account']"
+                  >Edit Account</a
+                >
+                <a class="dropdown-item" [routerLink]="['/admin/deactivate-account']"
+                  >Deactivate Account</a
+                >
+              </li>
+            </ng-container>
+            <!------------Show basic view of Managers and Accountants----------->
+            <ng-container *ngIf="user?.roles?.includes('Manager') || user?.roles?.includes('Accountant')">
+              <li>
+                <a class="dropdown-item" [routerLink]="['/view-chart-of-account']" 
+                  >View Chart of Account</a
+                >
+              </li>
+            </ng-container>
+            </ul>
+          </li>
+        </ng-container>
         <ng-container *ngIf="user !== undefined && user?.roles?.includes('Administrator')">
           <li class="nav-item dropdown">
             <a
@@ -55,6 +100,11 @@
 
         <ng-template #showLogout>
           <div class="d-flex align-items-center">
+              <img 
+              class="images ing-thumbnail" 
+              style="max-width: 20%;border-radius: 50%;"
+              src="assets/pictures/"
+              />
             <span>{{ user?.username }}</span>
             <button class="btn btn-primary ms-3" style="background-color: #3f51b5; border-color: #3f51b5;" (click)="onLogout()">
               Logout

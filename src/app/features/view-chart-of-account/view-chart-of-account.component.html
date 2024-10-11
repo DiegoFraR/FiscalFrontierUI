@@ -1,0 +1,42 @@
+<div class="container">
+    <h1>Chart of Accounts</h1>
+  
+    <!-- Search Box for filtering accounts -->
+    <div class="search-box">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        placeholder="Search by Account Name or Number"
+      />
+      <button (click)="searchAccounts()">Search</button>
+    </div>
+  
+    <!-- Table for displaying Chart of Accounts -->
+    <table class="table table-bordered table-hover mt-4">
+      <thead>
+        <tr>
+          <th>Account Number</th>
+          <th>Account Name</th>
+          <th>Category</th>
+          <th>Subcategory</th>
+          <th>Initial Balance</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through the accounts and display each in a row -->
+        <tr *ngFor="let account of filteredAccounts">
+          <td>{{ account.number }}</td>
+          <td>{{ account.name }}</td>
+          <td>{{ account.category }}</td>
+          <td>{{ account.subcategory }}</td>
+          <td>{{ account.initialBalance | currency }}</td>
+          <td>{{ account.isActive ? 'Active' : 'Inactive' }}</td>
+        </tr>
+        <tr *ngIf="filteredAccounts.length === 0">
+          <td colspan="6" class="text-center">No accounts found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

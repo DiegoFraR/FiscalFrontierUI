@@ -1,3 +1,16 @@
 .navbar {
     background: linear-gradient(rgba(39, 39, 39, 0.6), transparent); /* Transparent gradient background */
 }
+
+.search-box input{
+    background: transparent;
+    padding:10px;
+}
+.search-box i{
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+}
+.search-box i:hover{
+   transform: scale(1.2);
+}

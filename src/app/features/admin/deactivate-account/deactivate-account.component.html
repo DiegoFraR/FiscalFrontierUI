@@ -1,0 +1,47 @@
+<input type="date" />
+<div class="container">
+    <h1>Deactivate Account</h1>
+  
+    <!-- Search for Account by Name or Number -->
+    <div class="search-box">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        placeholder="Search by Account Name or Number"
+      />
+      <button (click)="searchAccount()">Search</button>
+    </div>
+  
+    <!-- Display Account Information -->
+    <div *ngIf="selectedAccount" class="account-details">
+      <h3>Account Details</h3>
+      <table class="table">
+        <tr>
+          <th>Account Name:</th>
+          <td>{{ selectedAccount.name }}</td>
+        </tr>
+        <tr>
+          <th>Account Number:</th>
+          <td>{{ selectedAccount.number }}</td>
+        </tr>
+        <tr>
+          <th>Status:</th>
+          <td>{{ selectedAccount.isActive ? 'Active' : 'Inactive' }}</td>
+        </tr>
+      </table>
+  
+      <!-- Button to Deactivate Account if it's Active -->
+      <button
+        *ngIf="selectedAccount.isActive"
+        class="btn btn-danger"
+        (click)="deactivateAccount()"
+      >
+        Deactivate Account
+      </button>
+  
+      <!-- Message if the account is already deactivated -->
+      <p *ngIf="!selectedAccount.isActive">This account is already deactivated.</p>
+    </div>
+  </div>
+  
+  
