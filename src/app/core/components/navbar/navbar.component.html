@@ -39,7 +39,7 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Chart of Account
+              Chart of Accounts
             </a>
             <ul class="dropdown-menu">
               <!------Only show these options for Admins------->
@@ -63,7 +63,7 @@
             <ng-container *ngIf="user?.roles?.includes('Manager') || user?.roles?.includes('Accountant')">
               <li>
                 <a class="dropdown-item" [routerLink]="['/view-chart-of-account']" 
-                  >View Chart of Account</a
+                  >View Chart of Accounts</a
                 >
               </li>
             </ng-container>
@@ -115,3 +115,157 @@
     </div>
   </div>
 </nav>
+<!-- Help button hard coded into the Navbar so that it is on every page -->
+<div class="d-flex justify-content-end">
+  <button class="btn btn-outline-info custom-margin" data-bs-toggle="modal" data-bs-target="#helpModal">
+    Help
+  </button>
+</div>
+
+<!-- Help Modal -->
+<div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="helpModalLabel">Help Topics</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="accordion" id="helpAccordion">
+
+          <!-- User Roles and Permissions -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingRoles">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRoles" aria-expanded="true" aria-controls="collapseRoles">
+                User Roles and Permissions
+              </button>
+            </h2>
+            <div id="collapseRoles" class="accordion-collapse collapse show" aria-labelledby="headingRoles" data-bs-parent="#helpAccordion">
+              <div class="accordion-body">
+                <p>There are three types of users:</p>
+                <ul>
+                  <li><strong>Administrator:</strong> Can add, edit, view, or deactivate accounts. Has full access to all features.</li>
+                  <li><strong>Manager:</strong> Can view accounts but cannot add, edit, or deactivate them. Can perform other functions such as viewing reports.</li>
+                  <li><strong>Accountant:</strong> Same as the Manager, can view but not modify accounts.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chart of Accounts -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingChart">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseChart" aria-expanded="false" aria-controls="collapseChart">
+                Chart of Accounts
+              </button>
+            </h2>
+            <div id="collapseChart" class="accordion-collapse collapse" aria-labelledby="headingChart" data-bs-parent="#helpAccordion">
+              <div class="accordion-body">
+                <p>The chart of accounts contains all accounts used in the system. You can search, filter, and view the details of each account. For administrators, you can add, edit, or deactivate accounts.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Adding an Account -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingAddAccount">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAddAccount" aria-expanded="false" aria-controls="collapseAddAccount">
+                Adding an Account (Administrator Only)
+              </button>
+            </h2>
+            <div id="collapseAddAccount" class="accordion-collapse collapse" aria-labelledby="headingAddAccount" data-bs-parent="#helpAccordion">
+              <div class="accordion-body">
+                <p>Administrators can add accounts by navigating to the "Add Account" section. The following fields are required:</p>
+                <ul>
+                  <li>Account Name</li>
+                  <li>Account Number (must start with correct values)</li>
+                  <li>Account Description</li>
+                  <li>Normal Side (Debit or Credit)</li>
+                  <li>Account Category (e.g., Asset)</li>
+                  <li>Account Subcategory (e.g., Current Assets)</li>
+                  <li>Initial Balance</li>
+                </ul>
+                <p>Ensure the account number is unique and follows the formatting rules (no alphanumeric values or decimals). Duplicate accounts will not be allowed.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Viewing and Searching Accounts -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingViewAccount">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseViewAccount" aria-expanded="false" aria-controls="collapseViewAccount">
+                Viewing and Searching Accounts
+              </button>
+            </h2>
+            <div id="collapseViewAccount" class="accordion-collapse collapse" aria-labelledby="headingViewAccount" data-bs-parent="#helpAccordion">
+              <div class="accordion-body">
+                <p>To view account details, you can click on an account in the chart of accounts. You can also search for specific accounts using their account name or number. Filters allow sorting by account name, number, category, and balance.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Monetary Values -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingMonetary">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMonetary" aria-expanded="false" aria-controls="collapseMonetary">
+                Monetary Values and Formatting
+              </button>
+            </h2>
+            <div id="collapseMonetary" class="accordion-collapse collapse" aria-labelledby="headingMonetary" data-bs-parent="#helpAccordion">
+              <div class="accordion-body">
+                <p>All monetary values should have two decimal places and be formatted with commas where necessary. Account numbers must not contain decimals or alphanumeric characters.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event Logs -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingEventLogs">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEventLogs" aria-expanded="false" aria-controls="collapseEventLogs">
+                Event Logs
+              </button>
+            </h2>
+            <div id="collapseEventLogs" class="accordion-collapse collapse" aria-labelledby="headingEventLogs" data-bs-parent="#helpAccordion">
+              <div class="accordion-body">
+                <p>Each time an account is added, modified, or deactivated, an event log entry is generated, capturing the before and after images of the data. The event log also records the user ID and timestamp for auditing purposes.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calendar and Date Selection -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingCalendar">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCalendar" aria-expanded="false" aria-controls="collapseCalendar">
+                Calendar and Date Selection
+              </button>
+            </h2>
+            <div id="collapseCalendar" class="accordion-collapse collapse" aria-labelledby="headingCalendar" data-bs-parent="#helpAccordion">
+              <div class="accordion-body">
+                <p>Use the pop-up calendar located at the top left of the page to select dates for filtering and input fields. The calendar allows easy date selection for any report or form input.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reports and Financial Statements -->
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingReports">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReports" aria-expanded="false" aria-controls="collapseReports">
+                Reports and Financial Statements
+              </button>
+            </h2>
+            <div id="collapseReports" class="accordion-collapse collapse" aria-labelledby="headingReports" data-bs-parent="#helpAccordion">
+              <div class="accordion-body">
+                <p>You can generate various financial statements such as the Income Statement (IS), Balance Sheet (BS), and Retained Earnings Statement (RE). Use filters to adjust the data you wish to see in the reports.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

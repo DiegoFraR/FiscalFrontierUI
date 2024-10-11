@@ -14,3 +14,20 @@
 .search-box i:hover{
    transform: scale(1.2);
 }
+.btn-outline-info {
+    background-color: #3f51b5;
+    color: white;
+    border-color: #3f51b5;
+    position: relative;
+    top: 5px;
+    margin-right: 0;
+  }
+  
+  .btn-outline-info:hover {
+    background-color: #2e3b8b; 
+    border-color: #2e3b8b;
+    color: white;
+  }
+  .custom-margin {
+    margin-right: 635px; 
+}
