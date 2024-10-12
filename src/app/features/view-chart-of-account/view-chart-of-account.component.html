@@ -21,6 +21,8 @@
           <th>Subcategory</th>
           <th>Initial Balance</th>
           <th>Status</th>
+          <th>Edit</th>
+          <th>View</th>
         </tr>
       </thead>
       <tbody>
@@ -32,9 +34,15 @@
           <td>{{ account.subcategory }}</td>
           <td>{{ account.initialBalance | currency }}</td>
           <td>{{ account.isActive ? 'Active' : 'Inactive' }}</td>
+          <td>
+            <a class="btn btn-secondary" [routerLink]="['/admin/edit-account', account.number]">Edit Account</a>
+          </td>
+          <td>
+            <a class="btn btn-secondary" [routerLink]="['/admin/view-account', account.number]">View Account</a>
+          </td>
         </tr>
         <tr *ngIf="filteredAccounts.length === 0">
-          <td colspan="6" class="text-center">No accounts found.</td>
+          <td colspan="8" class="text-center">No accounts found.</td>
         </tr>
       </tbody>
     </table>

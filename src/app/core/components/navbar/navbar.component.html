@@ -25,12 +25,13 @@
             >Home</a
           >
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" [routerLink]="['']"
-            >Event Log</a
-          >
-        </li>
+        
         <ng-container *ngIf="user?.roles?.includes('Administrator')||user?.roles?.includes('Manager')||user?.roles?.includes('Accountant')">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" [routerLink]="['']"
+              >Event Log</a
+            >
+          </li>
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
