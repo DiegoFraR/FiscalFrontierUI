@@ -14,6 +14,7 @@ import { EditAccountComponent } from './features/admin/edit-account/edit-account
 import { ViewAccountComponent } from './features/admin/view-account/view-account.component';
 import { DeactivateAccountComponent } from './features/admin/deactivate-account/deactivate-account.component';
 import { ViewChartOfAccountComponent } from './features/view-chart-of-account/view-chart-of-account.component';
+import { EventLogComponent } from './features/event-log/event-log.component'; 
 const routes: Routes = [
   {
     path: 'login',
@@ -73,7 +74,12 @@ const routes: Routes = [
     path: 'admin/users/:id',
     component: EditUserComponent,
     canActivate: [authGuard]
-  }
+  },
+  { 
+    path: 'features/event-log', component: EventLogComponent },
+  // Fallback route
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' } // Handle 404
   
 ];
 

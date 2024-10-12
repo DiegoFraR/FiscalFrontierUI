@@ -19,6 +19,7 @@ import { EditAccountComponent } from './features/admin/edit-account/edit-account
 import { ViewAccountComponent } from './features/admin/view-account/view-account.component';
 import { DeactivateAccountComponent } from './features/admin/deactivate-account/deactivate-account.component';
 import { ViewChartOfAccountComponent } from './features/view-chart-of-account/view-chart-of-account.component';
+import { EventLogComponent } from './features/event-log/event-log.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ViewChartOfAccountComponent } from './features/view-chart-of-account/vi
     ViewAccountComponent,
     DeactivateAccountComponent,
     ViewChartOfAccountComponent,
+    EventLogComponent,
   ],
   imports: [
     BrowserModule,

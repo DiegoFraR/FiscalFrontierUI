@@ -26,11 +26,12 @@
           >
         </li>
         
-        <ng-container *ngIf="user?.roles?.includes('Administrator')||user?.roles?.includes('Manager')||user?.roles?.includes('Accountant')">
+        <ng-container *ngIf="user?.roles?.includes('Administrator') || user?.roles?.includes('Manager') || user?.roles?.includes('Accountant')">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" [routerLink]="['']"
-              >Event Log</a
-            >
+            <!-- Event Log button -->
+            <button class="btn btn-outline-info" [routerLink]="['/features/event-log']">
+              Event Log
+            </button>
           </li>
           <li class="nav-item dropdown">
             <a
