@@ -27,12 +27,7 @@
         </li>
         
         <ng-container *ngIf="user?.roles?.includes('Administrator') || user?.roles?.includes('Manager') || user?.roles?.includes('Accountant')">
-          <li class="nav-item">
-            <!-- Event Log button -->
-            <button class="btn btn-outline-info" [routerLink]="['/features/event-log']">
-              Event Log
-            </button>
-          </li>
+          
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -57,6 +52,12 @@
                 <a class="dropdown-item" [routerLink]="['/view-chart-of-account']" 
                   >View Chart of Accounts</a
                 >
+              </li>
+              <li class="nav-item">
+                <!-- Event Log button -->
+                <button class="btn btn-outline-info" [routerLink]="['/features/event-log']">
+                  Event Log
+                </button>
               </li>
             </ng-container>
             </ul>
