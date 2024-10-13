@@ -9,44 +9,44 @@
         <div class="form-label">
           <label for="accountName">Account Name:</label>
           <input class="form-control" type="text" id="accountName" 
-          name="accountName" ngModel required>
+          name="accountName" [(ngModel)] = "model.accountName" required>
         </div>
         </div>
 
-      <!---Account Number-->
+      <!---Account Number
       <div class ="mt-3">
         <div class="form-label">
           <label for="accountNumber">Account Number:</label>
           <input class="form-control" type="text" id="accountNumber"
            name="accountNumber"
-            ngModel required pattern="^[0-9]{3}-[0-9]{3}$">
+           [(ngModel)] = "model" required pattern="^[0-9]{3}-[0-9]{3}$">
         </div>
-    </div>
+    </div>-->
 
       <!---Account Description-->
       <div class ="mt-3">
         <div class="form-label">
           <label for="accountDescription">Account Description:</label>
-          <textarea class="form-control" id="accountDescription" name="accountDescription" ngModel required></textarea>
+          <textarea class="form-control" id="accountDescription" name="accountDescription" [(ngModel)] = "model.accountDescription" required></textarea>
         </div>
     </div>
 
-      <!---Normal Side-->
+      <!---Normal Side
       <div class ="mt-3">
         <div class="form-label">
           <label for="normalSide">Normal Side:</label>
-          <select class="form-control" id="normalSide" name="normalSide" ngModel required>
+          <select class="form-control" id="normalSide" name="normalSide" [(ngModel)] = "model.accountName" required>
             <option value="debit">Debit</option>
             <option value="credit">Credit</option>
           </select>
         </div>
-    </div>
+    </div>-->
 
       <!---Account Category-->
       <div class ="mt-3">
         <div class="form-label">
           <label for="accountCategory">Account Category:</label>
-          <select class="form-control" id="accountCategory" name="accountCategory" ngModel required>
+          <select class="form-control" id="accountCategory" name="accountCategory" [(ngModel)] = "model.accountCategory" required>
             <option value="asset">Asset</option>
             <option value="liability">Liability</option>
             <option value="equity">Equity</option>
@@ -60,7 +60,7 @@
       <div class ="mt-3">
         <div class="form-label">
           <label for="accountSubcategory">Account Subcategory:</label>
-          <input class="form-control" type="text" id="accountSubcategory" name="accountSubcategory" ngModel>
+          <input class="form-control" type="text" id="accountSubcategory" name="accountSubcategory" [(ngModel)] = "model.accountSubcategory">
         </div>
     </div>
 
@@ -68,23 +68,23 @@
       <div class ="mt-3">
         <div class="form-label">
           <label for="initialBalance">Initial Balance:</label>
-          <input class="form-control" type="number" id="initialBalance" name="initialBalance" ngModel required>
+          <input class="form-control" type="number" id="initialBalance" name="initialBalance" [(ngModel)] = "model.accountInitialBalance" required>
         </div>
     </div>
 
-        <!--Balance-->
+        <!--Balance
       <div class ="mt-3">
         <div class="form-label">
           <label for="balance">Balance:</label>
           <input class="form-control" type="number" id="balance" name="balance" ngModel required>
         </div>
-    </div>
+    </div>-->
 
       <!--Debit-->
       <div class ="mt-3">
         <div class="form-label">
           <label for="debit">Debit:</label>
-          <input class="form-control" type="number" id="debit" name="debit" ngModel required>
+          <input class="form-control" type="number" id="debit" name="debit" [(ngModel)] = "model.accountDebit" required>
         </div>
     </div>
 
@@ -92,7 +92,7 @@
       <div class ="mt-3">
         <div class="form-label">
           <label for="credit">Credit:</label>
-          <input class="form-control" type="number" id="credit" name="credit" ngModel required>
+          <input class="form-control" type="number" id="credit" name="credit" [(ngModel)] = "model.accountCredit" required>
         </div>
     </div>
 
@@ -100,7 +100,7 @@
       <div class ="mt-3">
         <div class="form-label">
           <label for="userId">User ID:</label>
-          <input class="form-control" type="text" id="userId" name="userId" readonly [value]="userId">
+          <input class="form-control" type="text" id="userId" name="userId" readonly [value]="model.userId" [(ngModel)] = "model.userId">
         </div>
     </div>
 
@@ -108,7 +108,7 @@
       <div class ="mt-3">
         <div class="form-label">
           <label for="order">Order:</label>
-          <input class="form-control" type="text" id="order" name="order" ngModel required>
+          <input class="form-control" type="text" id="order" name="order" [(ngModel)] = "model.accountOrder" required>
         </div>
     </div>
 
@@ -116,7 +116,7 @@
       <div class ="mt-3">
         <div class="form-label">
           <label for="statement">Statement:</label>
-          <select class="form-control" id="statement" name="statement" ngModel required>
+          <select class="form-control" id="statement" name="statement" [(ngModel)] = "model.accountStatement" required>
             <option value="IS">Income Statement</option>
             <option value="BS">Balance Sheet</option>
             <option value="RE">Retained Earnings Statement</option>
@@ -127,7 +127,7 @@
       <div class ="mt-3">
         <div class="form-label">
           <label for="comment">Comment:</label>
-          <textarea class="form-control" id="comment" name="comment" ngModel></textarea>
+          <textarea class="form-control" id="comment" name="comment" [(ngModel)] = "model.accountComment"></textarea>
         </div>
     </div>
     </div>

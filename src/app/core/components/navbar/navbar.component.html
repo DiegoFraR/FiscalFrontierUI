@@ -48,17 +48,7 @@
               <ng-container *ngIf="user?.roles?.includes('Administrator')">
               <li>          
                 <a class="dropdown-item" [routerLink]="['/admin/add-account']"
-                  >Add Account</a
-                >
-                <a class="dropdown-item" [routerLink]="['/admin/view-account']"
-                  >View Account</a
-                >
-                <a class="dropdown-item" [routerLink]="['/admin/edit-account']"
-                  >Edit Account</a
-                >
-                <a class="dropdown-item" [routerLink]="['/admin/deactivate-account']"
-                  >Deactivate Account</a
-                >
+                  >Add Account</a>
               </li>
             </ng-container>
             <!------------Show basic view of Managers and Accountants----------->

@@ -1,5 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { ChartOfAccountService } from 'src/app/features/admin/services/chart-of-account.service';
+import { ChartOfAccount } from '../admin/models/ChartOfAccount.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-view-chart-of-account',
   templateUrl: './view-chart-of-account.component.html',
@@ -10,17 +12,28 @@ export class ViewChartOfAccountComponent implements OnInit {
   filteredAccounts: any[] = [];
   searchQuery: string = '';
 
-  constructor(private chartOfAccountService: ChartOfAccountService) {}
+  chartOfAccounts?: ChartOfAccount[];
+
+
+
+  constructor(private chartOfAccountService: ChartOfAccountService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.loadAccounts();
+    this.chartOfAccountService.getAllAccounts()
+    .subscribe({
+      next: (response) => {
+        this.chartOfAccounts = response;
+      }
+    });
   }
 
   // Method to load all accounts
   loadAccounts() {
     this.chartOfAccountService.getAllAccounts().subscribe(
       (response) => {
-        this.accounts = response;
+        this.chartOfAccounts = response;
         this.filteredAccounts = this.accounts; // Initially, show all accounts
       },
       (error) => {
@@ -40,4 +53,9 @@ export class ViewChartOfAccountComponent implements OnInit {
       this.filteredAccounts = this.accounts; // Show all accounts if search query is empty
     }
   }
+
+  convertAccountIdToString(accountId: number){
+    return accountId.toString();
+  }
+
 }

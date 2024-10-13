@@ -1,13 +1,17 @@
 <input type="date" />
 <div class="container">
 <h1 class="mt-3">Edit Account</h1>
+
+
+<ng-container *ngIf="chartOfAccount; else notFound">
+
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-    
+  
     <!-- Account Name -->
     <div class ="mt-3">
         <div class="form-label">
             <label for="accountName">Account Name:</label>
-            <input class="form-control" type="text" id="accountName" name="accountName" [(ngModel)]="account.accountName" required>
+            <input class="form-control" type="text" id="accountName" name="accountName" [(ngModel)]="chartOfAccount.accountName" required>
         </div>
     </div>
 
@@ -15,31 +19,30 @@
     <div class ="mt-3">
         <div class="form-label">
       <label for="accountNumber">Account Number:</label>
-      <input class="form-control" type="text" id="accountNumber" name="accountNumber" [(ngModel)]="account.accountNumber" required pattern="^[0-9]{3}-[0-9]{3}$">
+      <input class="form-control" type="text" id="accountNumber" name="accountNumber" [(ngModel)]="chartOfAccount.accountNumber" disabled>
     </div>
 </div>
+
     <!-- Account Description -->
     <div class ="mt-3">
         <div class="form-label">
       <label for="accountDescription">Account Description:</label>
-      <textarea class="form-control" id="accountDescription" name="accountDescription" [(ngModel)]="account.accountDescription" required></textarea>
+      <textarea class="form-control" id="accountDescription" name="accountDescription" [(ngModel)]="chartOfAccount.accountDescription" required></textarea>
     </div>
    </div>
     <!-- Normal Side -->
     <div class ="mt-3">
         <div class="form-label">
       <label for="normalSide">Normal Side:</label>
-      <select class="form-control" id="normalSide" name="normalSide" [(ngModel)]="account.normalSide" required>
-        <option value="debit">Debit</option>
-        <option value="credit">Credit</option>
-      </select>
+      <input class="form-control" type="text" id="accountNormalSide" name="accountNormalSide" [(ngModel)]="chartOfAccount.accountNormalSide" disabled>
     </div>
 </div>
     <!-- Account Category -->
     <div class ="mt-3">
         <div class="form-label">
       <label for="accountCategory">Account Category:</label>
-      <select class="form-control" id="accountCategory" name="accountCategory" [(ngModel)]="account.accountCategory" required>
+      <p class="fw-bold">Current Category is: {{chartOfAccount.accountCategory}}</p>
+      <select class="form-control" id="accountCategory" name="accountCategory" [(ngModel)]="chartOfAccount.accountCategory" required>
         <option value="asset">Asset</option>
         <option value="liability">Liability</option>
         <option value="equity">Equity</option>
@@ -52,56 +55,56 @@
     <div class ="mt-3">
         <div class="form-label">
       <label for="accountSubcategory">Account Subcategory:</label>
-      <input class="form-control" type="text" id="accountSubcategory" name="accountSubcategory" [(ngModel)]="account.accountSubcategory">
+      <input class="form-control" type="text" id="accountSubcategory" name="accountSubcategory" [(ngModel)]="chartOfAccount.accountSubcategory">
     </div>
 </div>
     <!-- Initial Balance -->
     <div class ="mt-3">
         <div class="form-label">
       <label for="initialBalance">Initial Balance:</label>
-      <input class="form-control" type="number" id="initialBalance" name="initialBalance" [(ngModel)]="account.initialBalance" required>
+      <input class="form-control" type="number" id="initialBalance" name="initialBalance" [(ngModel)]="chartOfAccount.accountInitialBalance" disabled>
     </div>
 </div>
 <!-- Balance -->
     <div class ="mt-3">
         <div class="form-label">
       <label for="balance">Balance:</label>
-      <input class="form-control" type="number" id="balance" name="balance" [(ngModel)]="account.balance" required>
+      <input class="form-control" type="number" id="balance" name="balance" [(ngModel)]="chartOfAccount.accountBalance" disabled>
     </div>
 </div>
     <!-- Debit -->
     <div class ="mt-3">
         <div class="form-label">
       <label for="debit">Debit:</label>
-      <input class="form-control" type="number" id="debit" name="debit" [(ngModel)]="account.debit" required>
+      <input class="form-control" type="number" id="debit" name="debit" [(ngModel)]="chartOfAccount.accountDebit" required>
     </div>
 </div>
     <!-- Credit -->
     <div class ="mt-3">
       <div class="form-label">
     <label for="Credit">Credit:</label>
-    <input class="form-control" type="number" id="credit" name="credit" [(ngModel)]="account.credit" required>
+    <input class="form-control" type="number" id="credit" name="credit" [(ngModel)]="chartOfAccount.accountCredit" required>
   </div>
 </div>
     <!-- User ID -->
     <div class ="mt-3">
         <div class="form-label">
       <label for="userId">User ID:</label>
-      <input class="form-control" type="text" id="userId" name="userId" [(ngModel)]="account.userId" required>
+      <input class="form-control" type="text" id="accountUserId" name="acccountUserId" [(ngModel)]="chartOfAccount.accountUserId" disabled>
     </div>
 </div>
     <!-- Order -->
     <div class ="mt-3">
         <div class="form-label">
       <label for="order">Order:</label>
-      <input class="form-control" type="text" id="order" name="order" [(ngModel)]="account.order" required>
+      <input class="form-control" type="text" id="order" name="order" [(ngModel)]="chartOfAccount.accountOrder" required>
     </div>
 </div>
     <!-- Statement -->
     <div class ="mt-3">
         <div class="form-label">
       <label for="statement">Statement:</label>
-      <select class="form-control" id="statement" name="statement" [(ngModel)]="account.statement" required>
+      <select class="form-control" id="statement" name="statement" [(ngModel)]="chartOfAccount.accountStatement" required>
         <option value="IS">Income Statement</option>
         <option value="BS">Balance Sheet</option>
         <option value="RE">Retained Earnings Statement</option>
@@ -112,15 +115,33 @@
     <div class ="mt-3">
         <div class="form-label">
       <label for="comment">Comment:</label>
-      <textarea class="form-control" id="comment" name="comment" [(ngModel)]="account.comment"></textarea>
+      <textarea class="form-control" id="comment" name="comment" [(ngModel)]="chartOfAccount.accountComment"></textarea>
     </div>
 </div>
+
+
     <!-- Save Changes Button -->
     <button type="submit" class="btn btn-primary" style="background-color: #3f51b5; border-color: #3f51b5;">Save Changes</button>
-    <button type="button" class="btn btn-danger ms-3" [routerLink]="['/admin/deactivate-account']">
-      Deactivate Account
-    </button>  
+    <ng-component *ngIf="isActive == true;else notActive">
+      <button type="button" class="btn btn-danger ms-3" (click)="onDeactivate()">
+        Deactivate Account
+      </button>  
+    </ng-component>
+
+    <ng-template #notActive>
+      <button type="button" class="btn btn-success ms-3" (click)="onActivate()">
+        Activate
+      </button>
+    </ng-template>
+
   </form>
+</ng-container>
 </div>
+
+<ng-template #notFound>
+  <div class="alert alert-warning" role="alert">
+    Chart of Account Not Found!
+  </div>
+</ng-template>
 
   

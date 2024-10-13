@@ -11,40 +11,58 @@
       <button (click)="searchAccounts()">Search</button>
     </div>
   
-    <!-- Table for displaying Chart of Accounts -->
-    <table class="table table-bordered table-hover mt-4">
-      <thead>
-        <tr>
-          <th>Account Number</th>
-          <th>Account Name</th>
-          <th>Category</th>
-          <th>Subcategory</th>
-          <th>Initial Balance</th>
-          <th>Status</th>
-          <th>Edit</th>
-          <th>View</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Loop through the accounts and display each in a row -->
-        <tr *ngFor="let account of filteredAccounts">
-          <td>{{ account.number }}</td>
-          <td>{{ account.name }}</td>
-          <td>{{ account.category }}</td>
-          <td>{{ account.subcategory }}</td>
-          <td>{{ account.initialBalance | currency }}</td>
-          <td>{{ account.isActive ? 'Active' : 'Inactive' }}</td>
-          <td>
-            <a class="btn btn-secondary" [routerLink]="['/admin/edit-account', account.number]">Edit Account</a>
-          </td>
-          <td>
-            <a class="btn btn-secondary" [routerLink]="['/admin/view-account', account.number]">View Account</a>
-          </td>
-        </tr>
-        <tr *ngIf="filteredAccounts.length === 0">
+    <ng-container *ngIf="chartOfAccounts;else noAccounts">
+      <table class="table table-bordered table-hover mt-4">
+        <thead>
+          <tr>
+            <th>Account Number</th>
+            <th>Account Name</th>
+            <th>Category</th>
+            <th>Balance</th>
+            <th>Status</th>
+            <th>Edit/View</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let chartOfAccount of chartOfAccounts">
+            <td>{{chartOfAccount.accountNumber}}</td>
+            <td>{{chartOfAccount.accountName}}</td>
+            <td>{{chartOfAccount.accountCategory}}</td>
+            <td>{{chartOfAccount.accountBalance}}</td>
+            <td>
+              <ng-container *ngIf="chartOfAccount.accountActive;else notActive">
+                <p>Active</p>
+              </ng-container>
+              <ng-template #notActive>
+                <p>Deactivated</p>
+              </ng-template>
+            </td>
+            <td><a class="btn btn-secondary" [routerLink]="['admin/edit-account', convertAccountIdToString(chartOfAccount.accountId)]">Edit/View Account</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </ng-container>
+    
+    <ng-template #noAccounts>
+      <table class="table table-bordered table-hover mt-4">
+        <thead>
+          <tr>
+            <th>Account Number</th>
+            <th>Account Name</th>
+            <th>Category</th>
+            <th>Subcategory</th>
+            <th>Initial Balance</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>View</th>
+          </tr>
+        </thead>
+        <tbody>
           <td colspan="8" class="text-center">No accounts found.</td>
-        </tr>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </ng-template>
   </div>
   
