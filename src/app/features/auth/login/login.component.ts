@@ -17,7 +17,8 @@ export class LoginComponent {
     private router: Router) {
     this.model = {
       email: '',
-      password: ''
+      password: '',
+      userId: ''
     };
   }
 
@@ -33,6 +34,7 @@ export class LoginComponent {
         this.authService.setUser({
           email: response.email,
           username: response.username,
+          userId: response.userId,
           roles: response.roles
         });
 
