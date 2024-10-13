@@ -1,11 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-add-account',
   templateUrl: './add-account.component.html',
   styleUrls: ['./add-account.component.css']
 })
-export class AddAccountComponent {
+export class AddAccountComponent implements OnInit {
+
+  userId: string | null = null;
+
+  ngOnInit(): void {
+      this.userId = localStorage.getItem('userId');
+  }
+
+
   onSubmit(form: NgForm) {
     if (form.valid) {
       // You can now access the form data
@@ -20,7 +28,7 @@ export class AddAccountComponent {
         balance: form.value.balance,
         debit: form.value.debit,
         credit: form.value.credit,
-        userId: form.value.userId,
+        userId: this.userId,
         order: form.value.order,
         statement: form.value.statement,
         comment: form.value.comment

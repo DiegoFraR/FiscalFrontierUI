@@ -20,7 +20,8 @@ export class AuthService {
   login(request: LoginRequest) : Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/api/Auth/login`, {
       email: request.email,
-      password: request.password
+      password: request.password,
+      userId: request.userId
     });
   }
 
@@ -28,6 +29,7 @@ export class AuthService {
     this.$user.next(user);
     localStorage.setItem('user-email', user.email);
     localStorage.setItem('user-username', user.username);
+    localStorage.setItem('userId', user.userId);
     localStorage.setItem('user-roles', user.roles.join(','));
   }
 
@@ -38,12 +40,14 @@ export class AuthService {
   getUser(): UserLogin | undefined {
     const email = localStorage.getItem('user-email');
     const roles = localStorage.getItem('user-roles');
+    const userId = localStorage.getItem('userId');
     const username = localStorage.getItem('user-username');
 
-    if(email && roles && username){
+    if(email && roles && username && userId){
       const user: UserLogin = {
         email: email,
         username: username,
+        userId: userId,
         roles: roles?.split(',')
       }
       return user;
