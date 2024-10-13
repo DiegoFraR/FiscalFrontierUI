@@ -34,11 +34,19 @@ export class EventLogComponent implements OnInit {
       },
       {
         id: 2,
-        userId: 'manager456',
+        userId: 'admin123',
         timestamp: new Date(),
         action: 'Modified Account',
         before: { accountName: 'Cash', balance: 5000 },
         after: { accountName: 'Cash', balance: 6000 }
+      },
+      {
+        id: 3,
+        userId: 'admin123',
+        timestamp: new Date(),
+        action: 'Added Account',
+        before: { accountName: 'cash', balance: 1000},
+        after: { accountName: 'Cash', balance: 3000}
       }
     ];
   }
