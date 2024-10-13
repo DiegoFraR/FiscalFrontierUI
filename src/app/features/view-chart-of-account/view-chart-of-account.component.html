@@ -39,7 +39,8 @@
                 <p>Deactivated</p>
               </ng-template>
             </td>
-            <td><a class="btn btn-secondary" [routerLink]="['admin/edit-account', convertAccountIdToString(chartOfAccount.accountId)]">Edit/View Account</a></td>
+            <td><a class="btn btn-secondary" [routerLink]="['admin/view-account', convertAccountIdToString(chartOfAccount.accountId)]">View Account</a></td>
+            <td><a class="btn btn-secondary" [routerLink]="['admin/edit-account', convertAccountIdToString(chartOfAccount.accountId)]">Edit Account</a></td>
           </tr>
         </tbody>
       </table>
