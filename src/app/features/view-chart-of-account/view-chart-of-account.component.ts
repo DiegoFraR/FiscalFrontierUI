@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ViewChartOfAccountComponent implements OnInit {
   accounts: any[] = [];
-  filteredAccounts: any[] = [];
+  filteredAccounts?: any[] = [];
   searchQuery: string = '';
 
   chartOfAccounts?: ChartOfAccount[];
@@ -25,6 +25,7 @@ export class ViewChartOfAccountComponent implements OnInit {
     .subscribe({
       next: (response) => {
         this.chartOfAccounts = response;
+        this.filteredAccounts = this.chartOfAccounts;
       }
     });
   }
@@ -44,6 +45,14 @@ export class ViewChartOfAccountComponent implements OnInit {
 
   // Method to search and filter accounts
   searchAccounts() {
+
+    const query = this.searchQuery.toLowerCase();
+
+    this.filteredAccounts = this.chartOfAccounts?.filter(account => 
+      account.accountNumber.toString().includes(query) ||
+      account.accountName.toLowerCase().includes(query)
+    );
+    /*
     if (this.searchQuery) {
       this.filteredAccounts = this.accounts.filter((account) =>
         account.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
@@ -51,7 +60,7 @@ export class ViewChartOfAccountComponent implements OnInit {
       );
     } else {
       this.filteredAccounts = this.accounts; // Show all accounts if search query is empty
-    }
+    }*/
   }
 
   convertAccountIdToString(accountId: number){

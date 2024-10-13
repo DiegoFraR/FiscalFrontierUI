@@ -15,6 +15,7 @@ import { ViewAccountComponent } from './features/admin/view-account/view-account
 import { DeactivateAccountComponent } from './features/admin/deactivate-account/deactivate-account.component';
 import { ViewChartOfAccountComponent } from './features/view-chart-of-account/view-chart-of-account.component';
 import { EventLogComponent } from './features/event-log/event-log.component'; 
+import { ViewSpecificEventLogsComponent } from './features/admin/view-specific-event-logs/view-specific-event-logs.component';
 const routes: Routes = [
   {
     path: 'login',
@@ -74,7 +75,13 @@ const routes: Routes = [
     canActivate: [authGuard]
   },
   { 
-    path: 'features/event-log', component: EventLogComponent },
+    path: 'features/event-log', 
+    component: EventLogComponent 
+  },
+  {
+    path: 'features/event-log/:id',
+    component: ViewSpecificEventLogsComponent
+  },
   // Fallback route
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/home' } // Handle 404

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { CreateAccount } from '../models/create-account.model';
 import { ChartOfAccount } from '../models/ChartOfAccount.model';
 import { EditChartOfAccount } from '../models/Update-Account.model';
+import { EventLog } from '../models/EventLog.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -44,5 +45,13 @@ export class ChartOfAccountService {
 
   editChartOfAccount(model: EditChartOfAccount): Observable<any[]> {
     return this.http.put<any[]>(`${environment.apiBaseUrl}/api/ChartOfAccount/modify`, model);
+  }
+
+  getAllEventLogs(): Observable<EventLog[]> {
+    return this.http.get<EventLog[]>(`${environment.apiBaseUrl}/AllChanges`);
+  }
+
+  getEventLogByAccountId(id: number): Observable<EventLog[]> {
+    return this.http.get<EventLog[]>(`${environment.apiBaseUrl}/api/ChartOfAccount/${id}/changes`)
   }
 }

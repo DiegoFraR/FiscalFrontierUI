@@ -58,5 +58,15 @@ export class ViewAccountComponent implements OnInit, OnDestroy {
       console.error('Form is invalid');
     }
   }
+
+  convertAccountIdToString(accountId: number){
+    return accountId.toString();
+  }
+
+  navigateToLogs(){
+    
+
+    this.router.navigate(['/features/event-log', this.id]);
+  }
 }
 

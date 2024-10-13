@@ -11,7 +11,7 @@
       <button (click)="searchAccounts()">Search</button>
     </div>
   
-    <ng-container *ngIf="chartOfAccounts;else noAccounts">
+    <ng-container *ngIf="filteredAccounts?.length; else noAccounts">
       <table class="table table-bordered table-hover mt-4">
         <thead>
           <tr>
@@ -26,7 +26,7 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let chartOfAccount of chartOfAccounts">
+          <tr *ngFor="let chartOfAccount of filteredAccounts">
             <td>{{chartOfAccount.accountNumber}}</td>
             <td>{{chartOfAccount.accountName}}</td>
             <td>{{chartOfAccount.accountCategory}}</td>

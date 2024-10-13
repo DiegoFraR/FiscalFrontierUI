@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { EventLog } from '../admin/models/EventLog.model';
+import { ChartOfAccountService } from '../admin/services/chart-of-account.service';
 
-interface EventLog {
+interface EventLogs {
   id: number;
   userId: string;
   timestamp: Date;
@@ -17,9 +19,11 @@ interface EventLog {
 export class EventLogComponent implements OnInit {
 
   // Define eventLogs property as an array of EventLog
-  eventLogs: EventLog[] = [];
+  eventLogs: EventLogs[] = [];
 
-  constructor() {}
+  actualEventLogs?: EventLog[];
+  
+  constructor(private chartOfAccountService: ChartOfAccountService) {}
 
   ngOnInit(): void {
     // Example data, you would usually fetch this from a service
@@ -49,5 +53,12 @@ export class EventLogComponent implements OnInit {
         after: { accountName: 'Cash', balance: 3000}
       }
     ];
+    
+    this.chartOfAccountService.getAllEventLogs()
+    .subscribe({
+      next: (response) =>{
+        this.actualEventLogs = response;
+      }
+    })
   }
 }

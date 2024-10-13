@@ -20,6 +20,7 @@ import { ViewAccountComponent } from './features/admin/view-account/view-account
 import { DeactivateAccountComponent } from './features/admin/deactivate-account/deactivate-account.component';
 import { ViewChartOfAccountComponent } from './features/view-chart-of-account/view-chart-of-account.component';
 import { EventLogComponent } from './features/event-log/event-log.component';
+import { ViewSpecificEventLogsComponent } from './features/admin/view-specific-event-logs/view-specific-event-logs.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { EventLogComponent } from './features/event-log/event-log.component';
     DeactivateAccountComponent,
     ViewChartOfAccountComponent,
     EventLogComponent,
+    ViewSpecificEventLogsComponent,
   ],
   imports: [
     BrowserModule,
