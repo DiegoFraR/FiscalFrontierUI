@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CreateAccount } from '../models/create-account.model';
 import { ChartOfAccount } from '../models/ChartOfAccount.model';
+import { EditChartOfAccount } from '../models/Update-Account.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,11 +21,11 @@ export class ChartOfAccountService {
 
   // Deactivate an account by its ID
   deactivateAccount(id: number): Observable<any> {
-    return this.http.put(`${environment.apiBaseUrl}/DeActivate/${id}`, null);
+    return this.http.put(`${environment.apiBaseUrl}/api/ChartOfAccount/DeActivate/${id}`, null);
   }
 
   activateAccount(id: number): Observable<any> {
-    return this.http.put(`${environment.apiBaseUrl}/Activate/${id}`, null);
+    return this.http.put(`${environment.apiBaseUrl}/api/ChartOfAccount/Activate/${id}`, null);
   }
 
   // Fetch all accounts from the backend
@@ -39,5 +40,9 @@ export class ChartOfAccountService {
 
   createAccount(model: CreateAccount): Observable<void> {
     return this.http.post<void>(`${environment.apiBaseUrl}/create`, model);
+  }
+
+  editChartOfAccount(model: EditChartOfAccount): Observable<any[]> {
+    return this.http.put<any[]>(`${environment.apiBaseUrl}/api/ChartOfAccount/modify`, model);
   }
 }

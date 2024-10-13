@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ChartOfAccount } from '../models/ChartOfAccount.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChartOfAccountService } from '../services/chart-of-account.service';
+import { EditChartOfAccount } from '../models/Update-Account.model';
 @Component({
   selector: 'app-edit-account',
   templateUrl: './edit-account.component.html',
@@ -17,13 +18,25 @@ export class EditAccountComponent implements OnInit, OnDestroy {
   paramsSubscription?: Subscription;
   editChartOfAccountSubscription?: Subscription;
   chartOfAccount?: ChartOfAccount;
+  editAccountModel: EditChartOfAccount;
 
 
   constructor(private route: ActivatedRoute,
     private chartOfAccountService: ChartOfAccountService,
     private router: Router
   ) {
-    
+    this.editAccountModel = {
+      accountId: this.convertIdToNumber(),
+      accountName: '',
+      accountDescription: '',
+      accountCategory: '',
+      accountSubcategory: '',
+      accountComment: '',
+      accountStatement: '',
+      accountCredit: 0,
+      accountDebit: 0,
+      accountOrder: 0
+    }
   }
 
   ngOnInit(): void {
@@ -53,10 +66,21 @@ export class EditAccountComponent implements OnInit, OnDestroy {
   // This method will be called when the form is submitted
   onSubmit(form: NgForm) {
     if (form.valid) {
-      // Form is valid, proceed with updating the account data
-      console.log('Account updated:', form.value);
-
-      // Here you would typically send the updated account data to a service to save the changes
+      this.editAccountModel.accountName = form.value.accountName;
+      this.editAccountModel.accountDescription = form.value.accountDescription;
+      this.editAccountModel.accountCategory = form.value.accountCategory;
+      this.editAccountModel.accountSubcategory = form.value.accountSubcategory;
+      this.editAccountModel.accountComment = form.value.accountComment;
+      this.editAccountModel.accountDebit = form.value.accountDebit;
+      this.editAccountModel.accountCredit = form.value.accountCredit;
+      this.editAccountModel.accountId = this.convertIdToNumber();
+      this.editAccountModel.accountOrder = form.value.accountOrder;
+      this.editChartOfAccountSubscription = this.chartOfAccountService.editChartOfAccount(this.editAccountModel)
+      .subscribe({
+        next: (response) => {
+          this.router.navigateByUrl('/view-chart-of-account');
+        }
+      });
     } else {
       console.error('Form is invalid');
     }
