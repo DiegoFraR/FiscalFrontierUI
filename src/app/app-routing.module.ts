@@ -34,9 +34,8 @@ const routes: Routes = [
     component: EditAccountComponent
   },
   {
-    path: 'admin/view-account',
-    component: ViewAccountComponent,
-    canActivate: [authGuard]
+    path: 'view-chart-of-account/admin/view-account/:id',
+    component: ViewAccountComponent
   },
   {
     path: 'admin/deactivate-account',
