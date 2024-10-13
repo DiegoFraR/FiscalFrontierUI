@@ -38,6 +38,6 @@ export class ChartOfAccountService {
   }
 
   createAccount(model: CreateAccount): Observable<void> {
-    return this.http.post<void>(`${environment.apiBaseUrl}/api/ChartOfAccount/create`, model);
+    return this.http.post<void>(`${environment.apiBaseUrl}/create`, model);
   }
 }
