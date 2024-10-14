@@ -40,22 +40,28 @@ export class EditAccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-      this.paramsSubscription = this.route.paramMap.subscribe({
-        next: (params) => {
-          this.id = params.get('id');
-          this.isActive = this.chartOfAccount?.accountActive
-          let actualId: number = Number(this.id);
-          if(this.id){
-            this.chartOfAccountService.getAccountById(actualId)
+    this.paramsSubscription = this.route.paramMap.subscribe({
+      next: (params) => {
+        this.id = params.get('id');
+        let actualId: number = Number(this.id);
+        if (this.id) {
+          this.chartOfAccountService.getAccountById(actualId)
             .subscribe({
               next: (response) => {
                 this.chartOfAccount = response;
+                console.log('Chart of Account Response:', this.chartOfAccount); // Check full response
+                this.isActive = this.chartOfAccount?.accountActive ?? false;
+                console.log('Account Active Status:', this.isActive); // Check isActive value
+              },
+              error: (err) => {
+                console.error('Error fetching account data', err);
               }
             });
-          }
         }
-      })
+      }
+    });
   }
+  
 
   ngOnDestroy(): void {
     this.paramsSubscription?.unsubscribe();
@@ -65,7 +71,9 @@ export class EditAccountComponent implements OnInit, OnDestroy {
 
   // This method will be called when the form is submitted
   onSubmit(form: NgForm) {
+    console.log('Save Changes button clicked'); // Debug log
     if (form.valid) {
+      // Rest of the logic
       this.editAccountModel.accountName = form.value.accountName;
       this.editAccountModel.accountDescription = form.value.accountDescription;
       this.editAccountModel.accountCategory = form.value.accountCategory;
@@ -76,15 +84,20 @@ export class EditAccountComponent implements OnInit, OnDestroy {
       this.editAccountModel.accountId = this.convertIdToNumber();
       this.editAccountModel.accountOrder = form.value.accountOrder;
       this.editChartOfAccountSubscription = this.chartOfAccountService.editChartOfAccount(this.editAccountModel)
-      .subscribe({
-        next: (response) => {
-          this.router.navigateByUrl('/view-chart-of-account');
-        }
-      });
+        .subscribe({
+          next: (response) => {
+            console.log('Account updated successfully', response); // Debug log for success
+            this.router.navigateByUrl('/view-chart-of-account');
+          },
+          error: (err) => {
+            console.error('Error updating account', err); // Debug log for errors
+          }
+        });
     } else {
-      console.error('Form is invalid');
+      console.error('Form is invalid'); // Debug log for invalid form
     }
   }
+  
 
   convertIdToNumber(): number{
     return Number(this.id);
