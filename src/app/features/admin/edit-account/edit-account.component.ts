@@ -108,7 +108,11 @@ export class EditAccountComponent implements OnInit, OnDestroy {
       this.chartOfAccountService.deactivateAccount(this.convertIdToNumber())
       .subscribe({
         next: (response) =>{
+          console.log('Account deactivated successfully', response);
           this.router.navigateByUrl('/view-chart-of-account');
+        },
+        error: (err) => {
+          console.error('Error deactivating account', err); // Debug log
         }
       });
     }
