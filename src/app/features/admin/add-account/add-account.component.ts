@@ -14,6 +14,7 @@ export class AddAccountComponent implements OnInit, OnDestroy {
   userId: string | null = null;
   model: CreateAccount;
   private addChartOfAccountSubscription?: Subscription;
+  error: string | null = null;
 
   ngOnInit(): void {
       this.userId = localStorage.getItem('userId');
@@ -46,44 +47,17 @@ export class AddAccountComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm) {
+    this.error = null;
     this.addChartOfAccountSubscription = this.chartOfAccountService.createAccount(this.model)
     .subscribe({
       next: (response) => {
         this.router.navigateByUrl('/view-chart-of-account');
+      },
+      error : (response) => {
+        this.error = response.message;
+        console.error('Error From API: ', response.message);
       }
-    });
-
-
-    /*
-    if (form.valid) {
-      // You can now access the form data
-      const accountData = {
-        accountName: form.value.accountName,
-        accountNumber: form.value.accountNumber,
-        accountDescription: form.value.accountDescription,
-        normalSide: form.value.normalSide,
-        accountCategory: form.value.accountCategory,
-        accountSubcategory: form.value.accountSubcategory,
-        initialBalance: form.value.initialBalance,
-        balance: form.value.balance,
-        debit: form.value.debit,
-        credit: form.value.credit,
-        userId: this.userId,
-        order: form.value.order,
-        statement: form.value.statement,
-        comment: form.value.comment
-      };
-      
-      // Perform actions with the account data
-      console.log('Form Submitted', accountData);
-
-      // You could send the data to your backend API here, for example
-      // this.accountService.addAccount(accountData).subscribe(response => {
-      //   console.log('Account added successfully', response);
-      // });
-
-    } else {
-      console.log('Form is invalid');
-    }*/
+      }
+    );
   }
 }

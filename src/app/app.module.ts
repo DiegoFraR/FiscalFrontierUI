@@ -21,6 +21,7 @@ import { DeactivateAccountComponent } from './features/admin/deactivate-account/
 import { ViewChartOfAccountComponent } from './features/view-chart-of-account/view-chart-of-account.component';
 import { EventLogComponent } from './features/event-log/event-log.component';
 import { ViewSpecificEventLogsComponent } from './features/admin/view-specific-event-logs/view-specific-event-logs.component';
+import { ErrorInterceptorInterceptor } from './core/interceptors/Errors/error-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,11 @@ import { ViewSpecificEventLogsComponent } from './features/admin/view-specific-e
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorInterceptor,
       multi: true
     }
   ],
