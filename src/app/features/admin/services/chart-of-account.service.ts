@@ -54,4 +54,8 @@ export class ChartOfAccountService {
   getEventLogByAccountId(id: number): Observable<EventLog[]> {
     return this.http.get<EventLog[]>(`${environment.apiBaseUrl}/api/ChartOfAccount/${id}/changes`)
   }
+  sendEmail(emailData: { recipient: string; subject: string; body: string; accountId: number | null }): Observable<any> {
+    const url = `${this.apiUrl}/send-email`; // Change to your actual API endpoint
+    return this.http.post(url, emailData);
+  }
 }

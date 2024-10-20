@@ -18,47 +18,60 @@ interface EventLogs {
 })
 export class EventLogComponent implements OnInit {
 
-  // Define eventLogs property as an array of EventLog
   eventLogs: EventLogs[] = [];
-
   actualEventLogs?: EventLog[];
-  
+
+  // Email modal properties
+  isEmailModalOpen = false;
+  emailRecipient: string = '';
+  emailSubject: string = '';
+  emailMessage: string = '';
+  managerAndAccountantUsers = [
+    { name: 'John Doe', email: 'john@company.com', role: 'Manager' },
+    { name: 'Jane Smith', email: 'jane@company.com', role: 'Accountant' }
+  ];
+
   constructor(private chartOfAccountService: ChartOfAccountService) {}
 
   ngOnInit(): void {
-    // Example data, you would usually fetch this from a service
-    this.eventLogs = [
-      {
-        id: 1,
-        userId: 'admin123',
-        timestamp: new Date(),
-        action: 'Added Account',
-        before: null,
-        after: { accountName: 'Cash', balance: 5000 }
-      },
-      {
-        id: 2,
-        userId: 'admin123',
-        timestamp: new Date(),
-        action: 'Modified Account',
-        before: { accountName: 'Cash', balance: 5000 },
-        after: { accountName: 'Cash', balance: 6000 }
-      },
-      {
-        id: 3,
-        userId: 'admin123',
-        timestamp: new Date(),
-        action: 'Added Account',
-        before: { accountName: 'cash', balance: 1000},
-        after: { accountName: 'Cash', balance: 3000}
-      }
-    ];
-    
     this.chartOfAccountService.getAllEventLogs()
-    .subscribe({
-      next: (response) =>{
-        this.actualEventLogs = response;
-      }
-    })
+      .subscribe({
+        next: (response) => {
+          this.actualEventLogs = response;
+        },
+        error: (err) => {
+          console.error('Error fetching event logs:', err);
+        }
+      });
+  }
+   // Helper function to parse changes
+   parseChanges(changes: string) {
+    try {
+      return JSON.parse(changes); // Try to parse the changes string
+    } catch (e) {
+      console.error('Error parsing changes:', e);
+      return null; // Return null if parsing fails
+    }
+  }
+
+
+  openEmailModal(accountNumber: string): void {
+    this.isEmailModalOpen = true;
+    this.emailSubject = `Regarding Account ${accountNumber}`;
+  }
+
+  closeEmailModal(): void {
+    this.isEmailModalOpen = false;
+    this.emailRecipient = '';
+    this.emailSubject = '';
+    this.emailMessage = '';
+  }
+
+  onSubmitEmail(): void {
+    console.log('Email sent to:', this.emailRecipient);
+    console.log('Subject:', this.emailSubject);
+    console.log('Message:', this.emailMessage);
+
+    this.closeEmailModal();
   }
 }

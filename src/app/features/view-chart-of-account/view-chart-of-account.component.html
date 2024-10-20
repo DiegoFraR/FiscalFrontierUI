@@ -1,73 +1,115 @@
 <div class="container">
-    <h1>Chart of Accounts</h1>
-  
-    <!-- Search Box for filtering accounts -->
-    <div class="search-box">
-      <input
-        type="text"
-        [(ngModel)]="searchQuery"
-        placeholder="Search by Account Name or Number"
-      />
-      <button (click)="searchAccounts()">Search</button>
-    </div>
-  
-    <ng-container *ngIf="filteredAccounts?.length; else noAccounts">
-      <table class="table table-bordered table-hover mt-4">
-        <thead>
-          <tr>
-            <th>Account Number</th>
-            <th>Account Name</th>
-            <th>Category</th>
-            <th>Balance</th>
-            <th>Status</th>
-            <th>View</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
+  <h1>Chart of Accounts</h1>
 
-        <tbody>
-          <tr *ngFor="let chartOfAccount of filteredAccounts">
-            <td>{{chartOfAccount.accountNumber}}</td>
-            <td>{{chartOfAccount.accountName}}</td>
-            <td>{{chartOfAccount.accountCategory}}</td>
-            <td>{{chartOfAccount.accountBalance}}</td>
-            <td>
-              <ng-container *ngIf="chartOfAccount.accountActive;else notActive">
-                <p>Active</p>
-              </ng-container>
-              <ng-template #notActive>
-                <p>Deactivated</p>
-              </ng-template>
-            </td>
-            <td><a class="btn btn-secondary" [routerLink]="['admin/view-account', convertAccountIdToString(chartOfAccount.accountId)]">View Account</a></td>
-            <td><a class="btn btn-secondary" [routerLink]="['admin/edit-account', convertAccountIdToString(chartOfAccount.accountId)]"
-              *ngIf="isAdmin()">
-              Edit Account</a></td>
-            
-          </tr>
-        </tbody>
-      </table>
-
-    </ng-container>
-    
-    <ng-template #noAccounts>
-      <table class="table table-bordered table-hover mt-4">
-        <thead>
-          <tr>
-            <th>Account Number</th>
-            <th>Account Name</th>
-            <th>Category</th>
-            <th>Subcategory</th>
-            <th>Initial Balance</th>
-            <th>Status</th>
-            <th>Edit</th>
-            <th>View</th>
-          </tr>
-        </thead>
-        <tbody>
-          <td colspan="8" class="text-center">No accounts found.</td>
-        </tbody>
-      </table>
-    </ng-template>
+  <!-- Always visible Send Email button -->
+  <div class="email-button-container">
+    <button *ngIf="isAdmin()" class="btn btn-primary" (click)="openEmailModal(null)" style="background-color: #3f51b5; border-color: #3f51b5;">Send Email</button>
   </div>
+
+  <!-- Search Box for filtering accounts -->
+  <div class="search-box">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Search by Account Name or Number"
+    />
+    <button (click)="searchAccounts()">Search</button>
+  </div>
+
+  <ng-container *ngIf="filteredAccounts?.length; else noAccounts">
+    <table class="table table-bordered table-hover mt-4">
+      <thead>
+        <tr>
+          <th>Account Number</th>
+          <th>Account Name</th>
+          <th>Category</th>
+          <th>Balance</th>
+          <th>Status</th>
+          <th>View</th>
+          <th>Edit</th>
+          <!-- Removed Send Email column from here -->
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let chartOfAccount of filteredAccounts">
+          <td>{{chartOfAccount.accountNumber}}</td>
+          <td>{{chartOfAccount.accountName}}</td>
+          <td>{{chartOfAccount.accountCategory}}</td>
+          <td>{{chartOfAccount.accountBalance}}</td>
+          <td>
+            <ng-container *ngIf="chartOfAccount.accountActive; else notActive">
+              <p>Active</p>
+            </ng-container>
+            <ng-template #notActive>
+              <p>Deactivated</p>
+            </ng-template>
+          </td>
+          <td><a class="btn btn-secondary" [routerLink]="['admin/view-account', convertAccountIdToString(chartOfAccount.accountId)]">View Account</a></td>
+          <td><a class="btn btn-secondary" [routerLink]="['admin/edit-account', convertAccountIdToString(chartOfAccount.accountId)]"
+            *ngIf="isAdmin()">
+            Edit Account</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
   
+  <ng-template #noAccounts>
+    <table class="table table-bordered table-hover mt-4">
+      <thead>
+        <tr>
+          <th>Account Number</th>
+          <th>Account Name</th>
+          <th>Category</th>
+          <th>Subcategory</th>
+          <th>Initial Balance</th>
+          <th>Status</th>
+          <th>Edit</th>
+          <th>View</th>
+        </tr>
+      </thead>
+      <tbody>
+        <td colspan="8" class="text-center">No accounts found.</td>
+      </tbody>
+    </table>
+  </ng-template>
+</div>
+
+<!-- Email Modal -->
+<div class="modal" 
+tabindex="-1" 
+role="dialog" 
+*ngIf="isModalOpen" 
+style="display: block;">;
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Send Email</h5>
+        <button type="button" class="close" (click)="closeEmailModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="sendEmail()">
+          <div class="form-group">
+            <label for="recipient">Recipient</label>
+            <select class="form-control" id="recipient" [(ngModel)]="emailData.recipient" name="recipient" required>
+              <option value="manager">Manager</option>
+              <option value="accountant">Accountant</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" class="form-control" id="subject" [(ngModel)]="emailData.subject" name="subject" required>
+          </div>
+          <div class="form-group">
+            <label for="body">Message</label>
+            <textarea class="form-control" id="body" [(ngModel)]="emailData.body" name="body" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="background-color: #3f51b5; border-color: #3f51b5;">Send</button>
+          <button type="button" class="btn btn-secondary" (click)="closeEmailModal()" style="background-color: red; border-color: red">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

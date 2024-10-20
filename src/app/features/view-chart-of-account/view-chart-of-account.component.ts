@@ -14,6 +14,15 @@ export class ViewChartOfAccountComponent implements OnInit {
   searchQuery: string = '';
   chartOfAccounts?: ChartOfAccount[];
 
+  // Modal state and email data model
+  isModalOpen: boolean = false;
+  emailData = {
+    recipient: '',
+    subject: '',
+    body: '',
+    accountId: null as number | null // Track the account
+  };
+
   constructor(private chartOfAccountService: ChartOfAccountService, private router: Router) {}
 
   ngOnInit() {
@@ -48,7 +57,50 @@ export class ViewChartOfAccountComponent implements OnInit {
     );
   }
 
+  // Method to convert account ID to string
   convertAccountIdToString(accountId: number) {
     return accountId.toString();
   }
+
+  // Open the email modal
+  openEmailModal(account: any) {
+    this.isModalOpen = true;
+    if (account) {
+    this.emailData.accountId = account.accountId;
+    }
+  }
+
+  // Close the email modal
+  closeEmailModal() {
+    this.isModalOpen = false;
+    this.emailData = {
+      recipient: '',
+      subject: '',
+      body: '',
+      accountId: null
+    };
+  }
+  sendEmail(): void {
+    // Use the emailData that's already populated when opening the modal
+    const emailPayload = {
+      recipient: this.emailData.recipient,
+      subject: this.emailData.subject,
+      body: this.emailData.body,
+      accountId: this.emailData.accountId  // This is already set when opening the modal
+    };
+  
+    this.chartOfAccountService.sendEmail(emailPayload).subscribe({
+      next: (response) => {
+        console.log('Email sent successfully:', response);
+        // Clear the emailData after sending
+        this.emailData = { recipient: '', subject: '', body: '', accountId: null };
+        this.closeEmailModal(); // Close the modal after email is sent
+      },
+      error: (error) => {
+        console.error('Error sending email:', error);
+      }
+    });
+  }
 }
+  
+
