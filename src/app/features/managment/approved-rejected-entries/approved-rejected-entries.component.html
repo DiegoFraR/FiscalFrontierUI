@@ -1,0 +1,46 @@
+<div class="container">
+<h1>Approved and Rejected Journal Entries</h1>
+
+<div class="search-box">
+  <label>Filter by Status</label>
+  <select [(ngModel)]="selectedStatus" (change)="filterByStatus()">
+    <option value="approved">Approved</option>
+    <option value="rejected">Rejected</option>
+  </select>
+</div>
+
+<div class="search-box">
+  <label>Filter by Date</label>
+  <input type="date" [(ngModel)]="filterStartDate" (change)="filterByDate()" />
+  <input type="date" [(ngModel)]="filterEndDate" (change)="filterByDate()" />
+</div>
+
+<div class="search-box">
+  <label>Search Journal</label>
+  <input type="text" [(ngModel)]="searchTerm" (input)="searchEntries()" placeholder="Account Name, Amount, or Date" />
+</div>
+
+<table class="table table-bordered table-hover mt-4">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Account Name</th>
+      <th>Debit</th>
+      <th>Credit</th>
+      <th>Status</th>
+      <th>Reason (If Rejected)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let entry of filteredEntries">
+      <td>{{ entry.date }}</td>
+      <td>{{ entry.accountName }}</td>
+      <td>{{ entry.debit }}</td>
+      <td>{{ entry.credit }}</td>
+      <td>{{ entry.status }}</td>
+      <td>{{ entry.reason || 'N/A' }}</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>

@@ -63,6 +63,62 @@
             </ul>
           </li>
         </ng-container>
+        <!----------------------Account Ledger---------->
+        <ng-container *ngIf="user?.roles?.includes('Administrator') || user?.roles?.includes('Manager') || user?.roles?.includes('Accountant')">
+          
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Ledger
+            </a>
+            <ul class="dropdown-menu">
+              <!------Only show these options for Admins------->
+              <ng-container *ngIf="user?.roles?.includes('Administrator')">
+              <li>          
+                <a class="dropdown-item" [routerLink]="['/accountant/account-ledger']"
+                  >View Ledger</a>
+              </li>
+            </ng-container>
+            <!------------Show basic view of Managers and Accountants----------->
+            <ng-container *ngIf="user?.roles?.includes('Manager') || user?.roles?.includes('Accountant')">
+              <li>
+                <a class="dropdown-item" [routerLink]="['/accountant/journal-entry-form']" 
+                  >Journal Entry Form</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/accountant/journal-entries']" 
+                  >Journal Entry</a
+                >
+              </li>
+
+              <li>
+                <a class="dropdown-item" [routerLink]="['/manager/approved-rejected-entries']" 
+                  >Approved/ Rejected</a
+                >
+              </li>
+
+              <li>
+                <a class="dropdown-item" [routerLink]="['/manager/journal-approval']" 
+                  >Journal Pending</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/manager/manager-ledger']" 
+                  >Manager Ledger</a
+                >
+              </li>
+            </ng-container>
+            </ul>
+          </li>
+        </ng-container>
+
+        <!--Admin-->
         <ng-container *ngIf="user !== undefined && user?.roles?.includes('Administrator')">
           <li class="nav-item dropdown">
             <a

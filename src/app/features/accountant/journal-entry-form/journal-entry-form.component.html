@@ -1,0 +1,70 @@
+<div class="container">
+<h1 class="mt-3">Create Journal Entry</h1> 
+    <form #journalEntryForm="ngForm" (ngSubmit)="submitJournalEntry()">
+    <div class="mt-2">
+
+    <div class="mt-3">
+      <div class="form-label">
+      <label>Journal Type</label>
+      <input class="form-control" type="text" id="journalType" [(ngModel)]="journalEntryType" name="journalType" required />
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <div class="form-label">
+      <label >Description</label>
+      <textarea class="form-control" id="description" [(ngModel)]="journalEntryDescription" name="description" placeholder="Enter description"></textarea>
+    </div>
+  </div>
+  
+    <div class="mt-3">
+      <div class="form-label">
+      <label >Post Reference</label>
+      <input class="form-control" type="text" id="postReference" [(ngModel)]="journalEntryPostReference" name="postReference" required />
+    </div>
+    </div>
+
+    <div class="mt-3" *ngFor="let debit of debits; let i = index">
+      <div class="form-label">
+      <label>Debit Account {{i + 1}}</label>
+      <select [(ngModel)]="debit.account" name="debitAccount{{i}}" required>
+        <option *ngFor="let account of accounts" [value]="account.name">{{ account.name }}</option>
+      </select>
+      <input class="form-control"  type="number" [(ngModel)]="debit.amount" name="debitAmount{{i}}" placeholder="Amount" required />
+    </div>
+    </div>
+    
+    <div class="button-container">
+      <button  type="button" (click)="addDebit()">Add Debit</button>
+    </div>
+
+    <div class="mt-3" *ngFor="let credit of credits; let i = index">
+      <div class="form-label">
+      <label >Credit Account {{i + 1}}</label>
+      <select [(ngModel)]="credit.account" name="creditAccount{{i}}" required>
+        <option *ngFor="let account of accounts" [value]="account.name">{{ account.name }}</option>
+      </select>
+      <input class="form-control" type="number" [(ngModel)]="credit.amount" name="creditAmount{{i}}" placeholder="Amount" required />
+    </div>
+    </div>
+
+    <div class="button-container">
+      <button  type="button" (click)="addCredit()">Add Credit</button>
+    </div><br>
+    
+    <!-- Button to navigate to the "Add File" page -->
+  <div class="navigation-actions">
+    <button class="btn btn-primary"  type="button" (click)="goToAddFile()">Go to Add File Page</button>
+  </div>
+    <br>
+    <div class="form-actions">
+      <button class="btn btn-primary"  type="submit" [disabled]="!journalEntryForm.valid">Submit</button>
+      <button  class="btn btn-secondary"  type="button" (click)="resetForm()">Cancel</button>
+    </div>
+    <div *ngIf="errorMessage" class="error-message">
+      <span>{{ errorMessage }}</span>
+    </div>
+ 
+  </div>
+</form>
+</div>

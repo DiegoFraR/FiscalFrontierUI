@@ -27,6 +27,7 @@
           <th>Status</th>
           <th>View</th>
           <th>Edit</th>
+          <th>Ledger</th>
           <!-- Removed Send Email column from here -->
         </tr>
       </thead>
@@ -49,6 +50,8 @@
           <td><a class="btn btn-secondary" [routerLink]="['admin/edit-account', convertAccountIdToString(chartOfAccount.accountId)]"
             *ngIf="isAdmin()">
             Edit Account</a></td>
+            <td><a class="btn btn-secondary" [routerLink]="['/accountant/account-ledger', convertAccountIdToString(chartOfAccount.accountId)]">
+              View Ledger </a></td>
         </tr>
       </tbody>
     </table>
@@ -66,6 +69,7 @@
           <th>Status</th>
           <th>Edit</th>
           <th>View</th>
+          <th>Ledger</th>
         </tr>
       </thead>
       <tbody>

@@ -1,0 +1,18 @@
+<div class="container">
+<h1>Upload File for Journal Entry</h1>
+
+<div>
+  <label for="fileInput">Select File</label>
+  <input
+    type="file"
+    id="fileInput"
+    (change)="onFileSelected($event)"
+    accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.jpg,.jpeg,.png"
+    required
+  />
+</div>
+
+<div class="form-actions">
+  <button type="button" (click)="onSubmit()">Submit</button>
+</div>
+</div>

@@ -16,10 +16,46 @@ import { DeactivateAccountComponent } from './features/admin/deactivate-account/
 import { ViewChartOfAccountComponent } from './features/view-chart-of-account/view-chart-of-account.component';
 import { EventLogComponent } from './features/event-log/event-log.component'; 
 import { ViewSpecificEventLogsComponent } from './features/admin/view-specific-event-logs/view-specific-event-logs.component';
+import { JournalEntryFormComponent } from './features/accountant/journal-entry-form/journal-entry-form.component';
+import { AccountLedgerComponent } from './features/accountant/account-ledger/account-ledger.component';
+import { JournalEntriesComponent } from './features/accountant/journal-entries/journal-entries.component';
+import { ApprovedRejectedEntriesComponent } from './features/managment/approved-rejected-entries/approved-rejected-entries.component';
+import { JournalApprovalComponent } from './features/managment/journal-approval/journal-approval.component';
+import { ManagerAccountLedgerComponent } from './features/managment/manager-account-ledger/manager-account-ledger.component';
+import { FileUploadComponent } from './features/accountant/file-upload/file-upload.component';
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'file-upload',
+    component: FileUploadComponent
+  },
+
+  {
+    path: 'accountant/journal-entry-form',
+    component: JournalEntryFormComponent
+  },
+  {
+    path: 'accountant/account-ledger',
+    component: AccountLedgerComponent
+  },
+  {
+    path: 'accountant/journal-entries',
+    component: JournalEntriesComponent
+  },
+  {
+    path: 'manager/approved-rejected-entries',
+    component: ApprovedRejectedEntriesComponent
+  },
+  {
+    path: 'manager/journal-approval',
+    component: JournalApprovalComponent
+  },
+  {
+    path: 'manager/manager-ledger',
+    component: ManagerAccountLedgerComponent
   },
   {
     path: 'view-chart-of-account',

@@ -58,4 +58,7 @@ export class ChartOfAccountService {
     const url = `${this.apiUrl}/send-email`; // Change to your actual API endpoint
     return this.http.post(url, emailData);
   }
+  getJournalEntriesByAccountId(accountId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/journal-entries/${accountId}`);
+  }
 }

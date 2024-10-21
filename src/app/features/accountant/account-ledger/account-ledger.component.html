@@ -1,0 +1,39 @@
+<div class="container">
+<h1>Account Ledger for Account ID: {{ accountId }}</h1>
+<button class="btn btn-primary" style="background-color: #3f51b5; border-color: #3f51b5;"(click)="addJournal()">Add Journal</button>
+<div class="search-box">
+  <label>Filter by Date</label>
+  <input type="date" [(ngModel)]="ledgerStartDate" (change)="filterLedgerByDate()" />
+  <input type="date" [(ngModel)]="ledgerEndDate" (change)="filterLedgerByDate()" />
+</div>
+
+<div class="search-box">
+  <label>Search Ledger</label>
+  <input type="text" [(ngModel)]="ledgerSearchTerm" (input)="searchLedger()" placeholder="Account Name or Amount" />
+</div>
+
+<table class="table table-bordered table-hover mt-4">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Debit</th>
+      <th>Credit</th>
+      <th>Balance</th>
+      <th>Post Reference</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let entry of journalEntries">
+      <td>{{ entry.date }}</td>
+      <td>{{ entry.description || 'N/A' }}</td>
+      <td>{{ entry.debit }}</td>
+      <td>{{ entry.credit }}</td>
+      <td>{{ entry.balance }}</td>
+      <td>
+        <a class="btn btn-secondary" (click)="goToJournalEntry(entry.postReference)">{{ entry.postReference }}</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

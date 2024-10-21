@@ -1,0 +1,50 @@
+<div class="container">
+<h1>Journal Entries Pending Approval</h1>
+
+<div class="search-box">
+  <label >Filter by Date</label>
+  <input type="date" [(ngModel)]="approvalStartDate" (change)="filterPendingByDate()" />
+  <input type="date" [(ngModel)]="approvalEndDate" (change)="filterPendingByDate()" />
+</div>
+
+<div class="search-box">
+  <label>Search Journal</label>
+  <input type="text" [(ngModel)]="approvalSearchTerm" (input)="searchPendingJournal()" placeholder="Account Name, Amount, or Date" />
+</div>
+
+<table class="table table-bordered table-hover mt-4">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Account Name</th>
+      <th>Debit</th>
+      <th>Credit</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let entry of pendingEntries">
+      <td>{{ entry.date }}</td>
+      <td>{{ entry.accountName }}</td>
+      <td>{{ entry.debit }}</td>
+      <td>{{ entry.credit }}</td>
+      <td>{{ entry.status }}</td>
+      <td>
+        <button class="btn btn-secondary" (click)="approveEntry(entry)">Approve</button>
+        <button class="btn btn-secondary" (click)="rejectEntry(entry)">Reject</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal for Reject Reason -->
+<div *ngIf="showRejectModal" class="modal">
+  <div class="modal-content">
+    <span (click)="closeRejectModal()" class="close">&times;</span>
+    <h3>Reject Journal Entry</h3>
+    <textarea [(ngModel)]="rejectReason" placeholder="Enter rejection reason" required></textarea>
+    <button (click)="submitRejection()">Submit</button>
+  </div>
+</div>
+</div>

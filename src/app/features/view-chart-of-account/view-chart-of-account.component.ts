@@ -13,6 +13,8 @@ export class ViewChartOfAccountComponent implements OnInit {
   filteredAccounts?: any[] = [];
   searchQuery: string = '';
   chartOfAccounts?: ChartOfAccount[];
+  journalEntries: any[] = [];
+  
 
   // Modal state and email data model
   isModalOpen: boolean = false;
@@ -100,6 +102,24 @@ export class ViewChartOfAccountComponent implements OnInit {
         console.error('Error sending email:', error);
       }
     });
+  }
+   // Method to fetch journal entries for a specific account
+   loadJournalEntries(accountId: number) {
+    this.chartOfAccountService.getJournalEntriesByAccountId(accountId).subscribe({
+      next: (entries) => {
+        this.journalEntries = entries;
+        console.log('Journal entries loaded:', entries);
+      },
+      error: (error) => {
+        console.error('Error loading journal entries:', error);
+      }
+    });
+  }
+
+  // Method to navigate to the ledger page with the account ID
+  goToLedger(accountId: number) {
+    this.loadJournalEntries(accountId); // Load journal entries before navigating
+    this.router.navigate(['/accountant/account-ledger', accountId]);
   }
 }
   

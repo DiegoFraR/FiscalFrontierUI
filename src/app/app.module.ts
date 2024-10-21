@@ -22,6 +22,13 @@ import { ViewChartOfAccountComponent } from './features/view-chart-of-account/vi
 import { EventLogComponent } from './features/event-log/event-log.component';
 import { ViewSpecificEventLogsComponent } from './features/admin/view-specific-event-logs/view-specific-event-logs.component';
 import { ErrorInterceptorInterceptor } from './core/interceptors/Errors/error-interceptor.interceptor';
+import { JournalEntryFormComponent } from './features/accountant/journal-entry-form/journal-entry-form.component';
+import { AccountLedgerComponent } from './features/accountant/account-ledger/account-ledger.component';
+import { JournalApprovalComponent } from './features/managment/journal-approval/journal-approval.component';
+import { ApprovedRejectedEntriesComponent } from './features/managment/approved-rejected-entries/approved-rejected-entries.component';
+import { JournalEntriesComponent } from './features/accountant/journal-entries/journal-entries.component';
+import { ManagerAccountLedgerComponent } from './features/managment/manager-account-ledger/manager-account-ledger.component';
+import { FileUploadComponent } from './features/accountant/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +49,13 @@ import { ErrorInterceptorInterceptor } from './core/interceptors/Errors/error-in
     ViewChartOfAccountComponent,
     EventLogComponent,
     ViewSpecificEventLogsComponent,
+    JournalEntryFormComponent,
+    AccountLedgerComponent,
+    ApprovedRejectedEntriesComponent,
+    JournalApprovalComponent,
+    JournalEntriesComponent,
+    ManagerAccountLedgerComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,
