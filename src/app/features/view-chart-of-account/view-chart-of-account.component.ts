@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartOfAccountService } from 'src/app/features/admin/services/chart-of-account.service';
 import { ChartOfAccount } from '../admin/models/ChartOfAccount.model';
 import { Router } from '@angular/router';
+import { SendEmail } from '../admin/models/SendEmail.model';
 
 @Component({
   selector: 'app-view-chart-of-account',
@@ -14,18 +15,20 @@ export class ViewChartOfAccountComponent implements OnInit {
   searchQuery: string = '';
   chartOfAccounts?: ChartOfAccount[];
   journalEntries: any[] = [];
-  
+  sendEmailObject: SendEmail;
 
   // Modal state and email data model
   isModalOpen: boolean = false;
-  emailData = {
-    role: '',
-    subject: '',
-    message: '',
-    accountId: null as number | null // Track the account
-  };
 
-  constructor(private chartOfAccountService: ChartOfAccountService, private router: Router) {}
+
+
+  constructor(private chartOfAccountService: ChartOfAccountService, private router: Router) {
+    this.sendEmailObject = {
+      Subject: '',
+      Message: '',
+      Role: ''
+    }
+  }
 
   ngOnInit() {
     this.loadAccounts();
@@ -67,35 +70,17 @@ export class ViewChartOfAccountComponent implements OnInit {
   // Open the email modal
   openEmailModal(account: any) {
     this.isModalOpen = true;
-    if (account) {
-    this.emailData.accountId = account.accountId;
-    }
   }
 
   // Close the email modal
   closeEmailModal() {
     this.isModalOpen = false;
-    this.emailData = {
-      role: '',
-      subject: '',
-    message: '',
-      accountId: null
-    };
   }
   sendEmail(): void {
-    // Use the emailData that's already populated when opening the modal
-    const emailPayload = {
-      role: this.emailData.role,
-      subject: this.emailData.subject,
-      message: this.emailData.message,
-      accountId: this.emailData.accountId  // This is already set when opening the modal
-    };
   
-    this.chartOfAccountService.sendEmail(emailPayload).subscribe({
+    this.chartOfAccountService.sendEmail(this.sendEmailObject).subscribe({
       next: (response) => {
         console.log('Email sent successfully:', response);
-        // Clear the emailData after sending
-        this.emailData = { role: '', subject: '', message: '', accountId: null };
         this.closeEmailModal(); // Close the modal after email is sent
       },
       error: (error) => {

@@ -6,6 +6,7 @@ import { CreateAccount } from '../models/create-account.model';
 import { ChartOfAccount } from '../models/ChartOfAccount.model';
 import { EditChartOfAccount } from '../models/Update-Account.model';
 import { EventLog } from '../models/EventLog.model';
+import { SendEmail } from '../models/SendEmail.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -54,11 +55,10 @@ export class ChartOfAccountService {
   getEventLogByAccountId(id: number): Observable<EventLog[]> {
     return this.http.get<EventLog[]>(`${environment.apiBaseUrl}/api/ChartOfAccount/${id}/changes`)
   }
-  sendEmail(emailData: { role: string; subject: string; message: string; accountId: number | null }): Observable<any> {
-    const url = `${environment.apiBaseUrl}/send-email`; // Change to your actual API endpoint
-    return this.http.post(url, emailData);
-  }
   getJournalEntriesByAccountId(accountId: number): Observable<any[]> {
     return this.http.get<any[]>(`${environment.apiBaseUrl}/journal-entries/${accountId}`);
+  }
+  sendEmail(sendEmailDto: SendEmail) : Observable<void> {
+    return this.http.post<void>(`${environment.apiBaseUrl}/api/Email`, sendEmailDto);
   }
 }

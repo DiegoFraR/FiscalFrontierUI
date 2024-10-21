@@ -97,20 +97,20 @@ style="display: block;">;
       <div class="modal-body">
         <form (ngSubmit)="sendEmail()">
           <div class="form-group">
-            <label for="recipient">Recipient</label>
-            <select class="form-control" id="recipient" [(ngModel)]="emailData.role" name="recipient" required>
-              <option value="manager">Manager</option>
-              <option value="accountant">Accountant</option>
-              <option value ="administrator">Administrator</option>
+            <label for="Role">Recipient</label>
+            <select class="form-control" id="Role" [(ngModel)]="sendEmailObject.Role" name="Role" required>
+              <option value="Manager">Manager</option>
+              <option value="Accountant">Accountant</option>
+              <option value ="Administrator">Administrator</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="subject">Subject</label>
-            <input type="text" class="form-control" id="subject" [(ngModel)]="emailData.subject" name="subject" required>
+            <label for="Subject">Subject</label>
+            <input type="text" class="form-control" id="Subject" [(ngModel)]="sendEmailObject.Subject" name="Subject" required>
           </div>
           <div class="form-group">
             <label for="body">Message</label>
-            <textarea class="form-control" id="body" [(ngModel)]="emailData.message" name="body" rows="4" required></textarea>
+            <textarea class="form-control" id="body" [(ngModel)]="sendEmailObject.Message" name="body" rows="4" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary" style="background-color: #3f51b5; border-color: #3f51b5;">Send</button>
           <button type="button" class="btn btn-secondary" (click)="closeEmailModal()" style="background-color: red; border-color: red">Cancel</button>
