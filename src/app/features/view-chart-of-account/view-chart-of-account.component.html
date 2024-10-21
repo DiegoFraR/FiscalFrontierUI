@@ -3,7 +3,7 @@
 
   <!-- Always visible Send Email button -->
   <div class="email-button-container">
-    <button *ngIf="isAdmin()" class="btn btn-primary" (click)="openEmailModal(null)" style="background-color: #3f51b5; border-color: #3f51b5;">Send Email</button>
+    <button  class="btn btn-primary" (click)="openEmailModal(null)" style="background-color: #3f51b5; border-color: #3f51b5;">Send Email</button>
   </div>
 
   <!-- Search Box for filtering accounts -->
@@ -26,8 +26,8 @@
           <th>Balance</th>
           <th>Status</th>
           <th>View</th>
-          <th>Edit</th>
           <th>Ledger</th>
+          <th *ngIf="isAdmin()">Edit</th>
           <!-- Removed Send Email column from here -->
         </tr>
       </thead>
@@ -37,7 +37,7 @@
           <td>{{chartOfAccount.accountNumber}}</td>
           <td>{{chartOfAccount.accountName}}</td>
           <td>{{chartOfAccount.accountCategory}}</td>
-          <td>{{chartOfAccount.accountBalance}}</td>
+          <td>{{chartOfAccount.accountBalance | currency: 'USD' :'symbol': '1.2-2'}}</td>
           <td>
             <ng-container *ngIf="chartOfAccount.accountActive; else notActive">
               <p>Active</p>
@@ -47,11 +47,12 @@
             </ng-template>
           </td>
           <td><a class="btn btn-secondary" [routerLink]="['admin/view-account', convertAccountIdToString(chartOfAccount.accountId)]">View Account</a></td>
-          <td><a class="btn btn-secondary" [routerLink]="['admin/edit-account', convertAccountIdToString(chartOfAccount.accountId)]"
-            *ngIf="isAdmin()">
+          <td><a class="btn btn-secondary" [routerLink]="['/accountant/account-ledger', convertAccountIdToString(chartOfAccount.accountId)]">
+            View Ledger </a></td>
+          <td *ngIf="isAdmin()"><a class="btn btn-secondary" [routerLink]="['admin/edit-account', convertAccountIdToString(chartOfAccount.accountId)]"
+            >
             Edit Account</a></td>
-            <td><a class="btn btn-secondary" [routerLink]="['/accountant/account-ledger', convertAccountIdToString(chartOfAccount.accountId)]">
-              View Ledger </a></td>
+            
         </tr>
       </tbody>
     </table>
@@ -67,7 +68,7 @@
           <th>Subcategory</th>
           <th>Initial Balance</th>
           <th>Status</th>
-          <th>Edit</th>
+          <th *ngIf="isAdmin()">Edit</th>
           <th>View</th>
           <th>Ledger</th>
         </tr>
@@ -97,9 +98,10 @@ style="display: block;">;
         <form (ngSubmit)="sendEmail()">
           <div class="form-group">
             <label for="recipient">Recipient</label>
-            <select class="form-control" id="recipient" [(ngModel)]="emailData.recipient" name="recipient" required>
+            <select class="form-control" id="recipient" [(ngModel)]="emailData.role" name="recipient" required>
               <option value="manager">Manager</option>
               <option value="accountant">Accountant</option>
+              <option value ="administrator">Administrator</option>
             </select>
           </div>
           <div class="form-group">
@@ -108,7 +110,7 @@ style="display: block;">;
           </div>
           <div class="form-group">
             <label for="body">Message</label>
-            <textarea class="form-control" id="body" [(ngModel)]="emailData.body" name="body" rows="4" required></textarea>
+            <textarea class="form-control" id="body" [(ngModel)]="emailData.message" name="body" rows="4" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary" style="background-color: #3f51b5; border-color: #3f51b5;">Send</button>
           <button type="button" class="btn btn-secondary" (click)="closeEmailModal()" style="background-color: red; border-color: red">Cancel</button>

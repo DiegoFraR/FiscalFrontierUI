@@ -19,9 +19,9 @@ export class ViewChartOfAccountComponent implements OnInit {
   // Modal state and email data model
   isModalOpen: boolean = false;
   emailData = {
-    recipient: '',
+    role: '',
     subject: '',
-    body: '',
+    message: '',
     accountId: null as number | null // Track the account
   };
 
@@ -76,18 +76,18 @@ export class ViewChartOfAccountComponent implements OnInit {
   closeEmailModal() {
     this.isModalOpen = false;
     this.emailData = {
-      recipient: '',
+      role: '',
       subject: '',
-      body: '',
+    message: '',
       accountId: null
     };
   }
   sendEmail(): void {
     // Use the emailData that's already populated when opening the modal
     const emailPayload = {
-      recipient: this.emailData.recipient,
+      role: this.emailData.role,
       subject: this.emailData.subject,
-      body: this.emailData.body,
+      message: this.emailData.message,
       accountId: this.emailData.accountId  // This is already set when opening the modal
     };
   
@@ -95,7 +95,7 @@ export class ViewChartOfAccountComponent implements OnInit {
       next: (response) => {
         console.log('Email sent successfully:', response);
         // Clear the emailData after sending
-        this.emailData = { recipient: '', subject: '', body: '', accountId: null };
+        this.emailData = { role: '', subject: '', message: '', accountId: null };
         this.closeEmailModal(); // Close the modal after email is sent
       },
       error: (error) => {

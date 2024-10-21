@@ -54,11 +54,11 @@ export class ChartOfAccountService {
   getEventLogByAccountId(id: number): Observable<EventLog[]> {
     return this.http.get<EventLog[]>(`${environment.apiBaseUrl}/api/ChartOfAccount/${id}/changes`)
   }
-  sendEmail(emailData: { recipient: string; subject: string; body: string; accountId: number | null }): Observable<any> {
-    const url = `${this.apiUrl}/send-email`; // Change to your actual API endpoint
+  sendEmail(emailData: { role: string; subject: string; message: string; accountId: number | null }): Observable<any> {
+    const url = `${environment.apiBaseUrl}/send-email`; // Change to your actual API endpoint
     return this.http.post(url, emailData);
   }
   getJournalEntriesByAccountId(accountId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/journal-entries/${accountId}`);
+    return this.http.get<any[]>(`${environment.apiBaseUrl}/journal-entries/${accountId}`);
   }
 }
