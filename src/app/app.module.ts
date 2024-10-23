@@ -27,7 +27,6 @@ import { AccountLedgerComponent } from './features/accountant/account-ledger/acc
 import { JournalApprovalComponent } from './features/managment/journal-approval/journal-approval.component';
 import { ApprovedRejectedEntriesComponent } from './features/managment/approved-rejected-entries/approved-rejected-entries.component';
 import { JournalEntriesComponent } from './features/accountant/journal-entries/journal-entries.component';
-import { ManagerAccountLedgerComponent } from './features/managment/manager-account-ledger/manager-account-ledger.component';
 import { FileUploadComponent } from './features/accountant/file-upload/file-upload.component';
 
 @NgModule({
@@ -54,7 +53,6 @@ import { FileUploadComponent } from './features/accountant/file-upload/file-uplo
     ApprovedRejectedEntriesComponent,
     JournalApprovalComponent,
     JournalEntriesComponent,
-    ManagerAccountLedgerComponent,
     FileUploadComponent,
   ],
   imports: [

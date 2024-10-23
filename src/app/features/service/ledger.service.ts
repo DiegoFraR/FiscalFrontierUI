@@ -6,22 +6,24 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LedgerService {
-  private baseUrl = 'http://localhost:5000/api/ledger'; // Update the URL according to your API
-
   constructor(private http: HttpClient) {}
 
-  // Get the ledger for a specific account
   getLedgerForAccount(accountName: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/account/${encodeURIComponent(accountName)}`);
+    return this.http.get<any[]>(`/api/account/${accountName}`);
   }
 
-  // Filter ledger by date range for a specific account
-  filterLedgerByDate(startDate: string, endDate: string, accountName: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/filter?account=${encodeURIComponent(accountName)}&startDate=${startDate}&endDate=${endDate}`);
+  // Get pending entries for Manager/Admin
+  getPendingEntries(): Observable<any[]> {
+    return this.http.get<any[]>(`/api/pending`);
   }
 
-  // Search ledger by term for a specific account
-  searchLedger(term: string, accountName: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/search?account=${encodeURIComponent(accountName)}&term=${encodeURIComponent(term)}`);
+  // Approve a journal entry
+  approveEntry(entryId: number): Observable<any> {
+    return this.http.post(`/api/approve`, { entryId });
+  }
+
+  // Reject a journal entry
+  rejectEntry(entryId: number): Observable<any> {
+    return this.http.post(`/api/reject`, { entryId });
   }
 }

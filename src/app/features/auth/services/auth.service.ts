@@ -61,4 +61,14 @@ export class AuthService {
     this.cookieService.delete('Authorization', '/');
     this.$user.next(undefined);
   }
+  getUserRole(): string | undefined {
+    const roles = localStorage.getItem('user-roles');
+    if (roles) {
+      // Assuming the roles are stored as a comma-separated string
+      const rolesArray = roles.split(',');
+      // Return the first role if multiple roles exist, or the only role
+      return rolesArray[0];
+    }
+    return undefined;
+  }
 }

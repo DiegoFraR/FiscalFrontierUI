@@ -11,19 +11,19 @@ export class JournalEntryService {
   constructor(private http: HttpClient) {}
 
   getPendingEntries(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/pending`);
+    return this.http.get<any[]>(`/api/pending`);
   }
 
   approveEntry(id: string): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/approve/${id}`, {});
+    return this.http.put<void>(`/api/approve/${id}`, {});
   }
 
   rejectEntry(id: string, reason: string): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/reject/${id}`, { reason });
+    return this.http.put<void>(`/api/reject/${id}`, { reason });
   }
 
   filterEntriesByDate(startDate: string, endDate: string, status?: string): Observable<any[]> {
-    let url = `${this.baseUrl}/filter?startDate=${startDate}&endDate=${endDate}`;
+    let url = `/api/filter?startDate=${startDate}&endDate=${endDate}`;
     if (status) {
       url += `&status=${status}`;
     }
@@ -31,22 +31,22 @@ export class JournalEntryService {
   }
 
   searchEntries(term: string, status?: string): Observable<any[]> {
-    let url = `${this.baseUrl}/search?term=${term}`;
+    let url = `/api/search?term=${term}`;
     if (status) {
       url += `&status=${status}`;
     }
     return this.http.get<any[]>(url);
   }
   getEntriesByStatus(status: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/status/${status}`);
+    return this.http.get<any[]>(`/api/status/${status}`);
   }
   getAccounts(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/accounts`);
+    return this.http.get<any[]>(`/api/accounts`);
   }
   createJournalEntry(journalEntry: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/journalEntries`, journalEntry);
+    return this.http.post<any>(`/api/journalEntries`, journalEntry);
   }
   getAllEntries(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/journalEntries`);
+    return this.http.get<any[]>(`/api/journalEntries`);
   }
 }
