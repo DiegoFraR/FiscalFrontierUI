@@ -91,11 +91,12 @@
                 >
               </li>
 
-              <li>
-                <a class="dropdown-item" [routerLink]="['/manager/journal-approval']" 
-                  >Journal Pending</a
-                >
-              </li>
+              <!-- Only show "Journal Pending" for Administrator and Manager -->
+             <ng-container *ngIf="user?.roles?.includes('Administrator')">
+               <li>
+                 <a class="dropdown-item" [routerLink]="['/manager/journal-approval']">Journal Pending</a>
+                </li>
+              </ng-container>
             </ng-container>
             </ul>
           </li>

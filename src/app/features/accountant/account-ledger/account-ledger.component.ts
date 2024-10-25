@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ChartOfAccountService } from '../../admin/services/chart-of-account.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
+import { UserLogin } from 'src/app/features/auth/models/user-login.model';
 import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-account-ledger',
@@ -20,6 +21,7 @@ export class AccountLedgerComponent implements OnInit {
   ledgerEndDate: string = '';
   ledgerSearchTerm: string = '';
   userRole: string = '';
+  user?: UserLogin;
   
   // Manager/Admin specific properties
   selectedStatus: string = '';
@@ -39,6 +41,15 @@ export class AccountLedgerComponent implements OnInit {
     this.userRole = this.authService.getUserRole() || ''; // Get the user role
     this.loadJournalEntries(this.accountId);
     this.loadPendingEntries(); // Load pending entries for Manager/Admin
+
+    this.authService.user()
+    .subscribe({
+      next: (response) =>{
+        this.user = response;
+      }
+    });
+
+    this.user = this.authService.getUser();
   }
   checkUserPermissions() {
     if (this.userRole === 'Manager' || this.userRole === 'Administrator') {
