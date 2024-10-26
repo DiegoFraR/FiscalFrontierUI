@@ -35,7 +35,15 @@ export class JournalEntryFormComponent implements OnInit {
       }
     );
   }
+// Method to remove a debit entry by index
+removeDebit(index: number): void {
+  this.debits.splice(index, 1);
+}
 
+// Method to remove a credit entry by index
+removeCredit(index: number): void {
+  this.credits.splice(index, 1);
+}
   addDebit(): void {
     this.debits.push({ account: '', amount: 0 });
   }

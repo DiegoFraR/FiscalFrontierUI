@@ -29,8 +29,7 @@ export class JournalEntryService {
     }
     return this.http.get<any[]>(url);
   }
-
-  searchEntries(term: string, status?: string): Observable<any[]> {
+   searchEntries(term: string, status?: string): Observable<any[]> {
     let url = `/api/search?term=${term}`;
     if (status) {
       url += `&status=${status}`;
@@ -44,9 +43,9 @@ export class JournalEntryService {
     return this.http.get<any[]>(`/api/accounts`);
   }
   createJournalEntry(journalEntry: any): Observable<any> {
-    return this.http.post<any>(`/api/journalEntries`, journalEntry);
+    return this.http.post<any>(`/api/journalEntry`, journalEntry);
   }
   getAllEntries(): Observable<any[]> {
-    return this.http.get<any[]>(`/api/journalEntries`);
+    return this.http.get<any[]>(`/api/journalEntry`);
   }
 }
