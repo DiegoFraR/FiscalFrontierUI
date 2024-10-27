@@ -51,4 +51,49 @@ export class JournalEntryService {
   getJournalEntryById(id: number): Observable<JournalEntry> {
     return this.http.get<JournalEntry>(`api/journalEntry/${id}`);
   }
+
+  //These are the correct service calls to connect to the API:
+  //The TypeScript files of each component need to be modified to make the calls work and not break the entire application. 
+  //You will need to import the models that were created to make these calls connect to the API. 
+
+  /*
+  //HTTP GET CALLS
+
+  //Gets ALL Journal Entries in System
+  getAllJournalEntries(): Observable<JournalEntry[]> {
+    return this.http.get<JournalEntry[]>(`${environment.apiBaseUrl}/api/JournalEntry`);
+  }
+  
+  //Gets all journal entries that have a status of pending. 
+  getAllPendingJournalEntries(): Observable<JournalEntry[]> {
+    return this.http.get<JournalEntry[]>(`${environment.apiBaseUrl}/api/JournalEntry/pending`);
+  }
+
+  //Gets all approved journal entriers associated with an account.
+  getJournalEntriesForAccount(accountId: number): Observable<JournalEntry[]> {
+    return this.http.get<JournalEntry[]>(`${environment.apiBaseUrl}/api/JournalEntry/${accountId}`);
+  }
+
+  //Gets a specific Journal Entry
+  getSpecificJournalEntry(journalEntryId: number): Observable<JournalEntry> {
+    return this.http.get<JournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
+  }
+
+
+  //HTTP PUT CALLS (Modify Calls)
+
+  //Approve Journal Entries
+  approveJournalEntry(approveRequest: ApproveJournalEntry): Observable<void> {
+    return this.http.put<void>(`${environment.apiBaseUrl}/api/JournalEntry/approve`, approveRequest);
+  }
+
+  //Deny Journal Entries
+  denyJournalEntry(denyRequest: DenyJournalEntry): Observable<void> {
+    return this.http.put<void>(`${environment.apiBaseUrl}/api/JournalEntry/deny`, denyRequest);
+  }
+
+  //HTTP POST CALL (Create Journal Entry)
+  createJournalEntry(createRequest: CreateJournalEntry): Observable<void> {
+    return this.http.post<void>(`${environment.apiBaseUrl}/api/JournalEntry`, createRequest);
+  }*/
 }
