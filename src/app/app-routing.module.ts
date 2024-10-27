@@ -22,16 +22,20 @@ import { JournalEntriesComponent } from './features/accountant/journal-entries/j
 import { ApprovedRejectedEntriesComponent } from './features/managment/approved-rejected-entries/approved-rejected-entries.component';
 import { JournalApprovalComponent } from './features/managment/journal-approval/journal-approval.component';
 import { FileUploadComponent } from './features/accountant/file-upload/file-upload.component';
+import { ViewDetailedJournalComponent } from './features/accountant/view-detailed-journal/view-detailed-journal.component';
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
   },
   {
+    path: 'accountant/view-detailed-journal',
+    component: ViewDetailedJournalComponent
+  },
+  {
     path: 'file-upload',
     component: FileUploadComponent
   },
-
   {
     path: 'accountant/journal-entry-form',
     component: JournalEntryFormComponent

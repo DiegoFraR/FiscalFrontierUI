@@ -28,6 +28,7 @@ import { JournalApprovalComponent } from './features/managment/journal-approval/
 import { ApprovedRejectedEntriesComponent } from './features/managment/approved-rejected-entries/approved-rejected-entries.component';
 import { JournalEntriesComponent } from './features/accountant/journal-entries/journal-entries.component';
 import { FileUploadComponent } from './features/accountant/file-upload/file-upload.component';
+import { ViewDetailedJournalComponent } from './features/accountant/view-detailed-journal/view-detailed-journal.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { FileUploadComponent } from './features/accountant/file-upload/file-uplo
     JournalApprovalComponent,
     JournalEntriesComponent,
     FileUploadComponent,
+    ViewDetailedJournalComponent,
   ],
   imports: [
     BrowserModule,

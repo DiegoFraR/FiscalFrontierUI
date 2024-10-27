@@ -112,7 +112,7 @@ export class AccountLedgerComponent implements OnInit {
   }
 
   goToJournalEntry(postReference: string): void {
-    this.router.navigate(['/accountant/journal-entries', postReference]);
+    this.router.navigate(['/accountant/view-detailed-journal', postReference]);
   }
   addJournal (): void{
     this.router.navigate(['/accountant/journal-entry-form']);

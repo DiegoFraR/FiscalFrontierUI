@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { JournalEntry } from '../admin/models/journal-entry.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -47,5 +47,8 @@ export class JournalEntryService {
   }
   getAllEntries(): Observable<any[]> {
     return this.http.get<any[]>(`/api/journalEntry`);
+  }
+  getJournalEntryById(id: number): Observable<JournalEntry> {
+    return this.http.get<JournalEntry>(`api/journalEntry/${id}`);
   }
 }

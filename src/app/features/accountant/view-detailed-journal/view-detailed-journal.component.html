@@ -1,0 +1,89 @@
+<div class="container">
+    <h1 class="mt-3">Journal Entry Details</h1>
+  
+    <div *ngIf="journalEntry">
+      <div class="mt-3">
+        <h3>Journal Type</h3>
+        <p>{{ journalEntry.journalEntryType }}</p>
+      </div>
+  
+      <div class="mt-3">
+        <h3>Description</h3>
+        <p>{{ journalEntry.journalEntryDescription }}</p>
+      </div>
+  
+      <div class="mt-3">
+        <h3>Created By</h3>
+        <p>{{ journalEntry.createdBy }}</p>
+      </div>
+  
+      <div class="mt-3">
+        <h3>Updated By</h3>
+        <p>{{ journalEntry.updatedBy }}</p>
+      </div>
+  
+      <div class="mt-3">
+        <h3>Post Reference</h3>
+        <p>{{ journalEntry.journalEntryPostReference }}</p>
+      </div>
+  
+      <div class="mt-3">
+        <h3>Status</h3>
+        <p>{{ journalEntry.journalEntryStatus || 'Pending' }}</p>
+      </div>
+  
+      <div *ngIf="journalEntry.journalEntryRejectionReasoning" class="mt-3">
+        <h3>Rejection Reasoning</h3>
+        <p>{{ journalEntry.journalEntryRejectionReasoning }}</p>
+      </div>
+  
+      <div class="mt-3">
+        <h3>Chart of Account</h3>
+        <p>{{ journalEntry.account.accountName }}</p>
+      </div>
+  
+      <div class="mt-3">
+        <h3>Debits</h3>
+        <div *ngFor="let debit of journalEntry.debits">
+          <p><strong>Account:</strong> {{ debit.accountName }}</p>
+          <p><strong>Amount:</strong> {{ debit.amount | currency }}</p>
+        </div>
+      </div>
+  
+      <div class="mt-3">
+        <h3>Credits</h3>
+        <div *ngFor="let credit of journalEntry.credits">
+          <p><strong>Account:</strong> {{ credit.accountName }}</p>
+          <p><strong>Amount:</strong> {{ credit.amount | currency }}</p>
+        </div>
+      </div>
+  
+      <div *ngIf="journalEntry.files?.length" class="mt-3">
+        <h3>Attached Files</h3>
+        <ul>
+          <li *ngFor="let file of journalEntry.files">
+            <a [href]="file.filePath" target="_blank">{{ file.fileName }}</a>
+          </li>
+        </ul>
+      </div>
+  
+      <div class="mt-3">
+        <h3>Created At</h3>
+        <p>{{ journalEntry.journalEntryCreated | date: 'medium' }}</p>
+      </div>
+  
+      <div class="mt-3">
+        <h3>Last Updated</h3>
+        <p>{{ journalEntry.journalEntryUpdated | date: 'medium' }}</p>
+      </div>
+    </div>
+    <div *ngIf="journalEntry; else noEntry">
+        <!-- Form content for editing journal entry goes here -->
+      </div>
+    
+      <ng-template #noEntry>
+        <p>No journal entry found. Please create a new entry.</p>
+      </ng-template>
+    <button class="btn btn-primary mt-3" style="background-color: #3f51b5; border-color: #3f51b5;" (click)="goBack()">Back</button>
+  </div>
+  
