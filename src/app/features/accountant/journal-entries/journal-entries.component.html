@@ -31,6 +31,7 @@
       <th>Credit</th>
       <th>Status</th>
       <th>Actions</th>
+      <th>Reason (if rejected)</th>
     </tr>
   </thead>
   <tbody>
@@ -43,6 +44,7 @@
       <td>
         <button (click)="viewEntry(entry)">View</button>
       </td>
+      <td>{{entry.reason || 'N/A' }}</td>
     </tr>
   </tbody>
 </table>

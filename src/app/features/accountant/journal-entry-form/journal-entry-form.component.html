@@ -55,12 +55,8 @@
     </div><br>
     
     <!-- Button to navigate to the "Add File" page -->
-  <div class="navigation-actions">
-    <button class="btn btn-primary"  type="button" (click)="goToAddFile()">Go to Add File Page</button>
-  </div>
-    <br>
     <div class="form-actions">
-      <button class="btn btn-primary"  type="submit" [disabled]="!journalEntryForm.valid">Submit</button>
+      <button class="btn btn-primary"  type="submit" (click)="goToAddFile()">Submit</button>
       <button  class="btn btn-secondary"  type="button" (click)="resetForm()">Cancel</button>
     </div>
     <div *ngIf="errorMessage" class="error-message">

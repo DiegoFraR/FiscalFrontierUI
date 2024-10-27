@@ -39,39 +39,4 @@
   </tbody>
 </table>
 
-<p>Current User Role: {{ userRole }}</p>
-
- <!-- Section for Manager and Admin only (for some reason the accountant and manager switched)-->
- <ng-container *ngIf="user?.roles?.includes('Administrator') || user?.roles?.includes('Manager')">
-  <h2>Manager and Admin Section</h2>
-  <!-- Additional functionality like approving or rejecting journal entries can be added here -->
-  <div class="search-box">
-    <label>Filter by Status</label>
-    <select [(ngModel)]="selectedStatus" (change)="filterByStatus()">
-      <option value="approved">Approved</option>
-      <option value="rejected">Rejected</option>
-    </select>
-  </div>
-  <table class="table table-bordered table-hover mt-4">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Account Name</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let entry of filteredEntries">
-        <td>{{ entry.date }}</td>
-        <td>{{ entry.accountName }}</td>
-        <td>{{ entry.status }}</td>
-        <td>
-          <button class="btn btn-secondary" (click)="approveEntry(entry)">Approve</button>
-          <button class="btn btn-secondary" (click)="rejectEntry(entry)">Reject</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
- </ng-container>
 </div>
