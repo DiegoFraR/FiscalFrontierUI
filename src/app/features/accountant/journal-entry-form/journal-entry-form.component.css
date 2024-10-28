@@ -1,81 +1,94 @@
-
-/* General styling for the container */
-input[type="date"] {
-  position: absolute;
-  top: 5;
-  left: 6;
-  width: 200px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-right: 10px;
-}
-
 .container {
-  margin-top: 30px;
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
 }
-.container h1 {
+
+h1 {
   text-align: center;
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 24px;
+  color: black;
   margin-bottom: 20px;
+}
+
+.form-label {
+  margin-bottom: 10px;
+  font-weight: bold;
   color: #333;
 }
-.search-box {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-.search-box input {
-  width: 300px;
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  margin-right: 10px;
+  transition: border-color 0.3s;
 }
-.search-box button {
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #3f51b5;
+  outline: none;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical; /* Allow vertical resizing only */
+}
+
+.button-container {
+  margin-top: 15px;
+}
+
+button {
   padding: 10px 15px;
   font-size: 16px;
-  background-color: #3f51b5;
-  color: white;
-  border: none;
   border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.search-box button:hover {
-  background-color: #344395; /* Slightly darker blue for hover */
-}
-.btn {
-  font-size: 16px;
-  padding: 10px 20px;
-  border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
 .btn-primary {
-  background-color: #3f51b5; 
+  background-color: #3f51b5;
   border-color: #3f51b5;
-}
-.form-label {
-  font-weight: 600;
-  color: #495057;
-}
-.form-control {
-  font-size: 16px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ced4da;
-  transition: border-color 0.3s ease-in-out;
-}
-.form-control:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  color: white;
+  border: none;
 }
 
-  .form-actions{
-    display: flex;
-    justify-content: center;
-  }
-  
+.btn-primary:hover {
+  background-color: #344395;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.navigation-actions {
+  margin-top: 20px;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* New CSS to add space below the add credit button */
+.form-actions {
+  margin-top: 20px; /* Add some space above the submit button section */
+}
