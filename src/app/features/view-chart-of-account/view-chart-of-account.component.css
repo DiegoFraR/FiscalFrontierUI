@@ -1,101 +1,230 @@
+/* General container styles */
 .container {
     margin-top: 30px;
-}
-.container h1 {
+    padding: 20px;
+    background-color: #ffffff; /* White background for contrast */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  }
+  
+  /* Title styles */
+  .container h1 {
     text-align: center;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 32px; /* Increased font size for emphasis */
+    font-weight: 700; /* Bolder font weight */
     margin-bottom: 20px;
-    color: #333;
-}
-.search-box {
+    color: #2c3e50; /* Darker color for better readability */
+  }
+  
+  /* Email button container */
+  .email-button-container {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-}
-.search-box input {
-    width: 300px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-right: 10px;
-}
-.search-box button {
-    padding: 10px 15px;
-    font-size: 16px;
-    background-color: #3f51b5;
+  }
+  
+  .email-button-container button {
+    padding: 12px 20px; /* Adjusted padding */
+    background-color: #3f51b5; /* Primary color */
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.search-box button:hover {
-    background-color: #344395; /* Slightly darker blue for hover */
-}
-/* Table styling */
-table {
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform for hover effect */
+  }
+  
+  .email-button-container button:hover {
+    background-color: #344395; /* Darker on hover */
+    transform: translateY(-2px); /* Lift effect */
+  }
+  
+  /* Search box styling */
+  .search-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-box input {
+    width: 250px; /* Adjusted width for better proportion */
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #bdc3c7; /* Light border color */
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: border-color 0.3s ease; /* Smooth transition */
+  }
+  
+  .search-box input:focus {
+    border-color: #3f51b5; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
+  }
+  
+  .search-box button {
+    padding: 12px 20px; /* Adjusted padding */
+    font-size: 16px;
+    background-color: #3f51b5; /* Primary color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform for hover effect */
+  }
+  
+  .search-box button:hover {
+    background-color: #344395; /* Darker on hover */
+    transform: translateY(-2px); /* Lift effect */
+  }
+  
+  /* Table styling */
+  table {
     width: 100%;
     margin-top: 20px;
     border-collapse: collapse;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-}
-
-table th, table td {
+    background-color: #ffffff; /* White background for table */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Ensures rounded corners are effective */
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for table */
+  }
+  
+  table th, table td {
     padding: 15px;
     text-align: center;
     font-size: 16px;
-    border: 1px solid #ddd;
+    border: 1px solid #ddd; /* Light border for table cells */
     vertical-align: middle;
-}
-
-table thead th {
+  }
+  
+  table thead th {
     background-color: #3f51b5; 
     color: white;
     font-weight: bold;
     text-transform: uppercase;
-}
-
-table tbody tr:hover {
-    background-color: #f1f1f1;
-}
-
-/* Empty results row */
-table tbody tr td.text-center {
+  }
+  
+  table tbody tr:hover {
+    background-color: #f1f1f1; /* Light gray on hover */
+  }
+  
+  /* Empty results row */
+  table tbody tr td.text-center {
     font-style: italic;
     color: #999;
-}
-
-/* Responsive styling for smaller screens */
-@media (max-width: 768px) {
+  }
+  
+  /* Responsive styling for smaller screens */
+  @media (max-width: 768px) {
     table, thead, tbody, th, td, tr {
-        display: block;
-        width: 100%;
+      display: block;
+      width: 100%;
     }
-
+  
     table thead {
-        display: none;
+      display: none; /* Hide table headers on small screens */
     }
-
+  
     table tbody tr {
-        margin-bottom: 15px;
-        display: block;
-        padding: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 15px;
+      display: block;
+      padding: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow for rows */
     }
-
+  
     table tbody td {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
     }
-
+  
     table tbody td:before {
-        content: attr(data-label);
-        font-weight: bold;
-        flex: 1;
-        text-align: left;
+      content: attr(data-label);
+      font-weight: bold;
+      flex: 1;
+      text-align: left;
+      color: #34495e; /* Darker color for better readability */
     }
-}
+  }
+  
+  /* Modal styles */
+  .modal {
+    display: block; /* Always show modal when active */
+    position: fixed; /* Fixed positioning */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 1000; /* Ensure modal is on top */
+  }
+  
+  .modal-dialog {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center modal */
+  }
+  
+  .modal-content {
+    background-color: #ffffff; /* White background for modal */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+  }
+  
+  .modal-header {
+    padding: 15px;
+    border-bottom: 1px solid #ddd; /* Light border below header */
+  }
+  
+  .modal-title {
+    margin: 0; /* Remove default margin */
+    font-size: 24px; /* Larger title font size */
+    color: #3f51b5; /* Primary color for title */
+  }
+  
+  .close {
+    background: none; /* No background */
+    border: none; /* No border */
+    font-size: 24px; /* Larger close button */
+    color: #333; /* Darker color for close button */
+  }
+  
+  /* Modal body styles */
+  .modal-body {
+    padding: 20px; /* Padding for body */
+  }
+  
+  .form-group {
+    margin-bottom: 15px; /* Spacing between form groups */
+  }
+  
+  .form-control {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding for inputs */
+    border: 1px solid #bdc3c7; /* Light border color */
+    border-radius: 4px; /* Rounded corners */
+    transition: border-color 0.3s ease; /* Smooth transition */
+  }
+  
+  .form-control:focus {
+    border-color: #3f51b5; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
+  }
+  
+  .btn-primary {
+    background-color: #3f51b5; /* Primary button color */
+    border-color: #3f51b5; /* Border color */
+  }
+  
+  .btn-secondary {
+    background-color: #f44336; /* Secondary button color */
+    color: white; /* White text for contrast */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 15px; /* Button padding */
+    transition: background-color 0.3s ease; /* Transition for hover effect */
+  }
+  
+  .btn-secondary:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+  }
+  
