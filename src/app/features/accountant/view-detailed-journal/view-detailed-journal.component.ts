@@ -19,7 +19,8 @@ export class ViewDetailedJournalComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.journalEntryService.getJournalEntryById(+id).subscribe(
+      const journalEntryId = Number (id);
+      this.journalEntryService. getSpecificJournalEntry(journalEntryId).subscribe(
         (entry) => (this.journalEntry = entry),
         (error) => console.error('Error fetching journal entry', error)
       );
