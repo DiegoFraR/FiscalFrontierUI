@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { FileUploadService } from '../../service/file-upload.service';
+import { UploadFile } from '../Models/Upload-File.model'; // Adjust the import path as necessary
+
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
@@ -10,6 +12,7 @@ export class FileUploadComponent {
   @Output() submitForm = new EventEmitter<void>();
 
   selectedFile: File | null = null;
+  journalEntryId: number = 0; // Set this based on your context
 
   constructor(
     private fileUploadService: FileUploadService,
@@ -25,7 +28,13 @@ export class FileUploadComponent {
 
   onSubmit(): void {
     if (this.selectedFile) {
-      this.fileUploadService.uploadFile(this.selectedFile).subscribe(
+      // Create an UploadFile object
+      const uploadFileRequest: UploadFile = {
+        file: this.selectedFile,
+        journalEntryId: this.journalEntryId // Ensure this is set correctly
+      };
+
+      this.fileUploadService.uploadFile(uploadFileRequest).subscribe(
         () => {
           alert('File uploaded successfully.');
           this.submitForm.emit();
