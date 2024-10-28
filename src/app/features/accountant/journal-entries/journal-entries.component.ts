@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JournalEntryService } from '../../service/journal-entry.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-journal-entries',
   templateUrl: './journal-entries.component.html',
@@ -16,37 +17,58 @@ export class JournalEntriesComponent implements OnInit {
   constructor(private journalEntryService: JournalEntryService) {}
 
   ngOnInit(): void {
-    this.loadAllEntries();
+    this.loadEntries();
   }
 
-  loadAllEntries(): void {
-    this.journalEntryService.getAllEntries().subscribe(entries => {
-      this.entries = entries;
-      this.filteredEntries = entries;
-    });
+  loadEntries(): void {
+    // Load entries based on selected status
+    if (this.selectedStatus === 'pending') {
+      this.journalEntryService.getAllPendingJournalEntries().subscribe(
+        entries => {
+          this.entries = entries;
+          this.filteredEntries = entries;
+        },
+        error => {
+          console.error('Error loading pending entries:', error);
+        }
+      );
+    } else {
+      this.journalEntryService.getAllJournalEntries().subscribe(
+        entries => {
+          this.entries = entries;
+          this.filteredEntries = entries;
+        },
+        error => {
+          console.error('Error loading all entries:', error);
+        }
+      );
+    }
   }
 
   filterByStatus(): void {
-    this.journalEntryService.getEntriesByStatus(this.selectedStatus).subscribe(entries => {
-      this.filteredEntries = entries;
-    });
+    // Filter by status directly in loadEntries
+    this.loadEntries();
   }
 
   filterByDate(): void {
     if (this.startDate && this.endDate) {
-      this.journalEntryService.filterEntriesByDate(this.startDate, this.endDate).subscribe(entries => {
-        this.filteredEntries = entries;
+      const startDate = new Date(this.startDate);
+      const endDate = new Date(this.endDate);
+      this.filteredEntries = this.entries.filter(entry => {
+        const entryDate = new Date(entry.date); // Assuming entries have a 'date' field
+        return entryDate >= startDate && entryDate <= endDate;
       });
     }
   }
 
   searchJournal(): void {
-    this.journalEntryService.searchEntries(this.searchTerm).subscribe(entries => {
-      this.filteredEntries = entries;
-    });
+    if (this.searchTerm) {
+      this.filteredEntries = this.entries.filter(entry =>
+        entry.description.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      this.filteredEntries = this.entries;
+    }
   }
 
-  viewEntry(entry: any): void {
-    // Code to view the journal entry details (e.g., open a modal or navigate to a detail page)
-  }
 }

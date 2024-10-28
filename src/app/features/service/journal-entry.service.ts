@@ -81,7 +81,7 @@ export class JournalEntryService {
   getSpecificJournalEntry(journalEntryId: number): Observable<JournalEntry> {
     return this.http.get<JournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
   }
-
+ 
 
   //HTTP PUT CALLS (Modify Calls)
 

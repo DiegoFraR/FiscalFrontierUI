@@ -42,7 +42,7 @@
       <td>{{ entry.credit }}</td>
       <td>{{ entry.status }}</td>
       <td>
-        <button (click)="viewEntry(entry)">View</button>
+        <button [routerLink]="['/accountant/view-detailed-journal']" [queryParams]="{ id: entry.id }">View</button>
       </td>
       <td>{{entry.reason || 'N/A' }}</td>
     </tr>

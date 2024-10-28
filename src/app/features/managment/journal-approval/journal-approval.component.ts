@@ -1,5 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { JournalEntryService } from '../../service/journal-entry.service';
+import { ApproveJournalEntry } from '../../accountant/Models/Approve-Journal-Entry.model';
+import { DenyJournalEntry } from '../../accountant/Models/Deny-Journal-Entry.model';
 @Component({
   selector: 'app-journal-approval',
   templateUrl: './journal-approval.component.html',
@@ -21,28 +23,41 @@ export class JournalApprovalComponent implements OnInit {
   }
 
   loadPendingEntries(): void {
-    this.journalEntryService.getPendingEntries().subscribe(entries => {
+    this.journalEntryService.getAllPendingJournalEntries().subscribe(entries => {
       this.pendingEntries = entries;
+    }, error => {
+      console.error('Error loading pending entries:', error);
     });
   }
 
+
   filterPendingByDate(): void {
-    this.journalEntryService.filterEntriesByDate(this.approvalStartDate, this.approvalEndDate)
-      .subscribe(entries => {
-        this.pendingEntries = entries;
+    if (this.approvalStartDate && this.approvalEndDate) {
+      const startDate = new Date(this.approvalStartDate);
+      const endDate = new Date(this.approvalEndDate);
+      this.pendingEntries = this.pendingEntries.filter(entry => {
+        const entryDate = new Date(entry.date); // Adjust if date format differs
+        return entryDate >= startDate && entryDate <= endDate;
       });
+    }
   }
 
   searchPendingJournal(): void {
-    this.journalEntryService.searchEntries(this.approvalSearchTerm)
-      .subscribe(entries => {
-        this.pendingEntries = entries;
-      });
+    if (this.approvalSearchTerm) {
+      this.pendingEntries = this.pendingEntries.filter(entry =>
+        entry.description.toLowerCase().includes(this.approvalSearchTerm.toLowerCase())
+      );
+    }
   }
-
   approveEntry(entry: any): void {
-    this.journalEntryService.approveEntry(entry.id).subscribe(() => {
+    const approveRequest: ApproveJournalEntry = {
+      journalEntryId: entry.id,
+      updatedBy: 'Admin' // Replace with actual user if available
+    };
+    this.journalEntryService.approveJournalEntry(approveRequest).subscribe(() => {
       this.loadPendingEntries();
+    }, error => {
+      console.error('Error approving entry:', error);
     });
   }
 
@@ -58,9 +73,16 @@ export class JournalApprovalComponent implements OnInit {
 
   submitRejection(): void {
     if (this.selectedEntry && this.rejectReason) {
-      this.journalEntryService.rejectEntry(this.selectedEntry.id, this.rejectReason).subscribe(() => {
+      const denyRequest: DenyJournalEntry = {
+        journalEntryId: this.selectedEntry.id,
+        journalEntryDeniedReason: this.rejectReason,
+        updatedBy: 'Admin' // Replace with actual user if available
+      };
+      this.journalEntryService.denyJournalEntry(denyRequest).subscribe(() => {
         this.loadPendingEntries();
         this.closeRejectModal();
+      }, error => {
+        console.error('Error rejecting entry:', error);
       });
     }
   }
