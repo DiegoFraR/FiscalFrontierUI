@@ -17,13 +17,15 @@ export class ViewDetailedJournalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('postReference');
     if (id) {
       const journalEntryId = Number (id);
-      this.journalEntryService. getSpecificJournalEntry(journalEntryId).subscribe(
-        (entry) => (this.journalEntry = entry),
-        (error) => console.error('Error fetching journal entry', error)
-      );
+      this.journalEntryService.getSpecificJournalEntry(journalEntryId)
+      .subscribe({
+        next: (response) =>{
+          this.journalEntry = response;
+        }
+      })
     }
   }
 

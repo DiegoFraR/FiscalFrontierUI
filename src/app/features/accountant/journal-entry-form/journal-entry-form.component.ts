@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JournalEntryService } from '../../service/journal-entry.service';
 import { Router } from '@angular/router';
 import { CreateJournalEntry } from '../Models/Create-Journal-Entry.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-journal-entry-form',
@@ -9,6 +10,8 @@ import { CreateJournalEntry } from '../Models/Create-Journal-Entry.model';
   styleUrls: ['./journal-entry-form.component.css']
 })
 export class JournalEntryFormComponent implements OnInit {
+  userId: string | null = '';
+  accountId: number = 0; 
   journalEntryType: string = '';
   journalEntryDescription: string = '';
   journalEntryPostReference: string = '';
@@ -16,12 +19,16 @@ export class JournalEntryFormComponent implements OnInit {
   credits: { account: string, amount: number }[] = [];
   accounts: { name: string }[] = [];
   errorMessage: string = '';
+  journalEntryId: number = 0;
 
-  constructor(private journalEntryService: JournalEntryService, private router: Router) {}
+  constructor(private journalEntryService: JournalEntryService, private router: Router, private route: ActivatedRoute,) {}
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.addDebit(); // Initialize with one debit entry
     this.addCredit(); // Initialize with one credit entry
+      this.accountId = +this.route.snapshot.paramMap.get('accountId')!;
+       this.userId = localStorage.getItem('userId');
+
   }
 
   addDebit(): void {
@@ -40,8 +47,8 @@ export class JournalEntryFormComponent implements OnInit {
     this.credits.splice(index, 1);
   }
 
-  goToAddFile(): void {
-    this.router.navigate(['/file-upload']);
+  goToAddFile(numberS: number): void {
+    this.router.navigate(['/file-upload', numberS]);
   }
 
   submitJournalEntry(): void {
@@ -52,25 +59,24 @@ export class JournalEntryFormComponent implements OnInit {
     const journalEntry: CreateJournalEntry = {
       JournalEntryType: this.journalEntryType,
       JournalEntryDescription: this.journalEntryDescription,
-      CreatedBy: 'Admin', // Replace with the actual user if available
+      CreatedBy: this.userId, // Replace with the actual user if available
       UpdatedBy: null, // Can be set if needed
       JournalEntryPostReference: this.journalEntryPostReference,
-      ChartOfAccountId: 0, // Replace with an appropriate value if necessary
+      ChartOfAccountId: this.accountId, // Replace with an appropriate value if necessary
       DebitValues: this.debits.map(debit => debit.amount),
       CreditValues: this.credits.map(credit => credit.amount)
     };
 
-    this.journalEntryService.createJournalEntry(journalEntry).subscribe(
-      () => {
+    this.journalEntryService.createJournalEntry(journalEntry)
+    .subscribe({
+      next: (response) =>{
+        this.journalEntryId = response;
         alert('Journal entry submitted successfully.');
         this.resetForm();
-        this.goToAddFile(); // Navigate to the add file page after submission
-      },
-      error => {
-        console.error('Error creating journal entry:', error);
-        this.errorMessage = 'Failed to create journal entry. Please try again.';
+        this.goToAddFile(this.journalEntryId); // Navigate to the add file page after submission
       }
-    );
+      
+    })
   }
 
   validateEntry(): boolean {

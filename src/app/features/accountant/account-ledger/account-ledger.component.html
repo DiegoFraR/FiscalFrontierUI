@@ -27,13 +27,13 @@
   </thead>
   <tbody>
     <tr *ngFor="let entry of journalEntries">
-      <td>{{ entry.date }}</td>
-      <td>{{ entry.description || 'N/A' }}</td>
-      <td>{{ entry.debit }}</td>
-      <td>{{ entry.credit }}</td>
-      <td>{{ entry.balance }}</td>
+      <td>{{ entry.journalEntryCreated | date: 'long' }}</td>
+      <td>{{ entry.journalEntryDescription || 'N/A' }}</td>
+      <td>{{ entry.debits }}</td>
+      <td>{{ entry.credits }}</td>
+      <td>{{ entry.debits }}</td>
       <td>
-        <a class="btn btn-secondary" (click)="goToJournalEntry(entry.postReference)">{{ entry.postReference }}</a>
+        <a class="btn btn-secondary" (click)="goToJournalEntry(entry.journalEntryId)">{{ entry.journalEntryPostReference }}</a>
       </td>
     </tr>
   </tbody>

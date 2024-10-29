@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
 import { UserLogin } from 'src/app/features/auth/models/user-login.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { JournalEntryService } from '../../service/journal-entry.service';
+import { JournalEntry } from '../../admin/models/journal-entry.model';
 @Component({
   selector: 'app-account-ledger',
   templateUrl: './account-ledger.component.html',
@@ -14,9 +16,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class AccountLedgerComponent implements OnInit {
   accountName: string = '';
   accountId: number | undefined;
-  journalEntries: any[] = [];
   transactions: any [] = [];
-  filteredTransactions: any[] = [];
+  filteredTransactions?: JournalEntry [];
   ledgerStartDate: string = '';
   ledgerEndDate: string = '';
   ledgerSearchTerm: string = '';
@@ -27,13 +28,15 @@ export class AccountLedgerComponent implements OnInit {
   selectedStatus: string = '';
   filteredEntries: any[] = [];
   pendingEntries: any[] = []; // Entries pending approval or rejection
+  journalEntries?: JournalEntry [];
 
   constructor(
     private ledgerService: LedgerService,
     private route: ActivatedRoute,
     private router: Router,
     private chartOfAccountService: ChartOfAccountService,
-    private authService: AuthService
+    private authService: AuthService,
+    private journalEntryService: JournalEntryService
   ) {}
 
    ngOnInit() {
@@ -41,7 +44,13 @@ export class AccountLedgerComponent implements OnInit {
     this.userRole = this.authService.getUserRole() || ''; // Get the user role
     this.loadJournalEntries(this.accountId);
     this.loadPendingEntries(); // Load pending entries for Manager/Admin
-
+    this.journalEntryService.getJournalEntriesForAccount(this.accountId)
+    .subscribe({
+      next: (response) =>{
+        this.journalEntries = response;
+        console.log(this.journalEntries)
+      }
+    })
     this.authService.user()
     .subscribe({
       next: (response) =>{
@@ -85,10 +94,10 @@ export class AccountLedgerComponent implements OnInit {
   }
    // Filter the ledger by date range
    filterLedgerByDate(): void {
-    if (this.ledgerStartDate && this.ledgerEndDate) {
+    if (this.ledgerStartDate && this.ledgerEndDate && this.journalEntries) {
       this.filteredTransactions = this.journalEntries.filter(entry =>
-        new Date(entry.date) >= new Date(this.ledgerStartDate) &&
-        new Date(entry.date) <= new Date(this.ledgerEndDate)
+        new Date(entry.journalEntryCreated) >= new Date(this.ledgerStartDate) &&
+        new Date(entry.journalEntryCreated) <= new Date(this.ledgerEndDate)
       );
     } else {
       this.filteredTransactions = this.journalEntries;
@@ -97,12 +106,14 @@ export class AccountLedgerComponent implements OnInit {
    // Search the ledger for a term
    searchLedger(): void {
     const searchTerm = this.ledgerSearchTerm.toLowerCase();
+    if( this.journalEntries){
     this.filteredTransactions = this.journalEntries.filter(entry =>
-      entry.description.toLowerCase().includes(searchTerm) ||
-      entry.debit.toString().includes(searchTerm) ||
-      entry.credit.toString().includes(searchTerm)
+      entry.journalEntryDescription.toLowerCase().includes(searchTerm) ||
+      entry.debits.toString().includes(searchTerm) ||
+      entry.credits.toString().includes(searchTerm)
     );
   }
+}
 
   loadLedger(): void {
     this.ledgerService.getLedgerForAccount(this.accountName).subscribe(transactions => {
@@ -111,11 +122,11 @@ export class AccountLedgerComponent implements OnInit {
     });
   }
 
-  goToJournalEntry(postReference: string): void {
+  goToJournalEntry(postReference: number): void {
     this.router.navigate(['/accountant/view-detailed-journal', postReference]);
   }
   addJournal (): void{
-    this.router.navigate(['/accountant/journal-entry-form']);
+    this.router.navigate(['/accountant/journal-entry-form/', this.accountId]);
   }
    // Filter pending entries by status (approved or rejected)
    filterByStatus(): void {

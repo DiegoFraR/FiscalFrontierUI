@@ -1,101 +1,101 @@
-/* General container styling */
+
 .container {
     margin-top: 30px;
-    padding: 20px; /* Padding for better spacing */
-    background-color: #f9f9f9; /* Light background color for contrast */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 20px;
+    background-color: #f9f9f9; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
-/* Main heading styling */
+
 h1 {
     text-align: center;
-    font-size: 32px; /* Increased font size for emphasis */
+    font-size: 32px; 
     font-weight: bold;
     margin-bottom: 20px;
-    color: black; /* Primary color for consistency */
+    color: black; 
 }
 
-/* Section heading styling */
+
 h3 {
-    font-size: 24px; /* Larger font for section headings */
-    margin-top: 20px; /* Spacing above each section */
-    color: #333; /* Dark color for readability */
-    border-bottom: 2px solid #3f51b5; /* Underline for section emphasis */
-    padding-bottom: 5px; /* Spacing below the heading */
+    font-size: 24px; 
+    margin-top: 20px; 
+    color: #333; 
+    border-bottom: 2px solid #3f51b5; 
+    padding-bottom: 5px; 
 }
 
-/* Paragraph styling */
+
 p {
-    font-size: 16px; /* Standard font size for text */
-    color: #555; /* Softer color for text */
-    line-height: 1.5; /* Improved line height for readability */
+    font-size: 16px; 
+    color: #555; 
+    line-height: 1.5; 
 }
 
-/* Debits and Credits section styling */
+
 .debit, .credit {
-    margin-top: 10px; /* Spacing for each debit/credit entry */
-    padding: 10px; /* Padding for better spacing */
-    background-color: #e3f2fd; /* Light blue background for debits */
-    border-radius: 4px; /* Rounded corners for entries */
+    margin-top: 10px; 
+    padding: 10px; 
+    background-color: #e3f2fd; 
+    border-radius: 4px; 
 }
 
 .credit {
-    background-color: #ffe0b2; /* Light orange background for credits */
+    background-color: #ffe0b2; 
 }
 
-/* File attachment styling */
+
 ul {
-    list-style-type: none; /* Remove bullet points */
-    padding: 0; /* Remove padding */
+    list-style-type: none; 
+    padding: 0; 
 }
 
 ul li {
-    margin-top: 5px; /* Spacing between file links */
+    margin-top: 5px; 
 }
 
 ul li a {
-    text-decoration: none; /* Remove underline from links */
-    color: #3f51b5; /* Link color */
+    text-decoration: none; 
+    color: #3f51b5; 
 }
 
 ul li a:hover {
-    text-decoration: underline; /* Underline on hover for links */
+    text-decoration: underline; 
 }
 
-/* Button styling */
+
 .btn {
-    display: inline-block; /* Align button */
-    padding: 10px 20px; /* Padding for button */
-    font-size: 16px; /* Font size */
-    background-color: #3f51b5; /* Primary button color */
-    color: white; /* Button text color */
-    border: none; /* Remove border */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Transition for background color */
-    margin-top: 20px; /* Space above button */
+    display: inline-block; 
+    padding: 10px 20px; 
+    font-size: 16px; 
+    background-color: #3f51b5; 
+    color: white; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+    margin-top: 20px; 
 }
 
 .btn:hover {
-    background-color: #344395; /* Darker shade on hover */
+    background-color: #344395; 
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
     h1 {
-        font-size: 24px; /* Adjust heading size for smaller screens */
+        font-size: 24px; 
     }
 
     h3 {
-        font-size: 20px; /* Adjust section heading size for smaller screens */
+        font-size: 20px; 
     }
 
     p {
-        font-size: 14px; /* Adjust paragraph size for smaller screens */
+        font-size: 14px; 
     }
 
     .btn {
-        width: 100%; /* Full width button on small screens */
+        width: 100%; 
     }
 }

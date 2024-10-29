@@ -16,6 +16,7 @@ export class JournalEntry {
     journalEntryCreated!: Date;
     journalEntryUpdated!: Date;
     
+    
 }
 export interface Debit {
     id: number;
@@ -32,5 +33,4 @@ export interface Debit {
     id: number;
     fileName: string;
     filePath: string;
-   
   }

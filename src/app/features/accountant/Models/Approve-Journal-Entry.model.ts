@@ -1,4 +1,4 @@
 export interface ApproveJournalEntry {
   journalEntryId: number;
-  updatedBy: string;
+  updatedBy: string | null;
 }

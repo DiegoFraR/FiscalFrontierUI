@@ -29,15 +29,15 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'accountant/view-detailed-journal',
+    path: 'accountant/view-detailed-journal/:postReference',
     component: ViewDetailedJournalComponent
   },
   {
-    path: 'file-upload',
+    path: 'file-upload/:journalEntryId',
     component: FileUploadComponent
   },
   {
-    path: 'accountant/journal-entry-form',
+    path: 'accountant/journal-entry-form/:accountId',
     component: JournalEntryFormComponent
   },
   {

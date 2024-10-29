@@ -21,7 +21,7 @@
   <label>Search Journal</label>
   <input type="text" [(ngModel)]="searchTerm" (input)="searchJournal()" placeholder="Account Name, Amount, or Date" />
 </div>
-
+<ng-container *ngIf="entries"> 
 <table class="table table-bordered table-hover mt-4">
   <thead>
     <tr>
@@ -30,22 +30,20 @@
       <th>Debit</th>
       <th>Credit</th>
       <th>Status</th>
-      <th>Actions</th>
       <th>Reason (if rejected)</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let entry of filteredEntries">
-      <td>{{ entry.date }}</td>
-      <td>{{ entry.accountName }}</td>
-      <td>{{ entry.debit }}</td>
-      <td>{{ entry.credit }}</td>
-      <td>{{ entry.status }}</td>
-      <td>
-        <button [routerLink]="['/accountant/view-detailed-journal']" [queryParams]="{ id: entry.id }">View</button>
-      </td>
-      <td>{{entry.reason || 'N/A' }}</td>
+    <tr *ngFor="let entry of entries">
+      <td>{{ entry.journalEntryCreated | date: 'short' }}</td>
+      <td>{{ entry.chartOfAccountId }}</td>
+      <td>{{ entry.debits }}</td>
+      <td>{{ entry.credits }}</td>
+      <td>{{ entry.journalEntryStatus }}</td>
+    
+      <td>{{entry.journalEntryRejectionReasoning || 'N/A' }}</td>
     </tr>
   </tbody>
 </table>
+</ng-container>
 </div>

@@ -1,5 +1,5 @@
 export interface DenyJournalEntry {
   journalEntryId: number;
   journalEntryDeniedReason: string;
-  updatedBy: string;
+  updatedBy: string | null;
 }

@@ -96,7 +96,7 @@ export class JournalEntryService {
   }
 
   //HTTP POST CALL (Create Journal Entry)
-  createJournalEntry(createRequest: CreateJournalEntry): Observable<void> {
-    return this.http.post<void>(`${environment.apiBaseUrl}/api/JournalEntry`, createRequest);
+  createJournalEntry(createRequest: CreateJournalEntry): Observable<number> {
+    return this.http.post<number>(`${environment.apiBaseUrl}/api/JournalEntry`, createRequest);
   }
 }
