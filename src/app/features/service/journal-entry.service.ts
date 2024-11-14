@@ -81,7 +81,9 @@ export class JournalEntryService {
   getSpecificJournalEntry(journalEntryId: number): Observable<JournalEntry> {
     return this.http.get<JournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
   }
- 
+  getDetailedJournalEntry(journalEntryId: number): Observable<JournalEntry> {
+    return this.http.get<JournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
+  }
 
   //HTTP PUT CALLS (Modify Calls)
 
@@ -98,5 +100,13 @@ export class JournalEntryService {
   //HTTP POST CALL (Create Journal Entry)
   createJournalEntry(createRequest: CreateJournalEntry): Observable<number> {
     return this.http.post<number>(`${environment.apiBaseUrl}/api/JournalEntry`, createRequest);
+  }
+
+  // Gets all approved journal entries
+  getApprovedJournalEntries(): Observable<JournalEntry[]> {
+    return this.http.get<JournalEntry[]>(`${environment.apiBaseUrl}/api/JournalEntry/approve`);
+  }
+  getRejectedJournalEntries(): Observable<JournalEntry[]> {
+    return this.http.get<JournalEntry[]>(`${environment.apiBaseUrl}/api/JournalEntry/deny`);
   }
 }

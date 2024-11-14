@@ -29,6 +29,10 @@ import { ApprovedRejectedEntriesComponent } from './features/managment/approved-
 import { JournalEntriesComponent } from './features/accountant/journal-entries/journal-entries.component';
 import { FileUploadComponent } from './features/accountant/file-upload/file-upload.component';
 import { ViewDetailedJournalComponent } from './features/accountant/view-detailed-journal/view-detailed-journal.component';
+import { FinancialStatementPageComponent } from './features/managment/financial-statement-page/financial-statement-page.component';
+import { ApprovedJournalEntryComponent } from './features/managment/approved-journal-entry/approved-journal-entry.component';
+import { RejectedJournalEntryComponent } from './features/managment/rejected-journal-entry/rejected-journal-entry.component';
+import { AdjustingJournalEntryComponent } from './features/managment/adjusting-journal-entry/adjusting-journal-entry.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +60,11 @@ import { ViewDetailedJournalComponent } from './features/accountant/view-detaile
     JournalEntriesComponent,
     FileUploadComponent,
     ViewDetailedJournalComponent,
+    FinancialStatementPageComponent,
+    ApprovedJournalEntryComponent,
+    RejectedJournalEntryComponent,
+    AdjustingJournalEntryComponent,
+   
   ],
   imports: [
     BrowserModule,

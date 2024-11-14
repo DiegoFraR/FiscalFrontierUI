@@ -1,0 +1,33 @@
+<div class="container">
+    <h1>Approved Journal Entries</h1>
+<div class="search-box">
+    <label>Filter by Date</label>
+    <input type="date" [(ngModel)]="approvalStartDate" (change)="filterApprovedByDate()" />
+    <input type="date" [(ngModel)]="approvalEndDate" (change)="filterApprovedByDate()" />
+  </div>
+  
+  <div class="search-box">
+    <label>Search Journal</label>
+    <input type="text" [(ngModel)]="approvalSearchTerm" (input)="searchApprovedJournal()" placeholder="Account Name, Amount, or Date" />
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Account Name</th>
+        <th>Debit</th>
+        <th>Credit</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of approvedEntries">
+        <td>{{ entry.journalEntryCreated | date: 'short' }}</td>
+        <td>{{ entry.journalEntryDescription }}</td>
+        <td>{{ entry.debits }}</td>
+        <td>{{ entry.credits }}</td>
+        <td>Approved</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

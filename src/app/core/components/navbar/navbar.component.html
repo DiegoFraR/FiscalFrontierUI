@@ -84,13 +84,28 @@
                   >Journal Entry</a
                 >
               </li>
-              <!---
               <li>
-                <a class="dropdown-item" [routerLink]="['/accountant/view-detailed-journal']" 
-                  >View Journal Entry</a
+                <a class="dropdown-item" [routerLink]="['/adjusting-journal-entry']" 
+                  >Adjusting Journal Entry</a
                 >
               </li>
-              --->
+              <li>
+                <a class="dropdown-item" [routerLink]="['/approved-journal-entry']" 
+                  >Approved Journal Entry</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/rejected-journal-entry']" 
+                  >Rejected Journal Entry</a
+                >
+              </li>
+              
+             
+              <li>
+                <a class="dropdown-item" [routerLink]="['/financial-statement']" 
+                  >Financial Statements</a
+                >
+              </li>
               <!-- Only show "Journal Pending" for Administrator and Manager -->
              <ng-container *ngIf="user?.roles?.includes('Administrator')">
                <li>

@@ -23,11 +23,47 @@ import { ApprovedRejectedEntriesComponent } from './features/managment/approved-
 import { JournalApprovalComponent } from './features/managment/journal-approval/journal-approval.component';
 import { FileUploadComponent } from './features/accountant/file-upload/file-upload.component';
 import { ViewDetailedJournalComponent } from './features/accountant/view-detailed-journal/view-detailed-journal.component';
+import { RejectedJournalEntryComponent } from './features/managment/rejected-journal-entry/rejected-journal-entry.component';
+import { ApprovedJournalEntryComponent } from './features/managment/approved-journal-entry/approved-journal-entry.component';
+import { FinancialStatementPageComponent } from './features/managment/financial-statement-page/financial-statement-page.component';
+import { AdjustingJournalEntryComponent } from './features/managment/adjusting-journal-entry/adjusting-journal-entry.component';
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
   },
+  {
+    path: 'adjusting-journal-entry',
+    component: AdjustingJournalEntryComponent, 
+    children : [ 
+    {
+      path: 'approved-journal-entry',
+      component: ApprovedJournalEntryComponent
+    },
+    {
+      path: 'rejected-journal-entry',
+      component: RejectedJournalEntryComponent
+    },
+    {
+      path: 'manager/journal-approval',
+      component: JournalApprovalComponent
+    },
+    ]
+  },
+  { path: '', redirectTo: '/adjusting-journal-entry', pathMatch: 'full' },
+  {
+    path: 'financial-statement',
+    component: FinancialStatementPageComponent
+  },
+  {
+    path: 'approved-journal-entry',
+    component: ApprovedJournalEntryComponent
+  },
+  {
+    path: 'rejected-journal-entry',
+    component: RejectedJournalEntryComponent
+  },
+
   {
     path: 'accountant/view-detailed-journal/:postReference',
     component: ViewDetailedJournalComponent

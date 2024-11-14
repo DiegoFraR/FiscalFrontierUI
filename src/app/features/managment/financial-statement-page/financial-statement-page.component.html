@@ -1,0 +1,87 @@
+<div class="container">
+  <h1>Financial Statements Dashboard</h1>
+
+  <!-- Date Range Selection -->
+  <div class="filter-section search-box">
+    <label>Select Date Range:</label>
+    <input type="date" [(ngModel)]="startDate" placeholder="Start Date" />
+    <input type="date" [(ngModel)]="endDate" placeholder="End Date" />
+  </div>
+
+  <!-- Report Type Selection -->
+  <div class="report-type-section search-box">
+    <label>Select Report Type:</label>
+    <select [(ngModel)]="selectedReportType">
+      <option value="trialBalance">Trial Balance</option>
+      <option value="incomeStatement">Income Statement</option>
+      <option value="balanceSheet">Balance Sheet</option>
+      <option value="retainedEarnings">Retained Earnings</option>
+    </select>
+    <button (click)="generateReport()" class="btn btn-primary">Generate Report</button>
+  </div>
+
+  <!-- Actions for the Generated Report -->
+  <div *ngIf="reportData" class="actions-section search-box">
+    <h2>{{ reportTitle }}</h2>
+    <button (click)="saveReport()" class="btn btn-success">Save Report</button>
+    <button (click)="printReport()" class="btn btn-warning">Print Report</button>
+  </div>
+
+  <!-- Display Report Data -->
+  <div *ngIf="reportData" class="report-content">
+    <!-- Trial Balance -->
+    <div *ngIf="selectedReportType === 'trialBalance'">
+      <h3>Trial Balance</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Account ID</th>
+            <th>Account Name</th>
+            <th>Total Debits</th>
+            <th>Total Credits</th>
+            <th>Net Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let account of reportData">
+            <td>{{ account.chartOfAccountId }}</td>
+            <td>{{ account.chartOfAccountName }}</td>
+            <td>{{ account.totalDebits | currency }}</td>
+            <td>{{ account.totalCredits | currency }}</td>
+            <td>{{ account.netBalance | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Income Statement -->
+    <div *ngIf="selectedReportType === 'incomeStatement'">
+      <h3>Income Statement</h3>
+      <p><strong>Total Revenue:</strong> {{ reportData.totalRevenue | currency }}</p>
+      <p><strong>Total Expenses:</strong> {{ reportData.totalExpenses | currency }}</p>
+      <p><strong>Net Income:</strong> {{ reportData.netIncome | currency }}</p>
+    </div>
+
+    <!-- Balance Sheet -->
+    <div *ngIf="selectedReportType === 'balanceSheet'">
+      <h3>Balance Sheet</h3>
+      <p><strong>Total Assets:</strong> {{ reportData.totalAssets | currency }}</p>
+      <p><strong>Total Liabilities:</strong> {{ reportData.totalLiabilities | currency }}</p>
+      <p><strong>Total Equity:</strong> {{ reportData.totalEquity | currency }}</p>
+      <p><strong>Net Worth:</strong> {{ reportData.netWorth | currency }}</p>
+    </div>
+
+    <!-- Retained Earnings Statement -->
+    <div *ngIf="selectedReportType === 'retainedEarnings'">
+      <h3>Retained Earnings Statement</h3>
+      <p><strong>Beginning Retained Earnings:</strong> {{ reportData.beginningRetainedEarnings | currency }}</p>
+      <p><strong>Net Income:</strong> {{ reportData.netIncome | currency }}</p>
+      <p><strong>Ending Retained Earnings:</strong> {{ reportData.endingRetainedEarnings | currency }}</p>
+    </div>
+  </div>
+
+  <!-- Message if No Report Data -->
+  <div *ngIf="!reportData && startDate && endDate" class="no-data-message">
+    <p>Select a report type and date range, then click "Generate Report" to view financial data.</p>
+  </div>
+</div>

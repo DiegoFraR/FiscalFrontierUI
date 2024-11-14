@@ -8,6 +8,7 @@ import { UserLogin } from 'src/app/features/auth/models/user-login.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { JournalEntryService } from '../../service/journal-entry.service';
 import { JournalEntry } from '../../admin/models/journal-entry.model';
+
 @Component({
   selector: 'app-account-ledger',
   templateUrl: './account-ledger.component.html',
@@ -29,7 +30,8 @@ export class AccountLedgerComponent implements OnInit {
   filteredEntries: any[] = [];
   pendingEntries: any[] = []; // Entries pending approval or rejection
   journalEntries?: JournalEntry [];
-
+  rejectionReason: string = '';
+  
   constructor(
     private ledgerService: LedgerService,
     private route: ActivatedRoute,
@@ -155,15 +157,19 @@ export class AccountLedgerComponent implements OnInit {
   // Reject a journal entry (Manager/Admin only)
   rejectEntry(entry: any): void {
     if (this.userRole === 'Manager' || this.userRole === 'Administrator') {
-      this.ledgerService.rejectEntry(entry.id).subscribe({
-        next: () => {
-          entry.status = 'rejected';
-          this.loadPendingEntries(); // Refresh the list
-        },
-        error: (error:HttpErrorResponse) => {
-          console.error('Failed to reject entry:', error);
-        }
-      });
+      // Prompt the user for a reason if not already provided
+      const reason = this.rejectionReason || prompt('Please enter a reason for rejection:');
+      if (reason) {
+        this.ledgerService.rejectEntry(entry.id, reason).subscribe({
+          next: () => {
+            entry.status = 'rejected';
+            this.loadPendingEntries(); // Refresh the list
+          },
+          error: (error: HttpErrorResponse) => {
+            console.error('Failed to reject entry:', error);
+          }
+        });
+      }
     }
   }
 }
