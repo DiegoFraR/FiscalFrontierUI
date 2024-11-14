@@ -50,7 +50,7 @@ const routes: Routes = [
     },
     ]
   },
-  { path: '', redirectTo: '/adjusting-journal-entry', pathMatch: 'full' },
+  
   {
     path: 'financial-statement',
     component: FinancialStatementPageComponent
