@@ -21,17 +21,15 @@
       <th>Description</th>
       <th>Debit</th>
       <th>Credit</th>
-      <th>Balance</th>
       <th>Post Reference</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let entry of journalEntries">
-      <td>{{ entry.journalEntryCreated | date: 'long' }}</td>
+      <td>{{ entry.createdOn | date: 'long' }}</td>
       <td>{{ entry.journalEntryDescription || 'N/A' }}</td>
-      <td>{{ entry.debits }}</td>
-      <td>{{ entry.credits }}</td>
-      <td>{{ entry.debits }}</td>
+      <td>{{ entry.debitTotal | currency }}</td>
+      <td>{{ entry.creditTotal | currency}}</td>
       <td>
         <a class="btn btn-secondary" (click)="goToJournalEntry(entry.journalEntryId)">{{ entry.journalEntryPostReference }}</a>
       </td>

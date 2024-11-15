@@ -9,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { JournalEntryService } from '../../service/journal-entry.service';
 import { JournalEntry } from '../../admin/models/journal-entry.model';
 import { BroadDetailJournalEntry } from '../../admin/models/BroadDetailJournalEntry';
+import { DetailedJournalEntry } from '../../admin/models/DetailedJournalEntry';
 
 @Component({
   selector: 'app-account-ledger',
@@ -19,7 +20,7 @@ export class AccountLedgerComponent implements OnInit {
   accountName: string = '';
   accountId: number | undefined;
   transactions: any [] = [];
-  filteredTransactions?: JournalEntry [];
+  filteredTransactions?: BroadDetailJournalEntry [];
   ledgerStartDate: string = '';
   ledgerEndDate: string = '';
   ledgerSearchTerm: string = '';
@@ -30,7 +31,8 @@ export class AccountLedgerComponent implements OnInit {
   selectedStatus: string = '';
   filteredEntries: any[] = [];
   pendingEntries: any[] = []; // Entries pending approval or rejection
-  journalEntries?: JournalEntry [];
+  journalEntries?: BroadDetailJournalEntry [];
+
   rejectionReason: string = '';
   
   constructor(
@@ -99,8 +101,8 @@ export class AccountLedgerComponent implements OnInit {
    filterLedgerByDate(): void {
     if (this.ledgerStartDate && this.ledgerEndDate && this.journalEntries) {
       this.filteredTransactions = this.journalEntries.filter(entry =>
-        new Date(entry.journalEntryCreated) >= new Date(this.ledgerStartDate) &&
-        new Date(entry.journalEntryCreated) <= new Date(this.ledgerEndDate)
+        new Date(entry.createdOn) >= new Date(this.ledgerStartDate) &&
+        new Date(entry.createdOn) <= new Date(this.ledgerEndDate)
       );
     } else {
       this.filteredTransactions = this.journalEntries;
@@ -112,8 +114,8 @@ export class AccountLedgerComponent implements OnInit {
     if( this.journalEntries){
     this.filteredTransactions = this.journalEntries.filter(entry =>
       entry.journalEntryDescription.toLowerCase().includes(searchTerm) ||
-      entry.debits.toString().includes(searchTerm) ||
-      entry.credits.toString().includes(searchTerm)
+      entry.debitTotal.toString().includes(searchTerm) ||
+      entry.creditTotal.toString().includes(searchTerm)
     );
   }
 }

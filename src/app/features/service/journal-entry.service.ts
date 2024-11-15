@@ -75,8 +75,8 @@ export class JournalEntryService {
   }
 
   //Gets all approved journal entriers associated with an account.
-  getJournalEntriesForAccount(accountId: number): Observable<JournalEntry[]> {
-    return this.http.get<JournalEntry[]>(`${environment.apiBaseUrl}/api/JournalEntry/${accountId}`);
+  getJournalEntriesForAccount(accountId: number): Observable<BroadDetailJournalEntry[]> {
+    return this.http.get<BroadDetailJournalEntry[]>(`${environment.apiBaseUrl}/api/JournalEntry/${accountId}`);
   }
 
   //Gets a specific Journal Entry
@@ -84,6 +84,9 @@ export class JournalEntryService {
     return this.http.get<DetailedJournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
   }
   getDetailedJournalEntry(journalEntryId: number): Observable<DetailedJournalEntry> {
+    return this.http.get<DetailedJournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
+  }
+  getDetailedJournalEntriesByChartOfAccount(journalEntryId: number): Observable<DetailedJournalEntry> {
     return this.http.get<DetailedJournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
   }
 

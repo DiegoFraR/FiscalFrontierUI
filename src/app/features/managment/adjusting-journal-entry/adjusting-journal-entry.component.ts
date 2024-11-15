@@ -49,10 +49,13 @@ export class AdjustingJournalEntryComponent {
       );
     }
   }
+  /*
   searchAccounts() {
     const query = this.searchQuery.toLowerCase();
     this.filteredEntries = this.entries?.filter(JournalEntry => 
       JournalEntry.chartOfAccountId.toString().includes(query)
     );
   }
+}
+*/
 }

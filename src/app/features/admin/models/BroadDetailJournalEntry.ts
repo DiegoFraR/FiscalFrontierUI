@@ -2,6 +2,7 @@ export interface BroadDetailJournalEntry{
     journalEntryId: number;
     journalEntryDescription: string;
     journalEntryType: string;
+    journalEntryPostReference: String;
     createdBy: string;
     creditTotal: number;
     debitTotal: number;
