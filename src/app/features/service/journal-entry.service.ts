@@ -7,6 +7,7 @@ import { ApproveJournalEntry } from '../accountant/Models/Approve-Journal-Entry.
 import { CreateJournalEntry} from '../accountant/Models/Create-Journal-Entry.model';
 import { DenyJournalEntry } from '../accountant/Models/Deny-Journal-Entry.model';
 import { BroadDetailJournalEntry } from '../admin/models/BroadDetailJournalEntry';
+import { DetailedJournalEntry } from '../admin/models/DetailedJournalEntry';
 @Injectable({
   providedIn: 'root'
 })
@@ -79,11 +80,11 @@ export class JournalEntryService {
   }
 
   //Gets a specific Journal Entry
-  getSpecificJournalEntry(journalEntryId: number): Observable<JournalEntry> {
-    return this.http.get<JournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
+  getSpecificJournalEntry(journalEntryId: number): Observable<DetailedJournalEntry> {
+    return this.http.get<DetailedJournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
   }
-  getDetailedJournalEntry(journalEntryId: number): Observable<JournalEntry> {
-    return this.http.get<JournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
+  getDetailedJournalEntry(journalEntryId: number): Observable<DetailedJournalEntry> {
+    return this.http.get<DetailedJournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
   }
 
   //HTTP PUT CALLS (Modify Calls)
