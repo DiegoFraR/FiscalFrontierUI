@@ -21,10 +21,16 @@ export class FinancialStatementPageComponent {
   generateReport(): void {
     this.reportData = null; // Clear previous report data
 
+    if (!this.startDate || !this.endDate) {
+        console.warn('Please select a valid date range.');
+        return;
+    }
+
+    const dateRange = { startDate: this.startDate, endDate: this.endDate };
     switch (this.selectedReportType) {
       case 'trialBalance':
         this.reportTitle = 'Trial Balance';
-        this.financialService.getTrialBalance().subscribe({
+        this.financialService.getTrialBalance(dateRange).subscribe({
           next: (data: TrialBalance[]) => {
             this.reportData = data;
           },
@@ -35,7 +41,7 @@ export class FinancialStatementPageComponent {
         break;
       case 'incomeStatement':
         this.reportTitle = 'Income Statement';
-        this.financialService.getIncomeStatement().subscribe({
+        this.financialService.getIncomeStatement(dateRange).subscribe({
           next: (data: IncomeStatementDTO) => {
             this.reportData = data;
           },
@@ -46,7 +52,7 @@ export class FinancialStatementPageComponent {
         break;
       case 'balanceSheet':
         this.reportTitle = 'Balance Sheet';
-        this.financialService.getBalanceSheet().subscribe({
+        this.financialService.getBalanceSheet(dateRange).subscribe({
           next: (data: BalanceSheetDTO) => {
             this.reportData = data;
           },
@@ -57,7 +63,7 @@ export class FinancialStatementPageComponent {
         break;
       case 'retainedEarnings':
         this.reportTitle = 'Retained Earnings Statement';
-        this.financialService.getRetainedEarningsStatement().subscribe({
+        this.financialService.getRetainedEarningsStatement(dateRange).subscribe({
           next: (data: RetainedEarningsDTO) => {
             this.reportData = data;
           },
@@ -73,9 +79,14 @@ export class FinancialStatementPageComponent {
 
   // Method to export the generated report to Excel
   exportToExcel(): void {
+    if (!this.startDate || !this.endDate) {
+      console.warn('Please select a valid date range.');
+      return;
+  }
+  const dateRange = { startDate: this.startDate, endDate: this.endDate };
     switch (this.selectedReportType) {
       case 'trialBalance':
-        this.financialService.exportTrialBalanceToExcel().subscribe({
+        this.financialService.exportTrialBalanceToExcel(dateRange).subscribe({
           next: (blob: Blob) => {
             this.downloadFile(blob, 'TrialBalance.xlsx');
           },
@@ -85,7 +96,7 @@ export class FinancialStatementPageComponent {
         });
         break;
       case 'incomeStatement':
-        this.financialService.exportIncomeStatementToExcel().subscribe({
+        this.financialService.exportIncomeStatementToExcel(dateRange).subscribe({
           next: (blob: Blob) => {
             this.downloadFile(blob, 'IncomeStatement.xlsx');
           },
@@ -95,7 +106,7 @@ export class FinancialStatementPageComponent {
         });
         break;
       case 'balanceSheet':
-        this.financialService.exportBalanceSheetToExcel().subscribe({
+        this.financialService.exportBalanceSheetToExcel(dateRange).subscribe({
           next: (blob: Blob) => {
             this.downloadFile(blob, 'BalanceSheet.xlsx');
           },
@@ -105,7 +116,7 @@ export class FinancialStatementPageComponent {
         });
         break;
       case 'retainedEarnings':
-        this.financialService.exportRetainedEarningsStatementToExcel().subscribe({
+        this.financialService.exportRetainedEarningsStatementToExcel(dateRange).subscribe({
           next: (blob: Blob) => {
             this.downloadFile(blob, 'RetainedEarnings.xlsx');
           },
