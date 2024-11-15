@@ -21,8 +21,8 @@ export class AccountLedgerComponent implements OnInit {
   accountId: number | undefined;
   transactions: any [] = [];
   filteredTransactions?: BroadDetailJournalEntry [];
-  ledgerStartDate: string = '';
-  ledgerEndDate: string = '';
+  createdOn: string = '';
+  updatedOn: string = '';
   ledgerSearchTerm: string = '';
   userRole: string = '';
   user?: UserLogin;
@@ -99,10 +99,10 @@ export class AccountLedgerComponent implements OnInit {
   }
    // Filter the ledger by date range
    filterLedgerByDate(): void {
-    if (this.ledgerStartDate && this.ledgerEndDate && this.journalEntries) {
+    if (this.createdOn && this.updatedOn && this.journalEntries) {
       this.filteredTransactions = this.journalEntries.filter(entry =>
-        new Date(entry.createdOn) >= new Date(this.ledgerStartDate) &&
-        new Date(entry.createdOn) <= new Date(this.ledgerEndDate)
+        new Date(entry.createdOn) >= new Date(this.createdOn) &&
+        new Date(entry.createdOn) <= new Date(this.updatedOn)
       );
     } else {
       this.filteredTransactions = this.journalEntries;
@@ -133,14 +133,7 @@ export class AccountLedgerComponent implements OnInit {
   addJournal (): void{
     this.router.navigate(['/accountant/journal-entry-form/', this.accountId]);
   }
-   // Filter pending entries by status (approved or rejected)
-   filterByStatus(): void {
-    if (this.selectedStatus) {
-      this.filteredEntries = this.pendingEntries.filter(entry => entry.status === this.selectedStatus);
-    } else {
-      this.filteredEntries = this.pendingEntries;
-    }
-  }
+ 
 
   // Approve a journal entry (Manager/Admin only)
   approveEntry(entry: any): void {

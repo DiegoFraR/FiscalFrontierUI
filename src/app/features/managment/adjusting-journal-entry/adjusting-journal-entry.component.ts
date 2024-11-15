@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { JournalEntryService } from '../../service/journal-entry.service';
+import { Router } from '@angular/router';
 import { JournalEntry } from '../../admin/models/journal-entry.model';
 import { DetailedJournalEntry } from '../../admin/models/DetailedJournalEntry';
 @Component({
@@ -11,13 +12,14 @@ export class AdjustingJournalEntryComponent {
   entries?: DetailedJournalEntry[];
   filteredEntries: DetailedJournalEntry[] = [];
   selectedStatus: string = 'all';
-  adjustedStartDate: string='';
-  adjustedEndDate: string='';
+  createdOn: string='';
+  updatedOn: string='';
   adjustedSearchTerm: string='';
   searchQuery: string = '';
-  constructor(private journalEntryService: JournalEntryService) {}
+  constructor(private journalEntryService: JournalEntryService, private router: Router) {}
   
   ngOnInit(): void {
+    this.loadJournalEntries();
     this.journalEntryService.getAllJournalEntries()
     .subscribe({
       next: (response) =>{
@@ -25,16 +27,23 @@ export class AdjustingJournalEntryComponent {
       }
     })
   }
-
-
-  filterByStatus(): void {
-    // Filter by status directly in loadEntries
+  loadJournalEntries(): void {
+    this.journalEntryService.getAllJournalEntries().subscribe({
+      next: (response) => {
+        this.entries = response;
+        this.filteredEntries = [...this.entries]; // Initialize filteredEntries
+      },
+      error: (err) => {
+        console.error('Error fetching journal entries:', err);
+      }
+    });
   }
 
+
   adjustedFilterByDate(): void {
-    if (this. adjustedStartDate && this.adjustedEndDate && this.entries) {
-      const startDate = new Date(this. adjustedStartDate);
-      const endDate = new Date(this.adjustedEndDate);
+    if (this. createdOn && this.updatedOn && this.entries) {
+      const startDate = new Date(this. createdOn);
+      const endDate = new Date(this.updatedOn);
       this.filteredEntries = this.entries.filter(entry => {
         const entryDate = new Date(entry.createdOn); // Assuming entries have a 'date' field
         return entryDate >= startDate && entryDate <= endDate;
@@ -43,12 +52,20 @@ export class AdjustingJournalEntryComponent {
   }
 
   adjustedSearchJournal(): void {
-    if (this.adjustedSearchTerm && this.entries) {
-      this.filteredEntries = this.entries.filter(entry =>
-        entry.journalEntryDescription.toLowerCase().includes(this.adjustedSearchTerm.toLowerCase())
-      );
-    }
-  }
+    const query = this.adjustedSearchTerm.toLowerCase();
+
+  this.filteredEntries = this.entries?.filter(entry => 
+    entry.chartOfAccountId.toString().includes(query) || // Search by account ID
+    entry.journalEntryDescription.toLowerCase().includes(query) || // Search by description
+    entry.totalDebitValue.toString().includes(query) || // Search by debit amount
+    entry.totalCrebitValue.toString().includes(query) || // Search by credit amount
+    new Date(entry.createdOn).toLocaleDateString().includes(query) // Search by date
+  ) || [];
+}
+navigateToCreateJournal(): void {
+  this.router.navigate(['/create-adjusting-journal']);
+}
+}
   /*
   searchAccounts() {
     const query = this.searchQuery.toLowerCase();
@@ -58,4 +75,3 @@ export class AdjustingJournalEntryComponent {
   }
 }
 */
-}

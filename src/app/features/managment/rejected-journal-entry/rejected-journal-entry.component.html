@@ -1,3 +1,4 @@
+
 <div class="container">
   <button class="btn btn-primary mb-3" routerLink="/adjusting-journal-entry">
     Back to Adjusting Journal Entries
@@ -6,8 +7,8 @@
   
     <div class="search-box">
       <label>Filter by Date:</label>
-      <input type="date" [(ngModel)]="rejectedStartDate" (change)="filterRejectedByDate()" />
-      <input type="date" [(ngModel)]="rejectedEndDate" (change)="filterRejectedByDate()" />
+      <input type="date" [(ngModel)]="createdOn" (change)="filterRejectedByDate()" />
+      <input type="date" [(ngModel)]="updatedOn" (change)="filterRejectedByDate()" />
     </div>
   
     <div class="search-box">

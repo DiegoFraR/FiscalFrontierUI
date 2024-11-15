@@ -1,0 +1,101 @@
+<div class="container">
+  <h1>Create Adjusting Journal Entry</h1>
+
+  <form (ngSubmit)="submitJournalEntry()">
+    <!-- Account Dropdown -->
+    <div class="form-group">
+      <label for="account" class="form-label">Account</label>
+      <select
+        class="form-control"
+        [(ngModel)]="journalEntry.ChartOfAccountId"
+        name="account"
+        required
+      >
+        <option *ngFor="let account of chartOfAccounts" [value]="account.accountId">
+          {{ account.accountName }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        class="form-control"
+        [(ngModel)]="journalEntry.JournalEntryDescription"
+        name="description"
+        required
+      ></textarea>
+    </div>
+
+    <!-- Debit Values -->
+    <div class="form-group">
+      <label for="debits" class="form-label">Debit Values</label>
+      <div class="input-group">
+        <input
+          type="number"
+          class="form-control"
+          placeholder="Enter Debit Value"
+          #debitInput
+        />
+        <button
+          type="button"
+          class="btn btn-secondary mt-2"
+          (click)="journalEntry.DebitValues.push(+debitInput.value); debitInput.value = ''"
+        >
+          Add Debit
+        </button>
+      </div>
+      <div>
+        <ul>
+          <li *ngFor="let debit of journalEntry.DebitValues; let i = index">
+            {{ debit }}
+            <button type="button" class="btn btn-secondary btn-sm" (click)="journalEntry.DebitValues.splice(i, 1)">
+              Remove
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Credit Values -->
+    <div class="form-group">
+      <label for="credits" class="form-label">Credit Values</label>
+      <div class="input-group">
+        <input
+          type="number"
+          class="form-control"
+          placeholder="Enter Credit Value"
+          #creditInput
+        />
+        <button
+          type="button"
+          class="btn btn-secondary mt-2"
+          (click)="journalEntry.CreditValues.push(+creditInput.value); creditInput.value = ''"
+        >
+          Add Credit
+        </button>
+      </div>
+      <div>
+        <ul>
+          <li *ngFor="let credit of journalEntry.CreditValues; let i = index">
+            {{ credit }}
+            <button type="button" class="btn btn-secondary btn-sm" (click)="journalEntry.CreditValues.splice(i, 1)">
+              Remove
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="hasSubmitted">
+        Submit
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="resetForm()">
+        Reset
+      </button>
+    </div>
+  </form>
+</div>

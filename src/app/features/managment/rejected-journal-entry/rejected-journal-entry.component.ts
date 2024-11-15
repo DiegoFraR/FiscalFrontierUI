@@ -9,10 +9,11 @@ import { BroadDetailJournalEntry } from '../../admin/models/BroadDetailJournalEn
   styleUrls: ['./rejected-journal-entry.component.css']
 })
 export class RejectedJournalEntryComponent {
+  entries?: BroadDetailJournalEntry[];
   rejectedEntries: BroadDetailJournalEntry[] = [];
   filteredEntries: BroadDetailJournalEntry[] = [];
-  rejectedStartDate: string = '';
-  rejectedEndDate: string = '';
+  createdOn: string = '';
+  updatedOn: string = '';
   rejectedSearchTerm: string = '';
 
   constructor(private journalEntryService: JournalEntryService) {}
@@ -32,9 +33,9 @@ export class RejectedJournalEntryComponent {
   }
 
   filterRejectedByDate(): void {
-    if (this.rejectedStartDate && this.rejectedEndDate) {
-      const startDate = new Date(this.rejectedStartDate);
-      const endDate = new Date(this.rejectedEndDate);
+    if (this.createdOn && this.updatedOn) {
+      const startDate = new Date(this.createdOn);
+      const endDate = new Date(this.updatedOn);
       this.rejectedEntries = this.rejectedEntries.filter(entry => {
         const entryDate = new Date(entry.createdOn);
         return entryDate >= startDate && entryDate <= endDate;
@@ -45,12 +46,14 @@ export class RejectedJournalEntryComponent {
   }
 
   searchRejectedJournal(): void {
-    if (this.rejectedSearchTerm) {
-      this.rejectedEntries = this.rejectedEntries.filter(entry =>
-        entry.journalEntryDescription.toLowerCase().includes(this.rejectedSearchTerm.toLowerCase())
-      );
-    }else {
-      this.filteredEntries = [...this.rejectedEntries]; // Reset if no search term
-    }
-  }
+    const query = this.rejectedSearchTerm.toLowerCase();
+
+  this.filteredEntries = this.entries?.filter(entry => 
+    entry.chartOfAccountId.toString().includes(query) || // Search by account ID
+    entry.journalEntryDescription.toLowerCase().includes(query) || // Search by description
+    entry.creditTotal.toString().includes(query) || // Search by debit amount
+    entry.debitTotal.toString().includes(query) || // Search by credit amount
+    new Date(entry.createdOn).toLocaleDateString().includes(query) // Search by date
+  ) || [];
+}
 }

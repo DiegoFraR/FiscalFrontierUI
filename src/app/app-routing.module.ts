@@ -26,11 +26,16 @@ import { ViewDetailedJournalComponent } from './features/accountant/view-detaile
 import { RejectedJournalEntryComponent } from './features/managment/rejected-journal-entry/rejected-journal-entry.component';
 import { ApprovedJournalEntryComponent } from './features/managment/approved-journal-entry/approved-journal-entry.component';
 import { FinancialStatementPageComponent } from './features/managment/financial-statement-page/financial-statement-page.component';
+import { CreateAdjustingJournalEntryComponent } from './features/accountant/create-adjusting-journal-entry/create-adjusting-journal-entry.component';
 import { AdjustingJournalEntryComponent } from './features/managment/adjusting-journal-entry/adjusting-journal-entry.component';
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'create-adjusting-journal',
+    component: CreateAdjustingJournalEntryComponent
   },
   {
     path: 'adjusting-journal-entry',

@@ -10,9 +10,10 @@ import { BroadDetailJournalEntry } from '../../admin/models/BroadDetailJournalEn
   styleUrls: ['./journal-approval.component.css']
 })
 export class JournalApprovalComponent implements OnInit {
+  entries?: BroadDetailJournalEntry [];
   pendingEntries?: BroadDetailJournalEntry[];
-  approvalStartDate: string='';
-  approvalEndDate: string='';
+  createOn: string='';
+  updateOn: string='';
   approvalSearchTerm: string='';
   showRejectModal: boolean = false;
   rejectReason: string = '';
@@ -35,9 +36,9 @@ export class JournalApprovalComponent implements OnInit {
   }
 
   filterPendingByDate(): void {
-    if (this.approvalStartDate && this.approvalEndDate && this.pendingEntries) {
-      const startDate = new Date(this.approvalStartDate);
-      const endDate = new Date(this.approvalEndDate);
+    if (this.createOn && this.updateOn && this.pendingEntries) {
+      const startDate = new Date(this.createOn);
+      const endDate = new Date(this.updateOn);
       this.pendingEntries = this.pendingEntries.filter(entry => {
         const entryDate = new Date(entry.createdOn); // Adjust if date format differs
         return entryDate >= startDate && entryDate <= endDate;
@@ -46,12 +47,16 @@ export class JournalApprovalComponent implements OnInit {
   }
 
   searchPendingJournal(): void {
-    if (this.approvalSearchTerm && this.pendingEntries) {
-      this.pendingEntries = this.pendingEntries.filter(entry =>
-        entry.journalEntryDescription.toLowerCase().includes(this.approvalSearchTerm.toLowerCase())
-      );
-    }
-  }
+    const query = this.approvalSearchTerm.toLowerCase();
+
+  this.pendingEntries = this.entries?.filter(entry => 
+    entry.chartOfAccountId.toString().includes(query) || // Search by account ID
+    entry.journalEntryDescription.toLowerCase().includes(query) || // Search by description
+    entry.creditTotal.toString().includes(query) || // Search by debit amount
+    entry.debitTotal.toString().includes(query) || // Search by credit amount
+    new Date(entry.createdOn).toLocaleDateString().includes(query) // Search by date
+  ) || [];
+}
   approveEntry(entry: number): void { 
     const approveRequest: ApproveJournalEntry = {
       journalEntryId: entry,

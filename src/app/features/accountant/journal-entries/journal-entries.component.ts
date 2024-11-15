@@ -13,34 +13,63 @@ export class JournalEntriesComponent implements OnInit {
   entries?: DetailedJournalEntry[];
   filteredEntries: DetailedJournalEntry[] = [];
   selectedStatus: string = 'all';
-  startDate: string='';
-  endDate: string='';
+  createOn: string='';
+  updateOn: string='';
   searchTerm: string='';
-  totalDebit: number = 0;
-  totalCredit: number = 0;
+  totalDebitValue: number = 0;
+  totalCrebitValue: number = 0;
   
 
   constructor(private journalEntryService: JournalEntryService) {}
 
   ngOnInit(): void {
     this.journalEntryService.getAllJournalEntries()
-    .subscribe({
-      next: (response) =>{
-        this.entries = response;
-        this.filteredEntries = response;
-      }
-    })
+      .subscribe({
+        next: (response) => {
+          this.entries = response;
+          this.filteredEntries = [...response];
+        },
+        error: (err) => console.error('Error fetching journal entries:', err)
+      });
   }
+
+  applyAllFilters(): void {
+    if (!this.entries) {
+      this.filteredEntries = [];
+      return;
+    }
   
+    // Map the selected status to the actual API values
+    const statusMapping: { [key: string]: string } = {
+      all: '',
+      approved: 'approved',
+      pending: 'pending',
+      rejected: 'denied' // Map 'rejected' to 'denied'
+    };
   
+    const normalizedStatus = statusMapping[this.selectedStatus.toLowerCase()];
+  
+    this.filteredEntries = this.entries.filter(entry => {
+      const entryStatus = entry.journalEntryStatus?.toLowerCase().trim();
+      const statusMatches =
+        this.selectedStatus === 'all' || entryStatus === normalizedStatus;
+  
+      return statusMatches;
+    });
+  
+    console.log('Filtered Entries:', this.filteredEntries);
+  }
   filterByStatus(): void {
-    // Filter by status directly in loadEntries
+    console.log('Selected Status:', this.selectedStatus);
+    console.log('All Entries:', this.entries);
+  
+    this.applyAllFilters();
   }
 
   filterByDate(): void {
-    if (this.startDate && this.endDate && this.entries) {
-      const startDate = new Date(this.startDate);
-      const endDate = new Date(this.endDate);
+    if (this. createOn && this.updateOn && this.entries) {
+      const startDate = new Date(this. createOn);
+      const endDate = new Date(this.updateOn);
       this.filteredEntries = this.entries.filter(entry => {
         const entryDate = new Date(entry.createdOn); // Assuming entries have a 'date' field
         return entryDate >= startDate && entryDate <= endDate;
@@ -49,11 +78,15 @@ export class JournalEntriesComponent implements OnInit {
   }
 
   searchJournal(): void {
-    if (this.searchTerm && this.entries) {
-      this.filteredEntries = this.entries.filter(entry =>
-        entry.journalEntryDescription.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-    }
-  }
-  
+    const query = this.searchTerm.toLowerCase();
+
+  this.filteredEntries = this.entries?.filter(entry => 
+    entry.chartOfAccountId.toString().includes(query) || // Search by account ID
+    entry.journalEntryDescription.toLowerCase().includes(query) || // Search by description
+    entry.totalDebitValue.toString().includes(query) || // Search by debit amount
+    entry.totalCrebitValue.toString().includes(query) || // Search by credit amount
+    new Date(entry.createdOn).toLocaleDateString().includes(query) // Search by date
+  ) || [];
 }
+}
+

@@ -1,6 +1,9 @@
+
 <div class="container">
     <h1>Adjusting Journal Entries</h1>
-
+    <div class="mb-3">
+      <button class="btn btn-primary" (click)="navigateToCreateJournal()">Create Adjusting Journal</button>
+    </div>
     <nav>
       <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -19,8 +22,8 @@
     
     <div class="search-box">
       <label>Filter by Date</label>
-      <input type="date" [(ngModel)]="adjustedStartDate" (change)="adjustedFilterByDate()" />
-      <input type="date" [(ngModel)]="adjustedEndDate" (change)="adjustedFilterByDate()" />
+      <input type="date" [(ngModel)]="createdOn" (change)="adjustedFilterByDate()" />
+      <input type="date" [(ngModel)]="updatedOn" (change)="adjustedFilterByDate()" />
     </div>
     
     <div class="search-box" >
@@ -40,7 +43,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let entry of entries">
+        <tr *ngFor="let entry of filteredEntries">
           <td>{{ entry.createdOn | date: 'short' }}</td>
           <td>{{ entry.chartOfAccountId }}</td>
           <td>{{ entry.totalDebitValue | currency}}</td>

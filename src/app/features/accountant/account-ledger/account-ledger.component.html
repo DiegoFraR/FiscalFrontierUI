@@ -1,3 +1,4 @@
+
 <div class="container">
 <h1>Account Ledger - {{ accountName || accountId }}</h1>
 
@@ -5,13 +6,13 @@
 
 <div class="search-box">
   <label>Filter by Date</label>
-  <input type="date" [(ngModel)]="ledgerStartDate" (change)="filterLedgerByDate()" />
-  <input type="date" [(ngModel)]="ledgerEndDate" (change)="filterLedgerByDate()" />
+  <input type="date" [(ngModel)]="createdOn" (change)="filterLedgerByDate()" />
+  <input type="date" [(ngModel)]="updatedOn" (change)="filterLedgerByDate()" />
 </div>
 
 <div class="search-box">
   <label>Search Ledger</label>
-  <input type="text" [(ngModel)]="ledgerSearchTerm" (input)="searchLedger()" placeholder="Account Name or Amount" />
+  <input type="text" [(ngModel)]="ledgerSearchTerm" (input)="searchLedger()" placeholder="Description or Amount" />
 </div>
 <!------------Ledger Table----------->
 <table class="table table-bordered table-hover mt-4">
