@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JournalEntryService } from '../../service/journal-entry.service';
 import { Router } from '@angular/router';
 import { JournalEntry } from '../../admin/models/journal-entry.model';
+import { DetailedJournalEntry } from '../../admin/models/DetailedJournalEntry';
 
 @Component({
   selector: 'app-journal-entries',
@@ -9,12 +10,14 @@ import { JournalEntry } from '../../admin/models/journal-entry.model';
   styleUrls: ['./journal-entries.component.css']
 })
 export class JournalEntriesComponent implements OnInit {
-  entries?: JournalEntry[];
-  filteredEntries: JournalEntry[] = [];
+  entries?: DetailedJournalEntry[];
+  filteredEntries: DetailedJournalEntry[] = [];
   selectedStatus: string = 'all';
   startDate: string='';
   endDate: string='';
   searchTerm: string='';
+  totalDebit: number = 0;
+  totalCredit: number = 0;
   
 
   constructor(private journalEntryService: JournalEntryService) {}
@@ -29,6 +32,7 @@ export class JournalEntriesComponent implements OnInit {
     })
   }
   
+  
   filterByStatus(): void {
     // Filter by status directly in loadEntries
   }
@@ -38,7 +42,7 @@ export class JournalEntriesComponent implements OnInit {
       const startDate = new Date(this.startDate);
       const endDate = new Date(this.endDate);
       this.filteredEntries = this.entries.filter(entry => {
-        const entryDate = new Date(entry.journalEntryCreated); // Assuming entries have a 'date' field
+        const entryDate = new Date(entry.createdOn); // Assuming entries have a 'date' field
         return entryDate >= startDate && entryDate <= endDate;
       });
     }

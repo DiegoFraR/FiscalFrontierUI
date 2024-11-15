@@ -15,6 +15,8 @@ export interface DetailedJournalEntry{
     fileUrl?: FileRecord[];
     createdOn: Date;
     updatedOn: Date;
+    totalDebitValue: number;
+    totalCrebitValue: number;
 }
 export interface FileRecord{
     id: number;

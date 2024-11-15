@@ -27,8 +27,8 @@
       <tr *ngFor="let entry of approvedEntries">
         <td>{{ entry.createdOn | date: 'short' }}</td>
         <td>{{ entry.journalEntryDescription }}</td>
-        <td>{{ entry.debitTotal }}</td>
-        <td>{{ entry.creditTotal }}</td>
+        <td>{{ entry.debitTotal | currency}}</td>
+        <td>{{ entry.creditTotal | currency }}</td>
         <td>Approved</td>
       </tr>
     </tbody>

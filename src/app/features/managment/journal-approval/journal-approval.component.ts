@@ -3,13 +3,14 @@ import { JournalEntryService } from '../../service/journal-entry.service';
 import { ApproveJournalEntry } from '../../accountant/Models/Approve-Journal-Entry.model';
 import { DenyJournalEntry } from '../../accountant/Models/Deny-Journal-Entry.model';
 import { JournalEntry } from '../../admin/models/journal-entry.model';
+import { BroadDetailJournalEntry } from '../../admin/models/BroadDetailJournalEntry';
 @Component({
   selector: 'app-journal-approval',
   templateUrl: './journal-approval.component.html',
   styleUrls: ['./journal-approval.component.css']
 })
 export class JournalApprovalComponent implements OnInit {
-  pendingEntries?: JournalEntry[];
+  pendingEntries?: BroadDetailJournalEntry[];
   approvalStartDate: string='';
   approvalEndDate: string='';
   approvalSearchTerm: string='';
@@ -38,7 +39,7 @@ export class JournalApprovalComponent implements OnInit {
       const startDate = new Date(this.approvalStartDate);
       const endDate = new Date(this.approvalEndDate);
       this.pendingEntries = this.pendingEntries.filter(entry => {
-        const entryDate = new Date(entry.journalEntryCreated); // Adjust if date format differs
+        const entryDate = new Date(entry.createdOn); // Adjust if date format differs
         return entryDate >= startDate && entryDate <= endDate;
       });
     }

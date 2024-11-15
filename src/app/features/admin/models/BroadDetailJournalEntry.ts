@@ -1,5 +1,5 @@
 export interface BroadDetailJournalEntry{
-    journalEntryID: number;
+    journalEntryId: number;
     journalEntryDescription: string;
     journalEntryType: string;
     createdBy: string;

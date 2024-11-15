@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
 import { JournalEntryService } from '../../service/journal-entry.service';
 import { JournalEntry } from '../../admin/models/journal-entry.model';
+import { DetailedJournalEntry } from '../../admin/models/DetailedJournalEntry';
 @Component({
   selector: 'app-adjusting-journal-entry',
   templateUrl: './adjusting-journal-entry.component.html',
   styleUrls: ['./adjusting-journal-entry.component.css']
 })
 export class AdjustingJournalEntryComponent {
-  entries?: JournalEntry[];
-  filteredEntries: JournalEntry[] = [];
+  entries?: DetailedJournalEntry[];
+  filteredEntries: DetailedJournalEntry[] = [];
   selectedStatus: string = 'all';
   adjustedStartDate: string='';
   adjustedEndDate: string='';
   adjustedSearchTerm: string='';
+  searchQuery: string = '';
   constructor(private journalEntryService: JournalEntryService) {}
   
   ngOnInit(): void {
@@ -34,7 +36,7 @@ export class AdjustingJournalEntryComponent {
       const startDate = new Date(this. adjustedStartDate);
       const endDate = new Date(this.adjustedEndDate);
       this.filteredEntries = this.entries.filter(entry => {
-        const entryDate = new Date(entry.journalEntryCreated); // Assuming entries have a 'date' field
+        const entryDate = new Date(entry.createdOn); // Assuming entries have a 'date' field
         return entryDate >= startDate && entryDate <= endDate;
       });
     }
@@ -46,5 +48,11 @@ export class AdjustingJournalEntryComponent {
         entry.journalEntryDescription.toLowerCase().includes(this.adjustedSearchTerm.toLowerCase())
       );
     }
+  }
+  searchAccounts() {
+    const query = this.searchQuery.toLowerCase();
+    this.filteredEntries = this.entries?.filter(JournalEntry => 
+      JournalEntry.chartOfAccountId.toString().includes(query)
+    );
   }
 }

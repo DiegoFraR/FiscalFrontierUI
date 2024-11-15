@@ -16,15 +16,6 @@
     </nav>
 
     
-    <div class="search-box">
-      <label>Filter by Status</label>
-      <select [(ngModel)]="selectedStatus" (change)="filterByStatus()">
-        <option value="all">All</option>
-        <option value="pending">Pending</option>
-        <option value="approved">Approved</option>
-        <option value="rejected">Rejected</option>
-      </select>
-    </div>
     
     <div class="search-box">
       <label>Filter by Date</label>
@@ -50,10 +41,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let entry of entries">
-          <td>{{ entry.journalEntryCreated | date: 'short' }}</td>
+          <td>{{ entry.createdOn | date: 'short' }}</td>
           <td>{{ entry.chartOfAccountId }}</td>
-          <td>{{ entry.debits }}</td>
-          <td>{{ entry.credits }}</td>
+          <td>{{ entry.totalDebitValue | currency}}</td>
+          <td>{{ entry.totalCrebitValue | currency}}</td>
           <td>{{ entry.journalEntryStatus }}</td>
           <td>{{entry.journalEntryRejectionReasoning || 'N/A' }}</td>
         </tr>

@@ -24,17 +24,15 @@
         <th>Debit</th>
         <th>Credit</th>
         <th>Status</th>
-       
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let entry of rejectedEntries">
         <td>{{ entry. createdOn| date: 'short' }}</td>
         <td>{{ entry.journalEntryDescription }}</td>
-        <td>{{ entry.debitTotal }}</td>
-        <td>{{ entry.creditTotal}}</td>
+        <td>{{ entry.debitTotal | currency}}</td>
+        <td>{{ entry.creditTotal | currency}}</td>
         <td>Rejected</td>
-       
       </tr>
     </tbody>
   </table>

@@ -35,10 +35,10 @@
   </thead>
   <tbody>
     <tr *ngFor="let entry of entries">
-      <td>{{ entry.journalEntryCreated | date: 'short' }}</td>
+      <td>{{ entry.createdOn | date: 'short' }}</td>
       <td>{{ entry.chartOfAccountId }}</td>
-      <td>{{ entry.debits|| 0 }}</td>
-      <td>{{ entry.credits ||0 }}</td>
+      <td>{{ entry.totalDebitValue | currency}}</td>
+      <td>{{ entry.totalCrebitValue | currency}}</td>
       <td>{{ entry.journalEntryStatus }}</td>
       <td>{{entry.journalEntryRejectionReasoning || 'N/A' }}</td>
     </tr>

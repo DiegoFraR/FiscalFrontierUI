@@ -65,13 +65,13 @@ export class JournalEntryService {
     //HTTP GET CALLS
 
   //Gets ALL Journal Entries in System
-  getAllJournalEntries(): Observable<JournalEntry[]> {
-    return this.http.get<JournalEntry[]>(`${environment.apiBaseUrl}/api/JournalEntry`);
+  getAllJournalEntries(): Observable<DetailedJournalEntry[]> {
+    return this.http.get<DetailedJournalEntry[]>(`${environment.apiBaseUrl}/api/JournalEntry`);
   }
   
   //Gets all journal entries that have a status of pending. 
-  getAllPendingJournalEntries(): Observable<JournalEntry[]> {
-    return this.http.get<JournalEntry[]>(`${environment.apiBaseUrl}/api/JournalEntry/pending`);
+  getAllPendingJournalEntries(): Observable<BroadDetailJournalEntry[]> {
+    return this.http.get<BroadDetailJournalEntry[]>(`${environment.apiBaseUrl}/AllPendingJournalEntries`);
   }
 
   //Gets all approved journal entriers associated with an account.
