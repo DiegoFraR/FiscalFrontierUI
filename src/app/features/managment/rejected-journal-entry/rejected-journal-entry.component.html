@@ -1,4 +1,7 @@
 <div class="container">
+  <button class="btn btn-primary mb-3" routerLink="/adjusting-journal-entry">
+    Back to Adjusting Journal Entries
+  </button>
     <h1>Rejected Journal Entries</h1>
   
     <div class="search-box">
@@ -21,17 +24,17 @@
         <th>Debit</th>
         <th>Credit</th>
         <th>Status</th>
-        <th>Reason for Rejection</th>
+       
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let entry of rejectedEntries">
-        <td>{{ entry. journalEntryCreated| date: 'short' }}</td>
+        <td>{{ entry. createdOn| date: 'short' }}</td>
         <td>{{ entry.journalEntryDescription }}</td>
-        <td>{{ entry.debits }}</td>
-        <td>{{ entry.credits }}</td>
+        <td>{{ entry.debitTotal }}</td>
+        <td>{{ entry.creditTotal}}</td>
         <td>Rejected</td>
-        <td>{{ entry.journalEntryRejectionReasoning}}</td>
+       
       </tr>
     </tbody>
   </table>

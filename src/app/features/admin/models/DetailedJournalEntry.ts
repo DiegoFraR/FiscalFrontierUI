@@ -1,20 +1,20 @@
 import { Credit, Debit } from "./journal-entry.model";
 
 export interface DetailedJournalEntry{
-    JournalEntryId: number;
-    JournalEntryType: string;
-    JournalEntryDescription: string;
-    CreatedBy: string;
-    UpdatedBy: string;
-    JournalEntryPostReference: string;
-    JournalEntryStatus: string;
-    JournalEntryRejectionReasoning?: string;
-    ChartOfAccountId: number;
-    CreditValues:  Credit[];
-    DebitValues: Debit[];
-    FileUrl?: FileRecord[];
-    CreatedOn: Date;
-    UpdatedOn: Date;
+    journalEntryId: number;
+    journalEntryType: string;
+    journalEntryDescription: string;
+    createdBy: string;
+    updatedBy: string;
+    journalEntryPostReference: string;
+    journalEntryStatus: string;
+    journalEntryRejectionReasoning?: string;
+    chartOfAccountId: number;
+    creditValues:  number[];
+    debitValues: number[];
+    fileUrl?: FileRecord[];
+    createdOn: Date;
+    updatedOn: Date;
 }
 export interface FileRecord{
     id: number;

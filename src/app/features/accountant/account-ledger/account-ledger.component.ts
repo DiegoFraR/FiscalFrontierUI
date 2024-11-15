@@ -8,6 +8,7 @@ import { UserLogin } from 'src/app/features/auth/models/user-login.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { JournalEntryService } from '../../service/journal-entry.service';
 import { JournalEntry } from '../../admin/models/journal-entry.model';
+import { BroadDetailJournalEntry } from '../../admin/models/BroadDetailJournalEntry';
 
 @Component({
   selector: 'app-account-ledger',
@@ -39,7 +40,7 @@ export class AccountLedgerComponent implements OnInit {
     private chartOfAccountService: ChartOfAccountService,
     private authService: AuthService,
     private journalEntryService: JournalEntryService
-  ) {}
+) {}
 
    ngOnInit() {
     this.accountId = +this.route.snapshot.paramMap.get('accountId')!;

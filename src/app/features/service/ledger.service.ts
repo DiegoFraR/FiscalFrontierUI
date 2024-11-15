@@ -28,4 +28,5 @@ export class LedgerService {
   rejectEntry(entryId: number, reason: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/deny`, { journalEntryId: entryId, journalEntryDeniedReason: reason });
   }
+
 }

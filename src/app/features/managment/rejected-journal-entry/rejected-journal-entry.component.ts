@@ -2,14 +2,15 @@ import { Component } from '@angular/core';
 import { JournalEntry } from '../../admin/models/journal-entry.model';
 import { JournalEntryService } from '../../service/journal-entry.service';
 import { DenyJournalEntry } from '../../accountant/Models/Deny-Journal-Entry.model';
+import { BroadDetailJournalEntry } from '../../admin/models/BroadDetailJournalEntry';
 @Component({
   selector: 'app-rejected-journal-entry',
   templateUrl: './rejected-journal-entry.component.html',
   styleUrls: ['./rejected-journal-entry.component.css']
 })
 export class RejectedJournalEntryComponent {
-  rejectedEntries: JournalEntry[] = [];
-  filteredEntries: JournalEntry[] = [];
+  rejectedEntries: BroadDetailJournalEntry[] = [];
+  filteredEntries: BroadDetailJournalEntry[] = [];
   rejectedStartDate: string = '';
   rejectedEndDate: string = '';
   rejectedSearchTerm: string = '';
@@ -18,6 +19,7 @@ export class RejectedJournalEntryComponent {
 
   ngOnInit(): void {
     this.loadRejectedEntries();
+    console.log(this.rejectedEntries)
   }
 
   loadRejectedEntries(): void {
@@ -34,7 +36,7 @@ export class RejectedJournalEntryComponent {
       const startDate = new Date(this.rejectedStartDate);
       const endDate = new Date(this.rejectedEndDate);
       this.rejectedEntries = this.rejectedEntries.filter(entry => {
-        const entryDate = new Date(entry.journalEntryCreated);
+        const entryDate = new Date(entry.createdOn);
         return entryDate >= startDate && entryDate <= endDate;
       });
     } else {

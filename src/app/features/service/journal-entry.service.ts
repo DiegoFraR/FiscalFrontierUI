@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 import { ApproveJournalEntry } from '../accountant/Models/Approve-Journal-Entry.model';
 import { CreateJournalEntry} from '../accountant/Models/Create-Journal-Entry.model';
 import { DenyJournalEntry } from '../accountant/Models/Deny-Journal-Entry.model';
+import { BroadDetailJournalEntry } from '../admin/models/BroadDetailJournalEntry';
+import { DetailedJournalEntry } from '../admin/models/DetailedJournalEntry';
 @Injectable({
   providedIn: 'root'
 })
@@ -78,11 +80,11 @@ export class JournalEntryService {
   }
 
   //Gets a specific Journal Entry
-  getSpecificJournalEntry(journalEntryId: number): Observable<JournalEntry> {
-    return this.http.get<JournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
+  getSpecificJournalEntry(journalEntryId: number): Observable<DetailedJournalEntry> {
+    return this.http.get<DetailedJournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
   }
-  getDetailedJournalEntry(journalEntryId: number): Observable<JournalEntry> {
-    return this.http.get<JournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
+  getDetailedJournalEntry(journalEntryId: number): Observable<DetailedJournalEntry> {
+    return this.http.get<DetailedJournalEntry>(`${environment.apiBaseUrl}/api/JournalEntry/account/${journalEntryId}`);
   }
 
   //HTTP PUT CALLS (Modify Calls)
@@ -103,10 +105,10 @@ export class JournalEntryService {
   }
 
   // Gets all approved journal entries
-  getApprovedJournalEntries(): Observable<JournalEntry[]> {
-    return this.http.get<JournalEntry[]>(`${environment.apiBaseUrl}/api/JournalEntry/approve`);
+  getApprovedJournalEntries(): Observable<BroadDetailJournalEntry[]> {
+    return this.http.get<BroadDetailJournalEntry[]>(`${environment.apiBaseUrl}/AllApprovedJournalEntries`);
   }
-  getRejectedJournalEntries(): Observable<JournalEntry[]> {
-    return this.http.get<JournalEntry[]>(`${environment.apiBaseUrl}/api/JournalEntry/deny`);
+  getRejectedJournalEntries(): Observable<BroadDetailJournalEntry[]> {
+    return this.http.get<BroadDetailJournalEntry[]>(`${environment.apiBaseUrl}/AllRejectedjournalEntries`);
   }
 }

@@ -1,14 +1,14 @@
 export interface BroadDetailJournalEntry{
-    JournalEntryID: number;
-    JournalEntryDescription: string;
-    JournalEntryType: string;
-    CreatedBy: string;
-    CreditTotal: number;
-    DebitTotal: number;
-    ChartOfAccountId: number;
-    ChartOfAccountName: string;
-    FileLink?: string;
-    CreatedOn: Date;
-    UpdatedOn: Date;
+    journalEntryID: number;
+    journalEntryDescription: string;
+    journalEntryType: string;
+    createdBy: string;
+    creditTotal: number;
+    debitTotal: number;
+    chartOfAccountId: number;
+    chartOfAccountName: string;
+    fileLink?: string;
+    createdOn: Date;
+    updatedOn: Date;
 
 }

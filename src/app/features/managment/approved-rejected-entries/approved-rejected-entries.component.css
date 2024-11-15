@@ -1,29 +1,65 @@
+/* General container styling */
 .container {
     margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
+
 .container h1 {
     text-align: center;
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #333;
+    color: #000000; /* Black text color */
 }
+
+/* Back button styling */
+.back-button {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #3f51b5;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.back-button:hover {
+    background-color: #344395;
+}
+
+/* Search box styling */
 .search-box {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
-  
+    gap: 10px;
 }
-.search-box input {
-    width: 300px;
+
+.search-box input, .search-box select {
+    width: 250px;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    margin-right: 10px;
+    color: #000000; /* Black text color */
 }
+
+.search-box label {
+    font-weight: bold;
+    color: #000000; /* Black text color */
+}
+
 .search-box button {
-    padding: 10px 15px;
+    padding: 10px 20px;
     font-size: 16px;
     background-color: #3f51b5;
     color: white;
@@ -32,28 +68,33 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 .search-box button:hover {
-    background-color: #344395; /* Slightly darker blue for hover */
+    background-color: #344395;
 }
+
 /* Table styling */
 table {
     width: 100%;
     margin-top: 20px;
     border-collapse: collapse;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     background-color: #f9f9f9;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 table th, table td {
-    padding: 15px;
+    padding: 15px 20px;
     text-align: center;
     font-size: 16px;
     border: 1px solid #ddd;
     vertical-align: middle;
+    color: #000000; /* Black text color */
 }
 
 table thead th {
-    background-color: #3f51b5; 
+    background-color: #3f51b5;
     color: white;
     font-weight: bold;
     text-transform: uppercase;
@@ -63,40 +104,10 @@ table tbody tr:hover {
     background-color: #f1f1f1;
 }
 
-/* Empty results row */
-table tbody tr td.text-center {
-    font-style: italic;
-    color: #999;
-}
-
-/* Responsive styling for smaller screens */
-@media (max-width: 768px) {
-    table, thead, tbody, th, td, tr {
-        display: block;
-        width: 100%;
-    }
-
-    table thead {
-        display: none;
-    }
-
-    table tbody tr {
-        margin-bottom: 15px;
-        display: block;
-        padding: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    table tbody td {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-    }
-
-    table tbody td:before {
-        content: attr(data-label);
-        font-weight: bold;
-        flex: 1;
-        text-align: left;
-    }
+/* Padding around the table */
+.container .table-container {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    margin-top: 20px;
 }

@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JournalEntry } from '../../admin/models/journal-entry.model';
 import { JournalEntryService } from '../../service/journal-entry.service';
+import { DetailedJournalEntry } from '../../admin/models/DetailedJournalEntry';
 @Component({
   selector: 'app-view-detailed-journal',
   templateUrl: './view-detailed-journal.component.html',
   styleUrls: ['./view-detailed-journal.component.css']
 })
 export class ViewDetailedJournalComponent implements OnInit {
-  journalEntry: JournalEntry | null = null;
+  journalEntry: DetailedJournalEntry | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,9 +25,11 @@ export class ViewDetailedJournalComponent implements OnInit {
       .subscribe({
         next: (response) =>{
           this.journalEntry = response;
+          console.log(this.journalEntry)
         }
       })
     }
+    console.log(this.journalEntry)
   }
 
   goBack(): void {
