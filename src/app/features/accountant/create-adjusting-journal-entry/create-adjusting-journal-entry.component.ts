@@ -13,22 +13,26 @@ import { CreateJournalEntry } from '../Models/Create-Journal-Entry.model';
   styleUrls: ['./create-adjusting-journal-entry.component.css']
 })
 export class CreateAdjustingJournalEntryComponent implements OnInit {
-  chartOfAccounts: ChartOfAccount[] = []; // List of accounts
+  chartOfAccounts: { accountId: number; accountName: string }[] = []; // Accounts from Chart of Accounts
   journalEntry: CreateJournalEntry = this.initializeJournalEntry(); // Journal entry object
+  debits: { amount: number }[] = []; // List of debit entries
+  credits: { amount: number }[] = []; // List of credit entries
+  errorMessage: string = ''; // Validation error message
   hasSubmitted: boolean = false; // Prevent duplicate submissions
 
   constructor(
     private chartOfAccountService: ChartOfAccountService,
     private journalEntryService: JournalEntryService,
-    private router: Router,
-    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.loadChartOfAccounts();
+    this.addDebit(); // Initialize with one debit entry
+    this.addCredit(); // Initialize with one credit entry
   }
 
-  // Load accounts from the Chart of Accounts
+  // Load accounts from Chart of Accounts
   loadChartOfAccounts(): void {
     this.chartOfAccountService.getAllAccounts().subscribe({
       next: (accounts) => {
@@ -40,7 +44,7 @@ export class CreateAdjustingJournalEntryComponent implements OnInit {
     });
   }
 
-  // Initialize a blank CreateJournalEntry
+  // Initialize a blank journal entry
   private initializeJournalEntry(): CreateJournalEntry {
     return {
       JournalEntryType: 'Adjusting',
@@ -49,36 +53,75 @@ export class CreateAdjustingJournalEntryComponent implements OnInit {
       UpdatedBy: null,
       JournalEntryPostReference: '',
       ChartOfAccountId: 0,
-      CreditValues: [],
-      DebitValues: []
+      DebitValues: [],
+      CreditValues: []
     };
   }
 
-  // Reset the form fields
-  resetForm(): void {
-    this.journalEntry = this.initializeJournalEntry();
+  // Add a debit entry
+  addDebit(): void {
+    this.debits.push({ amount: 0 });
+  }
+
+  // Add a credit entry
+  addCredit(): void {
+    this.credits.push({ amount: 0 });
+  }
+
+  // Remove a debit entry
+  deleteDebit(index: number): void {
+    this.debits.splice(index, 1);
+  }
+
+  // Remove a credit entry
+  deleteCredit(index: number): void {
+    this.credits.splice(index, 1);
   }
 
   // Submit the journal entry
   submitJournalEntry(): void {
-    // Validate that debit and credit values match
-    const totalDebit = this.journalEntry.DebitValues.reduce((sum, value) => sum + value, 0);
-    const totalCredit = this.journalEntry.CreditValues.reduce((sum, value) => sum + value, 0);
-
-    if (totalDebit !== totalCredit) {
-      alert('Debits and Credits must be equal.');
+    if (!this.validateEntry()) {
       return;
     }
 
-    // Call the API to create the journal entry
-    this.journalEntryService.createJournalEntry(this.journalEntry).subscribe({
-      next: (journalEntryId) => {
-        alert(`Journal entry created successfully with ID: ${journalEntryId}`);
-        this.hasSubmitted = true;
+    const journalEntry: CreateJournalEntry = {
+      ...this.journalEntry,
+      DebitValues: this.debits.map(debit => debit.amount),
+      CreditValues: this.credits.map(credit => credit.amount)
+    };
+
+    this.journalEntryService.createJournalEntry(journalEntry).subscribe({
+      next: () => {
+        alert('Journal entry submitted successfully.');
+        this.resetForm();
       },
       error: (err) => {
         console.error('Failed to create journal entry:', err);
       }
     });
+  }
+
+  // Validate the journal entry
+  validateEntry(): boolean {
+    const totalDebit = this.debits.reduce((sum, debit) => sum + debit.amount, 0);
+    const totalCredit = this.credits.reduce((sum, credit) => sum + credit.amount, 0);
+
+    if (totalDebit !== totalCredit) {
+      this.errorMessage = 'Total debits must equal total credits.';
+      return false;
+    }
+
+    this.errorMessage = '';
+    return true;
+  }
+
+  // Reset the form
+  resetForm(): void {
+    this.journalEntry = this.initializeJournalEntry();
+    this.debits = [];
+    this.credits = [];
+    this.addDebit();
+    this.addCredit();
+    this.errorMessage = '';
   }
 }

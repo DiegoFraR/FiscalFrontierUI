@@ -16,86 +16,57 @@
         </option>
       </select>
     </div>
-
-    <!-- Description -->
-    <div class="form-group">
-      <label for="description" class="form-label">Description</label>
-      <textarea
-        class="form-control"
-        [(ngModel)]="journalEntry.JournalEntryDescription"
-        name="description"
-        required
-      ></textarea>
-    </div>
-
+ <!-- Description -->
+ <div class="form-group mt-3">
+  <label for="description" class="form-label">Description</label>
+  <textarea
+    class="form-control"
+    id="description"
+    [(ngModel)]="journalEntry.JournalEntryDescription"
+    name="description"
+    placeholder="Enter description"
+    required
+  ></textarea>
+</div>
     <!-- Debit Values -->
-    <div class="form-group">
-      <label for="debits" class="form-label">Debit Values</label>
-      <div class="input-group">
-        <input
-          type="number"
-          class="form-control"
-          placeholder="Enter Debit Value"
-          #debitInput
-        />
-        <button
-          type="button"
-          class="btn btn-secondary mt-2"
-          (click)="journalEntry.DebitValues.push(+debitInput.value); debitInput.value = ''"
-        >
-          Add Debit
-        </button>
-      </div>
-      <div>
-        <ul>
-          <li *ngFor="let debit of journalEntry.DebitValues; let i = index">
-            {{ debit }}
-            <button type="button" class="btn btn-secondary btn-sm" (click)="journalEntry.DebitValues.splice(i, 1)">
-              Remove
-            </button>
-          </li>
-        </ul>
-      </div>
+    <h4 class="mt-3">Debit Entries</h4>
+    <div class="form-group mt-3" *ngFor="let debit of debits; let i = index">
+      <input
+        class="form-control"
+        type="number"
+        [(ngModel)]="debit.amount"
+        name="debitAmount{{ i }}"
+        placeholder="Debit Amount"
+        required
+      />
+      <button type="button" (click)="deleteDebit(i)" class="btn btn-danger mt-2">Delete Debit</button>
     </div>
+    <button type="button" (click)="addDebit()" class="btn btn-success mt-2">Add Debit</button>
 
     <!-- Credit Values -->
-    <div class="form-group">
-      <label for="credits" class="form-label">Credit Values</label>
-      <div class="input-group">
-        <input
-          type="number"
-          class="form-control"
-          placeholder="Enter Credit Value"
-          #creditInput
-        />
-        <button
-          type="button"
-          class="btn btn-secondary mt-2"
-          (click)="journalEntry.CreditValues.push(+creditInput.value); creditInput.value = ''"
-        >
-          Add Credit
-        </button>
-      </div>
-      <div>
-        <ul>
-          <li *ngFor="let credit of journalEntry.CreditValues; let i = index">
-            {{ credit }}
-            <button type="button" class="btn btn-secondary btn-sm" (click)="journalEntry.CreditValues.splice(i, 1)">
-              Remove
-            </button>
-          </li>
-        </ul>
-      </div>
+    <h4 class="mt-3">Credit Entries</h4>
+    <div class="form-group mt-3" *ngFor="let credit of credits; let i = index">
+      <input
+        class="form-control"
+        type="number"
+        [(ngModel)]="credit.amount"
+        name="creditAmount{{ i }}"
+        placeholder="Credit Amount"
+        required
+      />
+      <button type="button" (click)="deleteCredit(i)" class="btn btn-danger mt-2">Delete Credit</button>
+    </div>
+    <button type="button" (click)="addCredit()" class="btn btn-success mt-2">Add Credit</button>
+
+    <!-- Submit and Reset Buttons -->
+    <div class="form-actions mt-4">
+      <button class="btn btn-primary" type="submit" [disabled]="!journalEntry">Submit</button>
+      <button class="btn btn-secondary" type="button" (click)="resetForm()">Cancel</button>
     </div>
 
-    <!-- Buttons -->
-    <div class="form-actions">
-      <button type="submit" class="btn btn-primary" [disabled]="hasSubmitted">
-        Submit
-      </button>
-      <button type="button" class="btn btn-secondary" (click)="resetForm()">
-        Reset
-      </button>
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message mt-3">
+      <span>{{ errorMessage }}</span>
     </div>
   </form>
 </div>

@@ -54,6 +54,8 @@ export class AccountLedgerComponent implements OnInit {
       next: (response) =>{
         this.journalEntries = response;
         console.log(this.journalEntries)
+        this.filteredTransactions = response;
+        console.log('Initial journalEntries:', this.journalEntries);
       }
     })
     this.authService.user()
@@ -99,13 +101,13 @@ export class AccountLedgerComponent implements OnInit {
   }
    // Filter the ledger by date range
    filterLedgerByDate(): void {
-    if (this.createdOn && this.updatedOn && this.journalEntries) {
-      this.filteredTransactions = this.journalEntries.filter(entry =>
-        new Date(entry.createdOn) >= new Date(this.createdOn) &&
-        new Date(entry.createdOn) <= new Date(this.updatedOn)
-      );
-    } else {
-      this.filteredTransactions = this.journalEntries;
+    if (this. createdOn && this.updatedOn && this.journalEntries) {
+      const startDate = new Date(this. createdOn);
+      const endDate = new Date(this.updatedOn);
+      this.filteredEntries = this.journalEntries.filter(entry => {
+        const entryDate = new Date(entry.createdOn); // Assuming entries have a 'date' field
+        return entryDate >= startDate && entryDate <= endDate;
+      });
     }
   }
    // Search the ledger for a term

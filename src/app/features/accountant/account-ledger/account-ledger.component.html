@@ -26,8 +26,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let entry of journalEntries">
-      <td>{{ entry.createdOn | date: 'long' }}</td>
+    <tr *ngFor="let entry of filteredTransactions">
+      <td>{{ entry.createdOn | date: 'short' }}</td>
       <td>{{ entry.journalEntryDescription || 'N/A' }}</td>
       <td>{{ entry.debitTotal | currency }}</td>
       <td>{{ entry.creditTotal | currency}}</td>
