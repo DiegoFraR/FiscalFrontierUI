@@ -135,6 +135,9 @@ export class AccountLedgerComponent implements OnInit {
   addJournal (): void{
     this.router.navigate(['/accountant/journal-entry-form/', this.accountId]);
   }
+  addAdjustingJournalEntry (): void{
+    this.router.navigate(['/accountant/create-adjust-journal-entry/', this.accountId]);
+  }
  
 
   // Approve a journal entry (Manager/Admin only)

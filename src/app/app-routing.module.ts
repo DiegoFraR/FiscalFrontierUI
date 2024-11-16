@@ -34,7 +34,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'create-adjusting-journal',
+    path: 'accountant/create-adjust-journal-entry/:accountId',
     component: CreateAdjustingJournalEntryComponent
   },
   {
