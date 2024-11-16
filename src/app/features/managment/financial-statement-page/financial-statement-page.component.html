@@ -58,26 +58,85 @@
     <!-- Income Statement -->
     <div *ngIf="selectedReportType === 'incomeStatement'">
       <h3>Income Statement</h3>
-      <p><strong>Total Revenue:</strong> {{ reportData.totalRevenue | currency }}</p>
-      <p><strong>Total Expenses:</strong> {{ reportData.totalExpenses | currency }}</p>
-      <p><strong>Net Income:</strong> {{ reportData.netIncome | currency }}</p>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Total Revenue</td>
+            <td>{{ reportData.totalRevenue | currency }}</td>
+          </tr>
+          <tr>
+            <td>Total Expenses</td>
+            <td>{{ reportData.totalExpenses | currency }}</td>
+          </tr>
+          <tr>
+            <td>Net Income</td>
+            <td>{{ reportData.netIncome | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
     <!-- Balance Sheet -->
     <div *ngIf="selectedReportType === 'balanceSheet'">
       <h3>Balance Sheet</h3>
-      <p><strong>Total Assets:</strong> {{ reportData.totalAssets | currency }}</p>
-      <p><strong>Total Liabilities:</strong> {{ reportData.totalLiabilities | currency }}</p>
-      <p><strong>Total Equity:</strong> {{ reportData.totalEquity | currency }}</p>
-      <p><strong>Net Worth:</strong> {{ reportData.netWorth | currency }}</p>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Total Assets</td>
+            <td>{{ reportData.totalAssets | currency }}</td>
+          </tr>
+          <tr>
+            <td>Total Liabilities</td>
+            <td>{{ reportData.totalLiabilities | currency }}</td>
+          </tr>
+          <tr>
+            <td>Total Equity</td>
+            <td>{{ reportData.totalEquity | currency }}</td>
+          </tr>
+          <tr>
+            <td>Net Worth</td>
+            <td>{{ reportData.netWorth | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- Retained Earnings Statement -->
     <div *ngIf="selectedReportType === 'retainedEarnings'">
       <h3>Retained Earnings Statement</h3>
-      <p><strong>Beginning Retained Earnings:</strong> {{ reportData.beginningRetainedEarnings | currency }}</p>
-      <p><strong>Net Income:</strong> {{ reportData.netIncome | currency }}</p>
-      <p><strong>Ending Retained Earnings:</strong> {{ reportData.endingRetainedEarnings | currency }}</p>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Beginning Retained Earnings</td>
+            <td>{{ reportData.beginningRetainedEarnings | currency }}</td>
+          </tr>
+          <tr>
+            <td>Net Income</td>
+            <td>{{ reportData.netIncome | currency }}</td>
+          </tr>
+          <tr>
+            <td>Ending Retained Earnings</td>
+            <td>{{ reportData.endingRetainedEarnings | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 

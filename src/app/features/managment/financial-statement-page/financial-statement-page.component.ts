@@ -140,7 +140,7 @@ export class FinancialStatementPageComponent {
   saveReport(): void {
     if (this.reportData) {
       const blob = new Blob([JSON.stringify(this.reportData, null, 2)], { type: 'application/json' });
-      const filename = `${this.reportTitle.replace(/ /g, '_')}.json`;
+      const filename = `${this.reportTitle.replace(/ /g, '_')}.xlsx`;
       this.downloadFile(blob, filename);
     } else {
       console.warn('No report data to save');

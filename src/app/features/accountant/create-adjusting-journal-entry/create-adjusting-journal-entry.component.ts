@@ -13,23 +13,30 @@ import { CreateJournalEntry } from '../Models/Create-Journal-Entry.model';
   styleUrls: ['./create-adjusting-journal-entry.component.css']
 })
 export class CreateAdjustingJournalEntryComponent implements OnInit {
-  chartOfAccounts: { accountId: number; accountName: string }[] = []; // Accounts from Chart of Accounts
+  chartOfAccounts: { accountId: number}[] = []; // Accounts from Chart of Accounts
   journalEntry: CreateJournalEntry = this.initializeJournalEntry(); // Journal entry object
-  debits: { amount: number }[] = []; // List of debit entries
-  credits: { amount: number }[] = []; // List of credit entries
+  debits: { account: string, amount: number }[] = []; // List of debit entries
+  credits: {account: string, amount: number}[] = []; // List of credit entries
   errorMessage: string = ''; // Validation error message
   hasSubmitted: boolean = false; // Prevent duplicate submissions
+  journalEntryPostReference: string = '';
+  journalEntryDescription: string = '';
+  userId: string | null = '';
+  accountId: number = 0;
 
   constructor(
     private chartOfAccountService: ChartOfAccountService,
     private journalEntryService: JournalEntryService,
-    private router: Router
+    private router: Router,
+    private route : ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
     this.loadChartOfAccounts();
     this.addDebit(); 
     this.addCredit(); 
+    this.accountId = +this.route.snapshot.paramMap.get('accountId')!;
+       this.userId = localStorage.getItem('userId');
   }
 
  
@@ -60,12 +67,12 @@ export class CreateAdjustingJournalEntryComponent implements OnInit {
 
   
   addDebit(): void {
-    this.debits.push({ amount: 0 });
+    this.debits.push({ account: '', amount: 0 });
   }
 
  
   addCredit(): void {
-    this.credits.push({ amount: 0 });
+    this.credits.push({ account: '', amount: 0 });
   }
 
   
@@ -80,12 +87,18 @@ export class CreateAdjustingJournalEntryComponent implements OnInit {
 
   // Submit the journal entry
   submitJournalEntry(): void {
+    console.log('Submit button clicked');
     if (!this.validateEntry()) {
       return;
     }
 
     const journalEntry: CreateJournalEntry = {
-      ...this.journalEntry,
+      JournalEntryType: "Adjusting",
+      JournalEntryDescription: this.journalEntryDescription,
+      CreatedBy: this.userId, // Replace with the actual user if available
+      UpdatedBy: null, // Can be set if needed
+      JournalEntryPostReference: this.journalEntryPostReference,
+      ChartOfAccountId: this.accountId, // Replace with an appropriate value if necessary
       DebitValues: this.debits.map(debit => debit.amount),
       CreditValues: this.credits.map(credit => credit.amount)
     };
@@ -105,16 +118,17 @@ export class CreateAdjustingJournalEntryComponent implements OnInit {
   validateEntry(): boolean {
     const totalDebit = this.debits.reduce((sum, debit) => sum + debit.amount, 0);
     const totalCredit = this.credits.reduce((sum, credit) => sum + credit.amount, 0);
-
+  
+    console.log('Total Debit:', totalDebit, 'Total Credit:', totalCredit);
+  
     if (totalDebit !== totalCredit) {
       this.errorMessage = 'Total debits must equal total credits.';
       return false;
     }
-
+  
     this.errorMessage = '';
     return true;
   }
-
   // Reset the form
   resetForm(): void {
     this.journalEntry = this.initializeJournalEntry();

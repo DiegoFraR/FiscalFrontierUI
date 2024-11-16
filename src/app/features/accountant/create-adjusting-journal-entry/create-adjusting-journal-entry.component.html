@@ -2,32 +2,20 @@
   <h1>Create Adjusting Journal Entry</h1>
 
   <form (ngSubmit)="submitJournalEntry()">
-    <!-- Account Dropdown -->
-    <div class="form-group">
-      <label for="account" class="form-label">Account</label>
-      <select
-        class="form-control"
-        [(ngModel)]="journalEntry.ChartOfAccountId"
-        name="account"
-        required
-      >
-        <option *ngFor="let account of chartOfAccounts" [value]="account.accountId">
-          {{ account.accountName }}
-        </option>
-      </select>
+    <div class="mt-3">
+      <div class="form-label">
+        <label>Description</label>
+        <textarea class="form-control" id="description" [(ngModel)]="journalEntryDescription" name="description" placeholder="Enter description"></textarea>
+      </div>
     </div>
- <!-- Description -->
- <div class="form-group mt-3">
-  <label for="description" class="form-label">Description</label>
-  <textarea
-    class="form-control"
-    id="description"
-    [(ngModel)]="journalEntry.JournalEntryDescription"
-    name="description"
-    placeholder="Enter description"
-    required
-  ></textarea>
-</div>
+
+    <div class="mt-3">
+      <div class="form-label">
+        <label>Post Reference</label>
+        <input class="form-control" type="text" id="postReference" [(ngModel)]="journalEntryPostReference" name="postReference" required />
+      </div>
+    </div>
+
     <!-- Debit Values -->
     <h4 class="mt-3">Debit Entries</h4>
     <div class="form-group mt-3" *ngFor="let debit of debits; let i = index">
@@ -60,7 +48,7 @@
 
     <!-- Submit and Reset Buttons -->
     <div class="form-actions mt-4">
-      <button class="btn btn-primary" type="submit" [disabled]="!journalEntry">Submit</button>
+      <button class="btn btn-primary" (click)="submitJournalEntry()"  type="submit" [disabled]="!journalEntry">Submit</button>
       <button class="btn btn-secondary" type="button" (click)="resetForm()">Reset</button>
       <button type="button" class="btn btn-danger" (click)="navigateToAdjustingJournal()">
         Cancel
