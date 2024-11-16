@@ -28,11 +28,11 @@ export class CreateAdjustingJournalEntryComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadChartOfAccounts();
-    this.addDebit(); // Initialize with one debit entry
-    this.addCredit(); // Initialize with one credit entry
+    this.addDebit(); 
+    this.addCredit(); 
   }
 
-  // Load accounts from Chart of Accounts
+ 
   loadChartOfAccounts(): void {
     this.chartOfAccountService.getAllAccounts().subscribe({
       next: (accounts) => {
@@ -44,7 +44,7 @@ export class CreateAdjustingJournalEntryComponent implements OnInit {
     });
   }
 
-  // Initialize a blank journal entry
+  
   private initializeJournalEntry(): CreateJournalEntry {
     return {
       JournalEntryType: 'Adjusting',
@@ -58,22 +58,22 @@ export class CreateAdjustingJournalEntryComponent implements OnInit {
     };
   }
 
-  // Add a debit entry
+  
   addDebit(): void {
     this.debits.push({ amount: 0 });
   }
 
-  // Add a credit entry
+ 
   addCredit(): void {
     this.credits.push({ amount: 0 });
   }
 
-  // Remove a debit entry
+  
   deleteDebit(index: number): void {
     this.debits.splice(index, 1);
   }
 
-  // Remove a credit entry
+  
   deleteCredit(index: number): void {
     this.credits.splice(index, 1);
   }
@@ -101,7 +101,7 @@ export class CreateAdjustingJournalEntryComponent implements OnInit {
     });
   }
 
-  // Validate the journal entry
+  
   validateEntry(): boolean {
     const totalDebit = this.debits.reduce((sum, debit) => sum + debit.amount, 0);
     const totalCredit = this.credits.reduce((sum, credit) => sum + credit.amount, 0);

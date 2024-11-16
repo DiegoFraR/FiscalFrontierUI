@@ -30,7 +30,7 @@
     <tbody>
       <tr *ngFor="let entry of rejectedEntries">
         <td>{{ entry. createdOn| date: 'short' }}</td>
-        <td>{{ entry.journalEntryDescription }}</td>
+        <td>{{ entry.chartOfAccountName }}</td>
         <td>{{ entry.debitTotal | currency}}</td>
         <td>{{ entry.creditTotal | currency}}</td>
         <td>Rejected</td>
