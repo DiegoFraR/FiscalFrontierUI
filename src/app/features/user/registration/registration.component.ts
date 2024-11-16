@@ -15,6 +15,7 @@ export class RegistrationComponent implements OnDestroy, OnInit {
   model: AddUserRegistrationRequest;
   private addUserRegistrationRequestSubscription?: Subscription;
   securityQuestions?: SecurityQuestion[];
+  formSubmitted: boolean = false;  // Track form submission
 
   constructor(private userService: UsersService, private router: Router) {
     this.model = {
@@ -32,23 +33,33 @@ export class RegistrationComponent implements OnDestroy, OnInit {
   }
 
   onFormSubmit(): void {
+    this.formSubmitted = true; // Mark form as submitted
+
+    if (!this.model.firstName || !this.model.lastName || !this.model.address || !this.model.email || 
+        !this.model.password || !this.model.securityQuestion1Id || !this.model.securityQuestion1Answer || 
+        !this.model.securityQuestion2Id || !this.model.securityQuestion2Answer) {
+      // Prevent submission if any required fields are missing
+      return;
+    }
+
+    // Proceed with the registration if all required fields are filled
     this.addUserRegistrationRequestSubscription = this.userService.addUserRegistrationRequest(this.model)
-    .subscribe({
-      next: (response) => {
-        this.router.navigateByUrl('/registrationSuccess');
-      }
-    });
+      .subscribe({
+        next: (response) => {
+          this.router.navigateByUrl('/registrationSuccess');
+        }
+      });
   }
 
   ngOnDestroy(): void {
-      this.addUserRegistrationRequestSubscription?.unsubscribe();
+    this.addUserRegistrationRequestSubscription?.unsubscribe();
   }
 
   ngOnInit(): void {
-      this.userService.getSecurityQuestions()
+    this.userService.getSecurityQuestions()
       .subscribe({
         next: (response) => {
-          this.securityQuestions = response
+          this.securityQuestions = response;
         }
       });
   }

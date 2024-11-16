@@ -4,6 +4,7 @@ import { TrialBalance } from '../models/trial-balance.model';
 import { IncomeStatementDTO } from '../models/income-statement-DTO.model';
 import { BalanceSheetDTO } from '../models/balance-sheet-DTO.model';
 import { RetainedEarningsDTO } from '../models/retained-earnings-DTO.model';
+
 @Component({
   selector: 'app-financial-statement-page',
   templateUrl: './financial-statement-page.component.html',
@@ -15,15 +16,18 @@ export class FinancialStatementPageComponent {
   selectedReportType: string = 'trialBalance';
   reportData: any = null;
   reportTitle: string = '';
+  errorMessage: string = ''; // Variable to hold the error message
 
   constructor(private financialService: FinancialStatementsService) {}
 
   generateReport(): void {
     this.reportData = null; // Clear previous report data
+    this.errorMessage = ''; // Reset error message
 
     if (!this.startDate || !this.endDate) {
-        console.warn('Please select a valid date range.');
-        return;
+      console.warn('Please select a valid date range.');
+      this.errorMessage = 'Unable to generate financial statement. Please check the date range and try again.';
+      return;
     }
 
     const dateRange = { startDate: this.startDate, endDate: this.endDate };
@@ -36,6 +40,7 @@ export class FinancialStatementPageComponent {
           },
           error: (err) => {
             console.error('Error generating Trial Balance:', err);
+            this.errorMessage = 'Unable to generate financial statement. Please check the date range and try again.';
           }
         });
         break;
@@ -47,6 +52,7 @@ export class FinancialStatementPageComponent {
           },
           error: (err) => {
             console.error('Error generating Income Statement:', err);
+            this.errorMessage = 'Unable to generate financial statement. Please check the date range and try again.';
           }
         });
         break;
@@ -58,6 +64,7 @@ export class FinancialStatementPageComponent {
           },
           error: (err) => {
             console.error('Error generating Balance Sheet:', err);
+            this.errorMessage = 'Unable to generate financial statement. Please check the date range and try again.';
           }
         });
         break;
@@ -69,11 +76,13 @@ export class FinancialStatementPageComponent {
           },
           error: (err) => {
             console.error('Error generating Retained Earnings Statement:', err);
+            this.errorMessage = 'Unable to generate financial statement. Please check the date range and try again.';
           }
         });
         break;
       default:
         console.warn('Unknown report type selected');
+        this.errorMessage = 'Unable to generate financial statement. Please check the date range and try again.';
     }
   }
 
@@ -82,8 +91,8 @@ export class FinancialStatementPageComponent {
     if (!this.startDate || !this.endDate) {
       console.warn('Please select a valid date range.');
       return;
-  }
-  const dateRange = { startDate: this.startDate, endDate: this.endDate };
+    }
+    const dateRange = { startDate: this.startDate, endDate: this.endDate };
     switch (this.selectedReportType) {
       case 'trialBalance':
         this.financialService.exportTrialBalanceToExcel(dateRange).subscribe({
@@ -126,17 +135,18 @@ export class FinancialStatementPageComponent {
         console.warn('Unknown report type selected');
     }
   }
-  
-// Method to save the generated report locally (e.g., as JSON)
-saveReport(): void {
-  if (this.reportData) {
-    const blob = new Blob([JSON.stringify(this.reportData, null, 2)], { type: 'application/json' });
-    const filename = `${this.reportTitle.replace(/ /g, '_')}.json`;
-    this.downloadFile(blob, filename);
-  } else {
-    console.warn('No report data to save');
+
+  // Method to save the generated report locally (e.g., as JSON)
+  saveReport(): void {
+    if (this.reportData) {
+      const blob = new Blob([JSON.stringify(this.reportData, null, 2)], { type: 'application/json' });
+      const filename = `${this.reportTitle.replace(/ /g, '_')}.json`;
+      this.downloadFile(blob, filename);
+    } else {
+      console.warn('No report data to save');
+    }
   }
-}
+
   // Utility method to download a file
   private downloadFile(data: Blob, filename: string): void {
     const url = window.URL.createObjectURL(data);

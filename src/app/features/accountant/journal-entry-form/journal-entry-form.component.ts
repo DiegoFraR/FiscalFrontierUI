@@ -109,5 +109,8 @@ export class JournalEntryFormComponent implements OnInit {
   deleteCredit(index: number) {
     this.credits.splice(index, 1);
   }
+  navigateToAdjustingJournal() {
+    this.router.navigate(['/account-ledger']); // Adjust the path as needed
+  }
   
 }

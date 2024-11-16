@@ -124,4 +124,7 @@ export class CreateAdjustingJournalEntryComponent implements OnInit {
     this.addCredit();
     this.errorMessage = '';
   }
+  navigateToAdjustingJournal(): void {
+    this.router.navigate(['/adjusting-journal-entry']); 
+  }
 }

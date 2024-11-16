@@ -47,7 +47,10 @@
 
       <div class="form-actions mt-4">
         <button class="btn btn-primary" type="submit" [disabled]="!journalEntryForm.valid">Submit</button>
-        <button class="btn btn-secondary" type="button" (click)="resetForm()">Cancel</button>
+        <button class="btn btn-secondary" type="button" (click)="resetForm()">Reset</button>
+        <button type="button" class="btn btn-danger" (click)="navigateToAdjustingJournal()">
+          Cancel
+        </button>
       </div>
 
       <div *ngIf="errorMessage" class="error-message">

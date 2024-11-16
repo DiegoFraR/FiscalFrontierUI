@@ -3,17 +3,21 @@
     <div class="col-12 col-md-6 col-lg-4 mx-auto">
       <h1>Login</h1>
 
-      <form #form="ngForm" (ngSubmit) = "onFormSubmit()">
+      <form #form="ngForm" (ngSubmit)="onFormSubmit()">
         <div class="mt-3">
           <label for="email" class="form-label">Email</label>
           <input type="text" class="form-control" id="email" name="email" 
-          [(ngModel)] = "model.email">
+          [(ngModel)]="model.email" required>
         </div>
 
         <div class="mt-3">
           <label for="password" class="form-label">Password</label>
           <input type="password" class="form-control" id="password" name="password"
-          [(ngModel)] ="model.password">
+          [(ngModel)]="model.password" required>
+        </div>
+
+        <div *ngIf="loginError" class="mt-3 mb-0 text-danger">
+          <strong>Your login credentials have not been created or activated. Please contact your system administrator.</strong>
         </div>
 
         <div class="mt-3 d-flex justify-content-between">
@@ -24,8 +28,6 @@
           <a [routerLink]="['/forgotPassword']">Forgot Password?</a>
         </div>
       </form>
-
     </div>
   </div>
-
 </div>

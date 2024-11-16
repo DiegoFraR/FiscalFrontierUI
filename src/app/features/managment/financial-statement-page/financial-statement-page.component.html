@@ -86,3 +86,8 @@
     <p>Select a report type and date range, then click "Generate Report" to view financial data.</p>
   </div>
 </div>
+<!-- Error Message for Failed Report Generation -->
+<div *ngIf="errorMessage" class="alert alert-danger">
+  <p>{{ errorMessage }}</p>
+</div>
+

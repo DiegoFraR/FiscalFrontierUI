@@ -8,12 +8,23 @@
   background-color: #ffffff;
 }
 
-
 h1 {
   text-align: center;
   font-size: 24px;
   color: black;
   margin-bottom: 20px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+}
+
+.d-flex button, .d-flex a {
+  margin-right: 20px; /* Add space between buttons */
 }
 
 .btn-primary {
@@ -23,7 +34,6 @@ h1 {
   padding: 10px 15px;
   border-radius: 4px;
   transition: background-color 0.3s;
-  margin-bottom: 20px;
 }
 
 .btn-primary:hover {
@@ -111,6 +121,18 @@ tr:hover {
   background-color: #2c3e50; 
   border-color: #233140; 
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.post-reference-btn {
+  width: 100%; /* Make the button span the entire cell */
+  background-color: #5bc0de; /* Soft blue color */
+  border-color: #5bc0de;
+  color: white;
+  text-align: center;
+}
+
+.post-reference-btn:hover {
+  background-color: #31b0d5; /* Slightly darker blue on hover */
 }
 
 .btn-primary:hover {

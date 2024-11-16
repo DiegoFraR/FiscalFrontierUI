@@ -1,5 +1,5 @@
 .navbar {
-    background: linear-gradient(rgba(39, 39, 39, 0.6), transparent); /* Transparent gradient background */
+    background: linear-gradient(rgba(39, 39, 39, 0.6), transparent); 
 }
 
 .search-box input{
@@ -32,14 +32,34 @@
     margin-right: 25%; 
 }
 .btn.btn-primary {
-  background-color: #3f51b5; /* Initial background color */
+  background-color: #3f51b5; 
   border-color: #3f51b5;
-  color: white; /* Optional: set the text color */
+  color: white; 
 }
 
 .btn.btn-primary:hover {
-  background-color: #5c6bc0; /* Change this to the hover color you want */
+  background-color: #5c6bc0; 
   border-color: #5c6bc0;
+}
+
+.navbar .nav-link {
+  color: black !important; 
+}
+
+
+.navbar .nav-link:hover {
+  color: black !important; 
+}
+
+
+.navbar .nav-link.active {
+  color: black !important; 
+}
+
+
+.navbar .dropdown-item:hover {
+  background-color: #e8eaf6; 
+  color: #3f51b5 !important;
 }
 
 

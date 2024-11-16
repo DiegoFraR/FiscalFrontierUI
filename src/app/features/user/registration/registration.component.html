@@ -9,7 +9,7 @@
         <input type="email"
         id="email"
         class="form-control"
-        name="email" [(ngModel)] = "model.email">
+        name="email" [(ngModel)]="model.email" required>
       </div>
       <!--Password-->
       <div class="mt-3">
@@ -22,7 +22,7 @@
         pattern="^(?=[a-zA-Z])(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
         class="form-control"
         autocomplete="off"
-        name="password" [(ngModel)] = "model.password">
+        name="password" [(ngModel)]="model.password" required>
       </div>
 
       <!--First Name-->
@@ -31,7 +31,7 @@
         <input type="text"
         id="firstName"
         class="form-control"
-        name="firstName" [(ngModel)] = "model.firstName">
+        name="firstName" [(ngModel)]="model.firstName" required>
       </div>
       <!--Last Name-->
       <div class="mt-3">
@@ -39,7 +39,7 @@
         <input type="text"
         id="lastName"
         class="form-control"
-        name="lastName" [(ngModel)] = "model.lastName">
+        name="lastName" [(ngModel)]="model.lastName" required>
       </div>
       <!--Address-->
       <div class="mt-3">
@@ -47,7 +47,7 @@
         <input type="text"
         id="address"
         class="form-control"
-        name="address" [(ngModel)] = "model.address">
+        name="address" [(ngModel)]="model.address" required>
       </div>
       <!--Date Of Birth-->
       <div class="mt-3">
@@ -55,12 +55,12 @@
         <input type="date"
         id="dateOfBirth"
         class="form-control"
-        name="dateOfBirth" [(ngModel)] = "model.dateOfBirth">
+        name="dateOfBirth" [(ngModel)]="model.dateOfBirth" required>
       </div>
       <!--Security Question One-->
       <div class="mt-3">
         <label class="form-label" for="securityQuestionOne">Security Question One</label>
-        <select id="securityQuestionOne" class="form-control" name="securityQuestionOne" [(ngModel)] = "model.securityQuestion1Id">
+        <select id="securityQuestionOne" class="form-control" name="securityQuestionOne" [(ngModel)]="model.securityQuestion1Id" required>
           <option value="" disabled>Select a Question</option>
           <option *ngFor="let securityQuestion of securityQuestions" [value]="securityQuestion.securityQuestionId">
             {{securityQuestion.securityQuestion}}
@@ -73,12 +73,12 @@
         <input type="text"
         id="securityQuestionOneAnswer"
         class="form-control"
-        name="securityQuestionOneAnswer" [(ngModel)] = "model.securityQuestion1Answer">
+        name="securityQuestionOneAnswer" [(ngModel)]="model.securityQuestion1Answer" required>
       </div>
       <!--Security Question #2-->
       <div class="mt-3">
-        <label class="form-label" for="securityQuestionOne">Security Question One</label>
-        <select id="securityQuestionOne" class="form-control" name="securityQuestionOne" [(ngModel)] = "model.securityQuestion2Id">
+        <label class="form-label" for="securityQuestionTwo">Security Question Two</label>
+        <select id="securityQuestionTwo" class="form-control" name="securityQuestionTwo" [(ngModel)]="model.securityQuestion2Id" required>
           <option value="" disabled>Select a Question</option>
           <option *ngFor="let securityQuestion of securityQuestions" [value]="securityQuestion.securityQuestionId">
             {{securityQuestion.securityQuestion}}
@@ -91,8 +91,13 @@
         <input type="text"
         id="securityQuestionTwoAnswer"
         class="form-control"
-        name="securityQuestionTwoAnswer" [(ngModel)] = "model.securityQuestion2Answer">
+        name="securityQuestionTwoAnswer" [(ngModel)]="model.securityQuestion2Answer" required>
       </div>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="formSubmitted && form.invalid" class="mt-3 text-danger">
+      <strong>You must complete all required fields (first name, last name, address, etc.) before submitting your request.</strong>
     </div>
 
     <div class="mt-3 d-flex">

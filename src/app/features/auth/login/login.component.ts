@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
   model: LoginRequest;
+  loginError: boolean = false;
 
   constructor(private authService: AuthService, private cookieService: CookieService,
     private router: Router) {
@@ -23,26 +24,34 @@ export class LoginComponent {
   }
 
   onFormSubmit(): void {
+    // Check if the form fields are empty
+    if (!this.model.email || !this.model.password) {
+      this.loginError = true;
+      return; // Prevent form submission
+    }
+
+    // Proceed with login if form is filled
     this.authService.login(this.model)
-    .subscribe({
-      next: (response) => {
-        //Set Auth Cookie
-        this.cookieService.set('Authorization', `Bearer ${response.token}`, 
-        undefined, '/', undefined, true, 'Strict');
+      .subscribe({
+        next: (response) => {
+          // Set Auth Cookie
+          this.cookieService.set('Authorization', `Bearer ${response.token}`, 
+          undefined, '/', undefined, true, 'Strict');
 
-        //Set User
-        this.authService.setUser({
-          email: response.email,
-          username: response.username,
-          userId: response.userId,
-          roles: response.roles
-        });
+          // Set User
+          this.authService.setUser({
+            email: response.email,
+            username: response.username,
+            userId: response.userId,
+            roles: response.roles
+          });
 
-        // Redirect back to Home Page
-        this.router.navigateByUrl('/');
-
-
-      }
-    });
+          // Redirect back to Home Page
+          this.router.navigateByUrl('/');
+        },
+        error: () => {
+          // Handle any login errors if necessary
+        }
+      });
   }
 }

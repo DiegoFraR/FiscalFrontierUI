@@ -85,6 +85,7 @@ const routes: Routes = [
     path: 'accountant/account-ledger/:accountId',
     component: AccountLedgerComponent
   },
+  { path: 'account-ledger', component: AccountLedgerComponent },
   {
     path: 'accountant/journal-entries',
     component: JournalEntriesComponent
