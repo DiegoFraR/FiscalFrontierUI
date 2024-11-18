@@ -1,103 +1,98 @@
-/* General container styles */
 .container {
   margin-top: 30px;
   padding: 20px;
-  background-color: #ffffff; /* Added background color for contrast */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Title styles */
 .container h1 {
   text-align: center;
-  font-size: 32px; /* Increased font size */
-  font-weight: 700; /* Bolder font weight */
+  font-size: 32px;
+  font-weight: bold;
   margin-bottom: 20px;
-  color: #2c3e50; /* Darker color for better readability */
+  color: #2c3e50;
 }
 
-/* Search box styling */
 .search-box {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-  flex-wrap: wrap; /* Allows wrapping for smaller screens */
+  flex-wrap: wrap;
 }
 
 .search-box label {
   font-size: 16px;
-  margin-right: 10px; /* Space between label and input */
-  color: #34495e; /* Slightly lighter than the title */
+  margin-right: 10px;
+  color: #34495e;
 }
 
 .search-box input {
-  width: 250px; /* Adjusted width for better proportion */
+  width: 250px;
   padding: 12px;
   font-size: 16px;
-  border: 1px solid #bdc3c7; /* Light border color */
+  border: 1px solid #bdc3c7;
   border-radius: 4px;
   margin-right: 10px;
-  transition: border-color 0.3s ease; /* Smooth transition */
+  transition: border-color 0.3s ease;
 }
 
 .search-box input:focus {
-  border-color: #3f51b5; /* Highlight border on focus */
-  outline: none; /* Remove default outline */
+  border-color: #3f51b5;
+  outline: none;
 }
 
 .search-box button {
-  padding: 12px 20px; /* Adjusted padding */
+  padding: 12px 20px;
   font-size: 16px;
-  background-color: #3f51b5; /* Primary color */
+  background-color: #3f51b5;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform */
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .search-box button:hover {
-  background-color: #344395; /* Darker on hover */
-  transform: translateY(-2px); /* Lift effect */
+  background-color: #344395;
+  transform: translateY(-2px);
 }
 
-/* Table styling */
 table {
   width: 100%;
   margin-top: 20px;
   border-collapse: collapse;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff; /* White background for table */
-  border-radius: 8px; /* Rounded corners */
-  overflow: hidden; /* Ensures rounded corners are effective */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-table th, table td {
+table th,
+table td {
   padding: 15px;
   text-align: center;
   font-size: 16px;
-  border: 1px solid #ddd; /* Light border for table cells */
+  border: 1px solid #ddd;
   vertical-align: middle;
 }
 
 table thead th {
-  background-color: #3f51b5; 
+  background-color: #3f51b5;
   color: white;
   font-weight: bold;
   text-transform: uppercase;
 }
 
 table tbody tr:hover {
-  background-color: #f1f1f1; /* Light gray on hover */
+  background-color: #f1f1f1;
 }
 
-/* Empty results row */
 table tbody tr td.text-center {
   font-style: italic;
   color: #999;
 }
 
-/* Responsive styling for smaller screens */
 @media (max-width: 768px) {
   table, thead, tbody, th, td, tr {
     display: block;
@@ -112,7 +107,7 @@ table tbody tr td.text-center {
     margin-bottom: 15px;
     display: block;
     padding: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
   table tbody td {
@@ -126,6 +121,6 @@ table tbody tr td.text-center {
     font-weight: bold;
     flex: 1;
     text-align: left;
-    color: #34495e; /* Darker color for better readability */
+    color: #34495e;
   }
 }

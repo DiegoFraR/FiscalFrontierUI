@@ -1,158 +1,101 @@
-/* General container styling */
 .container {
-    margin-top: 30px;
     padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.container h1 {
-    text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* Nav tabs styling */
-.nav-tabs {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.nav-tabs .nav-link {
-    color: black;
-    font-weight: bold;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    margin: 0 5px;
-    padding: 10px 15px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.nav-tabs .nav-link.active {
-    background-color: #3f51b5;
-    color: white !important;
-    border-color: #3f51b5;
-}
-
-.nav-tabs .nav-link:hover {
-    color: #3f51b5;
-    background-color: #e8eaf6;
-    border-color: #3f51b5;
-}
-
-/* Search box styling */
-.search-box {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    gap: 10px;
-}
-
-.search-box input, .search-box select {
-    width: 250px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.search-box button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #3f51b5;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.search-box button:hover {
-    background-color: #344395;
-}
-
-/* Table styling */
-table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
     background-color: #f9f9f9;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    overflow: hidden;
-}
-
-table th, table td {
-    padding: 15px 20px;
-    text-align: center;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    vertical-align: middle;
-}
-
-table thead th {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .nav-tabs {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  .nav-tabs .nav-item {
+    margin-right: 10px;
+  }
+  
+  .nav-tabs .nav-link {
+    color: #3f51b5;
+    border-radius: 4px;
+    padding: 10px 15px;
+    text-decoration: none;
+  }
+  
+  .nav-tabs .nav-link.active {
     background-color: #3f51b5;
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-table tbody tr:hover {
-    background-color: #f1f1f1;
-}
-
-table tbody tr td.text-center {
-    font-style: italic;
-    color: #999;
-}
-
-/* Responsive styling for smaller screens */
-@media (max-width: 768px) {
-    table, thead, tbody, th, td, tr {
-        display: block;
-        width: 100%;
-    }
-
-    table thead {
-        display: none;
-    }
-
-    table tbody tr {
-        margin-bottom: 15px;
-        display: block;
-        padding: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    table tbody td {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-    }
-
-    table tbody td:before {
-        content: attr(data-label);
-        font-weight: bold;
-        flex: 1;
-        text-align: left;
-    }
-}
-
-/* Padding around the table */
-.container .table-container {
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-.btn-primary{
-    background-color: #3f51b5;
-    border-color: #3f51b5;
     color: white;
     border: none;
-    font-size: 16px;
-}
+  }
+  
+  .search-box {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .search-box label {
+    font-weight: bold;
+    color: #555;
+    margin-right: 10px;
+  }
+  
+  .search-box input {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 1rem;
+    flex-grow: 1;
+  }
+  
+  .table {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .table thead th {
+    background-color: #3f51b5;
+    color: #fff;
+    text-align: left;
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  .table tbody td {
+    padding: 10px;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f4f4f4;
+  }
+  
+  td.status-approved {
+    color: green;
+    font-weight: bold;
+  }
+  
+  td.status-rejected {
+    color: red;
+    font-weight: bold;
+  }
+  
+  td.status-pending {
+    color: orange;
+    font-weight: bold;
+  }
+  
+  .nav-tabs .nav-link:hover {
+    background-color: #e0e0e0;
+    color: #333;
+  }
+  

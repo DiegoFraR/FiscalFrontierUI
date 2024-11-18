@@ -29,7 +29,9 @@
     color: white;
   }
   .custom-margin {
-    margin-right: 25%; 
+    margin-right: 35%; 
+    position: relative;
+  top: -100px;
 }
 .btn.btn-primary {
   background-color: #3f51b5; 
@@ -61,5 +63,6 @@
   background-color: #e8eaf6; 
   color: #3f51b5 !important;
 }
+
 
 

@@ -35,8 +35,10 @@
       <td>{{ entry.creditTotal | currency}}</td>
       <td>Pending</td>
       <td>
-        <button class="btn btn-secondary" (click)="approveEntry(entry.journalEntryId)">Approve</button>
-        <button class="btn btn-secondary" (click)="submitRejection(entry.journalEntryId)">Reject</button>
+        <div class="button-container">
+          <button class="btn btn-secondary" (click)="approveEntry(entry.journalEntryId)">Approve</button>
+          <button class="btn btn-secondary" (click)="submitRejection(entry.journalEntryId)">Reject</button>
+        </div>
       </td>
     </tr>
   </tbody>
