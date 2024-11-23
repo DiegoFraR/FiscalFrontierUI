@@ -127,5 +127,9 @@ td .btn {
   .btn-secondary:hover {
     background-color: #2c387e;
   }
+  td.status-pending {
+    color: #f39c12 !important;
+    font-weight: bold;
+  }
   
   

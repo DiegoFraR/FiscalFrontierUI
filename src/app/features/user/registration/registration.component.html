@@ -17,12 +17,24 @@
         <br>
         <small class="fw-bold">Password must be 8 characters long, start with a letter, have a number, and a special character.</small>
         <input type="password"
-        id="password"
-        minlength="8"
-        pattern="^(?=[a-zA-Z])(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-        class="form-control"
-        autocomplete="off"
-        name="password" [(ngModel)]="model.password" required>
+          id="password"
+          minlength="8"
+          pattern="^(?=[a-zA-Z])(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+          class="form-control"
+          autocomplete="off"
+          name="password" [(ngModel)]="model.password" required #password="ngModel">
+        <!-- Password Error Message -->
+        <div *ngIf="password.touched && password.invalid" class="text-danger">
+          <div *ngIf="password.errors?.['required']">
+            Password is required.
+          </div>
+          <div *ngIf="password.errors?.['minlength']">
+            Password must be at least 8 characters long.
+          </div>
+          <div *ngIf="password.errors?.['pattern']">
+            Password must start with a letter, include at least one Capital letter, one number, and one special character.
+          </div>
+        </div>
       </div>
 
       <!--First Name-->

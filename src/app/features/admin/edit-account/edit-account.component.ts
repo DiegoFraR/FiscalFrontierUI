@@ -19,6 +19,8 @@ export class EditAccountComponent implements OnInit, OnDestroy {
   editChartOfAccountSubscription?: Subscription;
   chartOfAccount?: ChartOfAccount;
   editAccountModel: EditChartOfAccount;
+  errorMessage: string | null = null;
+
 
 
   constructor(private route: ActivatedRoute,
@@ -36,6 +38,7 @@ export class EditAccountComponent implements OnInit, OnDestroy {
       accountCredit: 0,
       accountDebit: 0,
       accountOrder: 0
+      
     }
   }
 
@@ -104,28 +107,51 @@ export class EditAccountComponent implements OnInit, OnDestroy {
   }
 
   onDeactivate(): void {
-    if(this.id){
+    this.errorMessage = null; // Clear error message before attempting deactivation
+    if (this.id) {
       this.chartOfAccountService.deactivateAccount(this.convertIdToNumber())
-      .subscribe({
-        next: (response) =>{
-          console.log('Account deactivated successfully', response);
-          this.router.navigateByUrl('/view-chart-of-account');
-        },
-        error: (err) => {
-          console.error('Error deactivating account', err); // Debug log
-        }
-      });
+        .subscribe({
+          next: (response) => {
+            console.log('Account deactivated successfully', response);
+            this.router.navigateByUrl('/view-chart-of-account');
+          },
+          error: (err) => {
+            console.error('Error deactivating account', err); // Debug log
+            // Check for specific error message
+            if (err?.error?.errorMessage === "Account Balance must be 0 to DeActivate an Account!") {
+              this.errorMessage = "Account Balance must be 0 to DeActivate an Account!";
+            } else {
+              this.errorMessage = "Account Balance must be $0 to DeActivate an Account!";
+              console.error(err);
+            }
+            
+          }
+        });
     }
   }
 
   onActivate(): void {
     if(this.id){
       this.chartOfAccountService.activateAccount(this.convertIdToNumber())
-      .subscribe({
-        next: (response) => {
-          this.router.navigateByUrl('/view-chart-of-account');
-        }
-      });
+        .subscribe({
+          next: (response) => {
+            this.router.navigateByUrl('/view-chart-of-account');
+          },
+          error: (err) => {
+            console.error('Error activating account', err); // Debug log
+  
+            // Check for specific error message returned from backend
+            if (err?.error?.errorMessage === "Im never reached, If i am call IT") {
+              this.errorMessage = "Im never reached, If i am call IT";
+            } else {
+              // Fallback error message
+              this.errorMessage = "An unexpected error occurred while activating the account.";
+              console.error(err);
+            }
+          }
+        });
     }
   }
+  
+  
 }

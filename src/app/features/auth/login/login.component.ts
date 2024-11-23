@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
   model: LoginRequest;
-  loginError: boolean = false;
+  loginError: string | null = null; // Store the error message
 
   constructor(private authService: AuthService, private cookieService: CookieService,
     private router: Router) {
@@ -24,9 +24,12 @@ export class LoginComponent {
   }
 
   onFormSubmit(): void {
+    // Clear any previous errors
+    this.loginError = null;
+
     // Check if the form fields are empty
     if (!this.model.email || !this.model.password) {
-      this.loginError = true;
+      this.loginError = 'Please enter both email and password.';
       return; // Prevent form submission
     }
 
@@ -49,8 +52,13 @@ export class LoginComponent {
           // Redirect back to Home Page
           this.router.navigateByUrl('/');
         },
-        error: () => {
-          // Handle any login errors if necessary
+        error: (err) => {
+          // Handle invalid login credentials error
+          if (err.status === 401 || err.status === 400) {
+            this.loginError = 'Invalid email or password. Please try again.';
+          } else {
+            this.loginError = 'Invalid email or password. Please try again.';
+          }
         }
       });
   }

@@ -16,6 +16,10 @@
     <button (click)="searchAccounts()">Search</button>
   </div>
 
+  <div *ngIf="noAccountsFound" class="alert alert-danger mt-3">
+    Account Not Found!
+  </div>
+
   <ng-container *ngIf="filteredAccounts?.length; else noAccounts">
     <table class="table table-bordered table-hover mt-4">
       <thead>
@@ -74,7 +78,7 @@
         </tr>
       </thead>
       <tbody>
-        <td colspan="8" class="text-center">No accounts found.</td>
+       
       </tbody>
     </table>
   </ng-template>
@@ -111,6 +115,9 @@ style="display: block;">;
           <div class="form-group">
             <label for="body">Message</label>
             <textarea class="form-control" id="body" [(ngModel)]="sendEmailObject.Message" name="body" rows="4" required></textarea>
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+            {{ errorMessage }}
           </div>
           <button type="submit" class="btn btn-primary" style="background-color: #3f51b5; border-color: #3f51b5;">Send</button>
           <button type="button" class="btn btn-secondary" (click)="closeEmailModal()" style="background-color: red; border-color: red">Cancel</button>

@@ -16,12 +16,9 @@ export class ViewChartOfAccountComponent implements OnInit {
   chartOfAccounts?: ChartOfAccount[];
   journalEntries: any[] = [];
   sendEmailObject: SendEmail;
-
-  // Modal state and email data model
   isModalOpen: boolean = false;
-
-
-
+  errorMessage: string = ''; // Error message for validation or server issues
+  noAccountsFound: boolean = false;
   constructor(private chartOfAccountService: ChartOfAccountService, private router: Router) {
     this.sendEmailObject = {
       Subject: '',
@@ -34,12 +31,11 @@ export class ViewChartOfAccountComponent implements OnInit {
     this.loadAccounts();
   }
 
-  // Method to load all accounts
   loadAccounts() {
     this.chartOfAccountService.getAllAccounts().subscribe({
       next: (response) => {
         this.chartOfAccounts = response;
-        this.filteredAccounts = this.chartOfAccounts; // Initially, show all accounts
+        this.filteredAccounts = this.chartOfAccounts;
       },
       error: (error) => {
         console.error('Error loading accounts:', error);
@@ -47,49 +43,58 @@ export class ViewChartOfAccountComponent implements OnInit {
     });
   }
 
-  // Method to check if user is an Admin
   isAdmin(): boolean {
     const roles = localStorage.getItem('user-roles');
     return roles ? roles.split(',').includes('Administrator') : false;
   }
 
-  // Method to search and filter accounts
   searchAccounts() {
     const query = this.searchQuery.toLowerCase();
     this.filteredAccounts = this.chartOfAccounts?.filter(account => 
       account.accountNumber.toString().includes(query) ||
       account.accountName.toLowerCase().includes(query)
     );
+    if(this.filteredAccounts?.length === 0){
+      this.noAccountsFound = true;
+    }else{
+      this.noAccountsFound = false;
+    }
+
   }
 
-  // Method to convert account ID to string
   convertAccountIdToString(accountId: number) {
     return accountId.toString();
   }
 
-  // Open the email modal
   openEmailModal(account: any) {
     this.isModalOpen = true;
   }
 
-  // Close the email modal
   closeEmailModal() {
     this.isModalOpen = false;
   }
+
   sendEmail(): void {
-  
+    // Check if the recipient (Role) field is empty
+    if (!this.sendEmailObject.Role) {
+      this.errorMessage = 'Please select a recipient before sending the email.'; // Set error message if Role is empty
+      return; // Prevent sending the email if Role is empty
+    }
+
     this.chartOfAccountService.sendEmail(this.sendEmailObject).subscribe({
       next: (response) => {
         console.log('Email sent successfully:', response);
-        this.closeEmailModal(); // Close the modal after email is sent
+        this.closeEmailModal();
+        this.errorMessage = ''; // Clear error message if email sent successfully
       },
       error: (error) => {
         console.error('Error sending email:', error);
+        this.errorMessage = 'Unable to send email. Please ensure the email address is valid and try again.'; // Set error message on failure
       }
     });
   }
-   // Method to fetch journal entries for a specific account
-   loadJournalEntries(accountId: number) {
+
+  loadJournalEntries(accountId: number) {
     this.chartOfAccountService.getJournalEntriesByAccountId(accountId).subscribe({
       next: (entries) => {
         this.journalEntries = entries;
@@ -101,11 +106,8 @@ export class ViewChartOfAccountComponent implements OnInit {
     });
   }
 
-  // Method to navigate to the ledger page with the account ID
   goToLedger(accountId: number) {
-    this.loadJournalEntries(accountId); // Load journal entries before navigating
+    this.loadJournalEntries(accountId);
     this.router.navigate(['/accountant/account-ledger', accountId]);
   }
 }
-  
-

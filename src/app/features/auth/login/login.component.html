@@ -7,17 +7,18 @@
         <div class="mt-3">
           <label for="email" class="form-label">Email</label>
           <input type="text" class="form-control" id="email" name="email" 
-          [(ngModel)]="model.email" required>
+            [(ngModel)]="model.email" required>
         </div>
 
         <div class="mt-3">
           <label for="password" class="form-label">Password</label>
           <input type="password" class="form-control" id="password" name="password"
-          [(ngModel)]="model.password" required>
+            [(ngModel)]="model.password" required>
         </div>
 
+        <!-- Display error message if loginError is set -->
         <div *ngIf="loginError" class="mt-3 mb-0 text-danger">
-          <strong>Your login credentials have not been created or activated. Please contact your system administrator.</strong>
+          <strong>{{ loginError }}</strong>
         </div>
 
         <div class="mt-3 d-flex justify-content-between">

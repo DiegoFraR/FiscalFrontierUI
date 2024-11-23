@@ -33,7 +33,7 @@
       <td>{{ entry.chartOfAccountId }}</td>
       <td>{{ entry.debitTotal | currency }}</td>
       <td>{{ entry.creditTotal | currency}}</td>
-      <td>Pending</td>
+      <td class="status-pending">Pending</td>
       <td>
         <div class="button-container">
           <button class="btn btn-secondary" (click)="approveEntry(entry.journalEntryId)">Approve</button>

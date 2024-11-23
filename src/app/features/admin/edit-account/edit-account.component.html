@@ -123,24 +123,37 @@
       <p>Current Account Comment: {{chartOfAccount.accountComment}}</p>
       <textarea class="form-control" id="accountComment" name="accountComment" [(ngModel)]="editAccountModel.accountComment"></textarea>
     </div>
-</div>
-    <!-- Save Changes Button -->
-    <button type="submit" class="btn btn-primary" style="background-color: #3f51b5; border-color: #3f51b5;">Save Changes</button>
-    <ng-container *ngIf="isActive === true;else notActive">
-      <button type="button" class="btn btn-danger ms-3" (click)="onDeactivate()">
-        Deactivate Account
-      </button>  
-    </ng-container>
-
-    <ng-template #notActive>
-      <button type="button" class="btn btn-success ms-3" (click)="onActivate()">
-        Activate
-      </button>
-    </ng-template>
-
+  </div>
+  <!-- Save Changes Button -->
+  <button type="submit" class="btn btn-primary" style="background-color: #3f51b5; border-color: #3f51b5;">Save Changes</button>
+  
+  <!-- Deactivate/Activate Button -->
+  <ng-container *ngIf="isActive === true; else notActive">
+    <button type="button" class="btn btn-danger ms-3" (click)="onDeactivate()">
+      Deactivate Account
+    </button>  
+  
+    <!-- Error message for Deactivate -->
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  </ng-container>
+  
+  <ng-template #notActive>
+    <button type="button" class="btn btn-success ms-3" (click)="onActivate()">
+      Activate
+    </button>
+  
+    <!-- Error message for Activate (if needed in the future) -->
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div> 
+  </ng-template>
+  
   </form>
-</ng-container>
-</div>
+  </ng-container>
+  </div>
+  
 
 <ng-template #notFound>
   <div class="alert alert-warning" role="alert">

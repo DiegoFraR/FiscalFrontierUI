@@ -10,15 +10,15 @@ import { DetailedJournalEntry } from '../../admin/models/DetailedJournalEntry';
   styleUrls: ['./journal-entries.component.css']
 })
 export class JournalEntriesComponent implements OnInit {
-  entries?: DetailedJournalEntry[];
+  entries?: DetailedJournalEntry[] = [];
   filteredEntries: DetailedJournalEntry[] = [];
   selectedStatus: string = 'all';
-  createOn: string='';
-  updateOn: string='';
-  searchTerm: string='';
+  createOn: string = '';
+  updateOn: string = '';
+  searchTerm: string = '';
   totalDebitValue: number = 0;
   totalCrebitValue: number = 0;
-  
+  noResultsFound: boolean = false; // Flag to show "Account not found!"
 
   constructor(private journalEntryService: JournalEntryService) {}
 
@@ -39,12 +39,11 @@ export class JournalEntriesComponent implements OnInit {
       return;
     }
   
-    // Map the selected status to the actual API values
     const statusMapping: { [key: string]: string } = {
       all: '',
       approved: 'approved',
       pending: 'pending',
-      rejected: 'denied' // Map 'rejected' to 'denied'
+      rejected: 'denied'
     };
   
     const normalizedStatus = statusMapping[this.selectedStatus.toLowerCase()];
@@ -56,22 +55,18 @@ export class JournalEntriesComponent implements OnInit {
   
       return statusMatches;
     });
-  
-    console.log('Filtered Entries:', this.filteredEntries);
   }
+
   filterByStatus(): void {
-    console.log('Selected Status:', this.selectedStatus);
-    console.log('All Entries:', this.entries);
-  
     this.applyAllFilters();
   }
 
   filterByDate(): void {
-    if (this. createOn && this.updateOn && this.entries) {
-      const startDate = new Date(this. createOn);
+    if (this.createOn && this.updateOn && this.entries) {
+      const startDate = new Date(this.createOn);
       const endDate = new Date(this.updateOn);
       this.filteredEntries = this.entries.filter(entry => {
-        const entryDate = new Date(entry.createdOn); // Assuming entries have a 'date' field
+        const entryDate = new Date(entry.createdOn);
         return entryDate >= startDate && entryDate <= endDate;
       });
     }
@@ -80,13 +75,16 @@ export class JournalEntriesComponent implements OnInit {
   searchJournal(): void {
     const query = this.searchTerm.toLowerCase();
 
-  this.filteredEntries = this.entries?.filter(entry => 
-    entry.chartOfAccountId.toString().includes(query) || // Search by account ID
-    entry.journalEntryDescription.toLowerCase().includes(query) || // Search by description
-    entry.totalDebitValue.toString().includes(query) || // Search by debit amount
-    entry.totalCrebitValue.toString().includes(query) || // Search by credit amount
-    new Date(entry.createdOn).toLocaleDateString().includes(query) // Search by date
-  ) || [];
-}
+    this.filteredEntries = this.entries?.filter(entry =>
+      entry.chartOfAccountId.toString().includes(query) ||
+      entry.journalEntryDescription.toLowerCase().includes(query) ||
+      entry.totalDebitValue.toString().includes(query) ||
+      entry.totalCrebitValue.toString().includes(query) ||
+      new Date(entry.createdOn).toLocaleDateString().includes(query)
+    ) || [];
+
+    // Check if no entries matched the search term
+    this.noResultsFound = this.filteredEntries.length === 0;
+  }
 }
 

@@ -1,49 +1,60 @@
-
 <div class="container">
-<h1>Journal Entries</h1>
+  <h1>Journal Entries</h1>
 
-<div class="search-box">
-  <label>Filter by Status</label>
-  <select [(ngModel)]="selectedStatus" (change)="filterByStatus()">
-    <option value="all">All</option>
-    <option value="pending">Pending</option>
-    <option value="approved">Approved</option>
-    <option value="rejected">Rejected</option>
-  </select>
-</div>
+  <div class="search-box">
+    <label>Filter by Status</label>
+    <select [(ngModel)]="selectedStatus" (change)="filterByStatus()">
+      <option value="all">All</option>
+      <option value="pending">Pending</option>
+      <option value="approved">Approved</option>
+      <option value="rejected">Rejected</option>
+    </select>
+  </div>
 
-<div class="search-box">
-  <label>Filter by Date</label>
-  <input type="date" [(ngModel)]="createOn" (change)="filterByDate()" />
-  <input type="date" [(ngModel)]="updateOn" (change)="filterByDate()" />
-</div>
+  <div class="search-box">
+    <label>Filter by Date</label>
+    <input type="date" [(ngModel)]="createOn" (change)="filterByDate()" />
+    <input type="date" [(ngModel)]="updateOn" (change)="filterByDate()" />
+  </div>
 
-<div class="search-box" >
-  <label>Search Journal</label>
-  <input type="text" [(ngModel)]="searchTerm" (input)="searchJournal()" placeholder="Account Name, Amount, or Date" />
-</div>
-<ng-container *ngIf="entries"> 
-<table class="table table-bordered table-hover mt-4">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Account Name</th>
-      <th>Debit</th>
-      <th>Credit</th>
-      <th>Status</th>
-      <th>Reason (if rejected)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let entry of filteredEntries">
-      <td>{{ entry.createdOn | date: 'short' }}</td>
-      <td>{{ entry.chartOfAccountId }}</td>
-      <td>{{ entry.totalDebitValue | currency}}</td>
-      <td>{{ entry.totalCrebitValue | currency}}</td>
-      <td>{{ entry.journalEntryStatus }}</td>
-      <td>{{entry.journalEntryRejectionReasoning || 'N/A' }}</td>
-    </tr>
-  </tbody>
-</table>
-</ng-container>
+  <div class="search-box">
+    <label>Search Journal</label>
+    <input type="text" [(ngModel)]="searchTerm" (input)="searchJournal()" placeholder="Account Name, Amount, or Date" />
+  </div>
+
+  <!-- Error message for no matching results -->
+  <div *ngIf="noResultsFound" class="error-message">
+    <p>Account not found!</p>
+  </div>
+
+  <ng-container *ngIf="entries">
+    <table class="table table-bordered table-hover mt-4">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Account Name</th>
+          <th>Debit</th>
+          <th>Credit</th>
+          <th>Status</th>
+          <th>Reason (if rejected)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of filteredEntries">
+          <td>{{ entry.createdOn | date: 'short' }}</td>
+          <td>{{ entry.chartOfAccountId }}</td>
+          <td>{{ entry.totalDebitValue | currency}}</td>
+          <td>{{ entry.totalCrebitValue | currency}}</td>
+          <td [ngClass]="{
+              'status-pending': entry.journalEntryStatus === 'pending',
+              'status-approved': entry.journalEntryStatus === 'approved',
+              'status-denied': entry.journalEntryStatus === 'rejected'
+            }">
+            {{ entry.journalEntryStatus }}
+          </td>
+          <td>{{ entry.journalEntryRejectionReasoning || 'N/A' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
 </div>
