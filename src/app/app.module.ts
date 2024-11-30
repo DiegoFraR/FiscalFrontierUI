@@ -35,6 +35,8 @@ import { RejectedJournalEntryComponent } from './features/managment/rejected-jou
 import { AdjustingJournalEntryComponent } from './features/managment/adjusting-journal-entry/adjusting-journal-entry.component';
 import { CreateAdjustingJournalEntryComponent } from './features/accountant/create-adjusting-journal-entry/create-adjusting-journal-entry.component';
 import { DashboardComponent } from './features/home/dash-board/dash-board.component';
+import { EnterNewPasswordComponent } from './auth/enter-new-password/enter-new-password.component';
+
 
 @NgModule({
   declarations: [
@@ -68,6 +70,8 @@ import { DashboardComponent } from './features/home/dash-board/dash-board.compon
     AdjustingJournalEntryComponent,
     CreateAdjustingJournalEntryComponent,
     DashboardComponent,
+    EnterNewPasswordComponent,
+    
    
   ],
   imports: [

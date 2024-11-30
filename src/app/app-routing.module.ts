@@ -29,6 +29,7 @@ import { FinancialStatementPageComponent } from './features/managment/financial-
 import { CreateAdjustingJournalEntryComponent } from './features/accountant/create-adjusting-journal-entry/create-adjusting-journal-entry.component';
 import { AdjustingJournalEntryComponent } from './features/managment/adjusting-journal-entry/adjusting-journal-entry.component';
 import { DashboardComponent } from './features/home/dash-board/dash-board.component';
+import { EnterNewPasswordComponent } from './features/auth/enter-new-password/enter-new-password.component';
 const routes: Routes = [
   {
     path: 'login',
@@ -56,6 +57,9 @@ const routes: Routes = [
     },
     ]
   },
+  { path: 'enter-new-password', 
+    component: EnterNewPasswordComponent },
+
   
   {
     path: 'financial-statement',
