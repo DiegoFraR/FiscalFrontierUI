@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashBoardComponent } from './dash-board.component';
+import { DashboardComponent } from './dash-board.component';
 
 describe('DashBoardComponent', () => {
-  let component: DashBoardComponent;
-  let fixture: ComponentFixture<DashBoardComponent>;
+  let component: DashboardComponent;
+  let fixture: ComponentFixture<DashboardComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DashBoardComponent]
+      declarations: [DashboardComponent]
     });
-    fixture = TestBed.createComponent(DashBoardComponent);
+    fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

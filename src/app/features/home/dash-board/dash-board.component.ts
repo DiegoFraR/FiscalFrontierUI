@@ -24,6 +24,17 @@ export class DashboardComponent implements OnInit {
     this.fetchDashboardData();
   }
 
+  getCardClass(value: number | null | undefined): string {
+    if (value === null || value === undefined) {
+      return ''; // Default or loading state
+    } else if (value >= 70) {
+      return 'good'; // Green
+    } else if (value >= 50) {
+      return 'average'; // Yellow
+    } else {
+      return 'poor'; // Red
+    }
+  }
   fetchDashboardData(): void {
     // Fetching data from the service
     this.serviceService.getAssetTurnover().subscribe((data) => {

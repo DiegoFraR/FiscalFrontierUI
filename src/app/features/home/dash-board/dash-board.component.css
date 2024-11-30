@@ -93,3 +93,23 @@
         padding: 20px 10px; 
     }
 }
+.dashboard-card p.good {
+    color: #28a745; /* Green for good values */
+    font-weight: bold;
+  }
+  
+  .dashboard-card p.average {
+    color: #ffc107; /* Yellow for average values */
+    font-weight: bold;
+  }
+  
+  .dashboard-card p.poor {
+    color: #dc3545; /* Red for poor values */
+    font-weight: bold;
+  }
+  
+  /* Optional: Add transitions for smooth changes */
+  .dashboard-card {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  

@@ -35,9 +35,7 @@ import { RejectedJournalEntryComponent } from './features/managment/rejected-jou
 import { AdjustingJournalEntryComponent } from './features/managment/adjusting-journal-entry/adjusting-journal-entry.component';
 import { CreateAdjustingJournalEntryComponent } from './features/accountant/create-adjusting-journal-entry/create-adjusting-journal-entry.component';
 import { DashboardComponent } from './features/home/dash-board/dash-board.component';
-import { EnterNewPasswordComponent } from './auth/enter-new-password/enter-new-password.component';
-
-
+import { EnterNewPasswordComponent } from './features/auth/enter-new-password/enter-new-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,9 +68,8 @@ import { EnterNewPasswordComponent } from './auth/enter-new-password/enter-new-p
     AdjustingJournalEntryComponent,
     CreateAdjustingJournalEntryComponent,
     DashboardComponent,
-    EnterNewPasswordComponent,
+    EnterNewPasswordComponent
     
-   
   ],
   imports: [
     BrowserModule,

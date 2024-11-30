@@ -12,44 +12,43 @@
     </div>
   
     <!-- Dashboard content -->
-    <div *ngIf="!isLoading && !errorMessage" class="dashboard-content">
+    <div *ngIf="!isLoading && !errorMessage" class="dashboard-content"  >
       <div class="dashboard-row mb-2">
-        <div class="dashboard-card">
+        <div class="dashboard-card" >
           <h2>Asset Turnover</h2>
           <p *ngIf="assetTurnover === null">Loading...</p>
-          <p *ngIf="assetTurnover !== null">{{ assetTurnover ? assetTurnover + '%' : 'No data' }}</p>
+          <p *ngIf="assetTurnover !== null" [ngClass]="getCardClass(assetTurnover)">{{ assetTurnover ? assetTurnover + '%' : 'No data' }}</p>
         </div>
   
         <div class="dashboard-card">
           <h2>Current Ratio</h2>
           <p *ngIf="currentRatio === null">Loading...</p>
-          <p *ngIf="currentRatio !== null">{{ currentRatio ? currentRatio + '%' : 'No data' }}</p>
+          <p *ngIf="currentRatio !== null"  [ngClass]="getCardClass(currentRatio)">{{ currentRatio ? currentRatio + '%' : 'No data' }}</p>
         </div>
   
-        <div class="dashboard-card">
+        <div class="dashboard-card" >
           <h2>Net Profit</h2>
           <p *ngIf="netProfit === null">Loading...</p>
-          <p *ngIf="netProfit !== null">{{ netProfit ? netProfit + '%' : 'No data' }}</p>
+          <p *ngIf="netProfit !== null" [ngClass]="getCardClass(netProfit)">{{ netProfit ? netProfit + '%' : 'No data' }}</p>
         </div>
       </div>
   
-      <div class="dashboard-row">
-        <div class="dashboard-card">
+      <div class="dashboard-row" >
+        <div class="dashboard-card" >
           <h2>Quick Ratio</h2>
           <p *ngIf="quickRatio === null">Loading...</p>
-          <p *ngIf="quickRatio !== null">{{ quickRatio ? quickRatio + '%' : 'No data' }}</p>
+          <p *ngIf="quickRatio !== null" [ngClass]="getCardClass(quickRatio)">{{ quickRatio ? quickRatio + '%' : 'No data' }}</p>
         </div>
   
-        <div class="dashboard-card">
+        <div class="dashboard-card" >
           <h2>Return on Assets</h2>
           <p *ngIf="returnOnAssets === null">Loading...</p>
-          <p *ngIf="returnOnAssets !== null">{{ returnOnAssets ? returnOnAssets + '%' : 'No data' }}</p>
+          <p *ngIf="returnOnAssets !== null" [ngClass]="getCardClass(returnOnAssets)">{{ returnOnAssets ? returnOnAssets + '%' : 'No data' }}</p>
         </div>
-  
-        <div class="dashboard-card">
+        <div class="dashboard-card" >
           <h2>Return on Equity</h2>
           <p *ngIf="returnOnEquity === null">Loading...</p>
-          <p *ngIf="returnOnEquity !== null">{{ returnOnEquity ? returnOnEquity + '%' : 'No data' }}</p>
+          <p *ngIf="returnOnEquity !== null" [ngClass]="getCardClass(returnOnEquity)">{{ returnOnEquity ? returnOnEquity + '%' : 'No data' }}</p>
         </div>
       </div>
     </div>
