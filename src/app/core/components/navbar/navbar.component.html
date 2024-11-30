@@ -20,14 +20,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Change the Home link to Dashboard if logged in -->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" [routerLink]="['']"
-            >Home</a
-          >
+          <a class="nav-link active" aria-current="page" [routerLink]="user ? '/dashboard' : ''">
+            {{ user ? 'Dashboard' : 'Home' }}
+          </a>
         </li>
         
         <ng-container *ngIf="user?.roles?.includes('Administrator') || user?.roles?.includes('Manager') || user?.roles?.includes('Accountant')">
-          
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -46,7 +46,7 @@
                   >Add Account</a>
               </li>
             </ng-container>
-            <!------------Show basic view of Managers and Accountants----------->
+            <!------------Show basic view of Managers and Accountants---------->
             <ng-container *ngIf="user?.roles?.includes('Manager') || user?.roles?.includes('Accountant')">
               <li>
                 <a class="dropdown-item" [routerLink]="['/view-chart-of-account']" 
@@ -63,7 +63,7 @@
             </ul>
           </li>
         </ng-container>
-        <!----------------------Account Ledger---------->
+        <!--Account Ledger-->
         <ng-container *ngIf="user?.roles?.includes('Administrator') || user?.roles?.includes('Manager') || user?.roles?.includes('Accountant')">
           
           <li class="nav-item dropdown">
@@ -77,7 +77,7 @@
               Ledger
             </a>
             <ul class="dropdown-menu">
-            <!------------Show basic view of Managers and Accountants----------->
+            <!------------Show basic view of Managers and Accountants---------->
             <ng-container *ngIf="user?.roles?.includes('Manager') || user?.roles?.includes('Accountant')">
               <li>
                 <a class="dropdown-item" [routerLink]="['/accountant/journal-entries']" 
@@ -89,7 +89,6 @@
                   >Adjusting Journal Entry</a
                 >
               </li>
-             
               <li>
                 <a class="dropdown-item" [routerLink]="['/financial-statement']" 
                   >Financial Statements</a
@@ -152,6 +151,7 @@
     </div>
   </div>
 </nav>
+
 <!-- Help button hard coded into the Navbar so that it is on every page -->
 <div class="d-flex justify-content-end">
   <button class="btn btn-outline-info custom-margin" data-bs-toggle="modal" data-bs-target="#helpModal">

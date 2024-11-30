@@ -50,7 +50,7 @@ export class LoginComponent {
           });
 
           // Redirect back to Home Page
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/dashboard');
         },
         error: (err) => {
           // Handle invalid login credentials error

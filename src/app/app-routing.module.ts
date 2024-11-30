@@ -28,6 +28,7 @@ import { ApprovedJournalEntryComponent } from './features/managment/approved-jou
 import { FinancialStatementPageComponent } from './features/managment/financial-statement-page/financial-statement-page.component';
 import { CreateAdjustingJournalEntryComponent } from './features/accountant/create-adjusting-journal-entry/create-adjusting-journal-entry.component';
 import { AdjustingJournalEntryComponent } from './features/managment/adjusting-journal-entry/adjusting-journal-entry.component';
+import { DashboardComponent } from './features/home/dash-board/dash-board.component';
 const routes: Routes = [
   {
     path: 'login',
@@ -129,6 +130,10 @@ const routes: Routes = [
     path: '',
     component: HomeComponent
   },
+  { path: 'dashboard', 
+  component: DashboardComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, 
+{ path: '**', redirectTo: '/login' },
   {
     path: 'register',
     component: RegistrationComponent
