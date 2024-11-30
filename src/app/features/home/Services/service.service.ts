@@ -7,6 +7,7 @@ import { AssetTurnoverDTO } from '../Models/asset-Turnover';
 import { NetProfitDTO } from '../Models/net-Profit';
 import { ReturnOnEquityDTO } from '../Models/return-On-Equity';
 import { ReturnOnAssetDTO } from '../Models/return-On-Asset';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,32 +17,32 @@ export class ServiceService {
 
   constructor(private http: HttpClient) { }
   getCurrentRatio(): Observable<CurrentRatioDTO> {
-    return this.http.get<CurrentRatioDTO>(`${this.baseurl}/CurrentRatio`);
+    return this.http.get<CurrentRatioDTO>(`${environment.apiBaseUrl}/api/Sprint5/CurrentRatio`);
   }
 
   
   getReturnOnAssets(): Observable<ReturnOnAssetDTO> {
-    return this.http.get<ReturnOnAssetDTO>(`${this.baseurl}/ReturnOnAssets`);
+    return this.http.get<ReturnOnAssetDTO>(`${environment.apiBaseUrl}/api/Sprint5/ReturnOnAssets`);
   }
 
   
   getReturnOnEquity(): Observable<ReturnOnEquityDTO> {
-    return this.http.get<ReturnOnEquityDTO>(`${this.baseurl}/ReturnOnEquity`);
+    return this.http.get<ReturnOnEquityDTO>(`${environment.apiBaseUrl}/api/Sprint5/ReturnOnEquity`);
   }
 
  
   getNetProfit(): Observable<NetProfitDTO> {
-    return this.http.get<NetProfitDTO>(`${this.baseurl}/NetProfit`);
+    return this.http.get<NetProfitDTO>(`${environment.apiBaseUrl}/api/Sprint5/NetProfit`);
   }
 
   
   getAssetTurnover(): Observable<AssetTurnoverDTO> {
-    return this.http.get<AssetTurnoverDTO>(`${this.baseurl}/AssetTurnover`);
+    return this.http.get<AssetTurnoverDTO>(`${environment.apiBaseUrl}/api/Sprint5/AssetTurnover`);
   }
 
  
   getQuickRatio(): Observable<QuickRationDTO> {
-    return this.http.get<QuickRationDTO>(`${this.baseurl}/QuickRatio`);
+    return this.http.get<QuickRationDTO>(`${environment.apiBaseUrl}/api/Sprint5/QuickRatio`);
   }
 }
 

@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit {
     this.serviceService.getAssetTurnover().subscribe((data) => {
       if (data) {
         this.assetTurnover = data.assetTurnover;
+        console.log(data.assetTurnover)
       }
     });
 
