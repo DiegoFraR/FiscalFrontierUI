@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UserLogin } from '../models/user-login.model';
 import { CookieService } from 'ngx-cookie-service';
+import { ResetPasswordDTO } from '../models/reset-Password';
 
 @Injectable({
   providedIn: 'root'
@@ -74,5 +75,8 @@ export class AuthService {
   isLoggedIn(): boolean {
    
     return !!localStorage.getItem('token'); 
+  }
+  resetPassword(resetPasswordDTO: ResetPasswordDTO): Observable<void> {
+    return this.http.patch<void>(`${environment.apiBaseUrl}/resetPassword`, resetPasswordDTO );
   }
 }
