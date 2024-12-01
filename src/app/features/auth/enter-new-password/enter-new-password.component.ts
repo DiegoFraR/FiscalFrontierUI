@@ -10,31 +10,31 @@ import { Router } from '@angular/router';
 export class EnterNewPasswordComponent {
   newPassword: string = '';
   confirmPassword: string = '';
-  email: string = ''; 
+  email: string = '';
   constructor (private authService: AuthService,private router: Router ){}
   // Optional: Add logic to handle form submission
   onSubmit(): void {
     if (this.newPassword === this.confirmPassword) {
       const resetPasswordDTO: ResetPasswordDTO = {
         userEmail: this.email,
-        newPassword: this.newPassword
+        newPassword: this.newPassword,
       };
-  
-      console.log('Request Payload:', resetPasswordDTO); // Log payload
-  
-      this.authService.resetPassword(resetPasswordDTO).subscribe(
-        () => {
+
+      console.log('Request Payload:', resetPasswordDTO); // Log payload for debugging
+
+      this.authService.resetPassword(resetPasswordDTO).subscribe({
+        next: () => {
           console.log('Password successfully reset!');
           alert('Password changed successfully. Redirecting to login...');
           this.router.navigate(['/login']); // Navigate to login page
         },
-        (error) => {
-          console.error('Error resetting password:', error); // Log detailed error
+        error: (err) => {
+          console.error('Error resetting password:', err); // Log detailed error
           alert('Failed to reset password. Please try again.');
-        }
-      );
+        },
+      });
     } else {
-      console.error('Passwords do not match');
+      console.error('Passwords do not match'); // Log error
       alert('Passwords do not match. Please try again.');
     }
   }
