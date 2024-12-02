@@ -55,7 +55,7 @@ export class AddAccountComponent implements OnInit, OnDestroy {
       },
       error : (response) => {
         this.error = response.message;
-        console.error('Error From API: ', response.message);
+        console.error('A account with that name already exists, please enter a new name', response.message);
       }
       }
     );
