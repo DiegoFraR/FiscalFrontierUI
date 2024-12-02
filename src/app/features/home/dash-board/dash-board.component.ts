@@ -15,6 +15,8 @@ export class DashboardComponent implements OnInit {
   returnOnEquity?: number | null = null;
 
   // Loading and error handling
+  messages: { text: string; action?: string; actionText?: string }[] = [];
+  showMessages = false;
   isLoading = true;
   errorMessage: string | null = null;
 
@@ -22,6 +24,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchDashboardData();
+    this.loadDummyMessages();
   }
 
   getCardClass(value: number | null | undefined): string {
@@ -77,4 +80,20 @@ export class DashboardComponent implements OnInit {
     // Set isLoading to false after fetching all data
     this.isLoading = false;
   }
+  loadDummyMessages(): void {
+    this.messages = [
+      {
+        text: "We hope you have a safe and fun holiday season!    -FiscalFrontier", // Static dummy message
+      },
+    ];
+  }
+
+  openMessagesTab(): void {
+    this.showMessages = true;
+  }
+
+  closeMessagesTab(): void {
+    this.showMessages = false;
+  }
 }
+

@@ -10,6 +10,12 @@
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
+    <!-- Bell Icon -->
+  <div *ngIf="!isLoading && !errorMessage" class="bell-container">
+    <div class="bell-icon" (click)="openMessagesTab()">
+      <i class="fa fa-bell"></i>
+    </div>
+  </div>
   
     <!-- Dashboard content -->
     <div *ngIf="!isLoading && !errorMessage" class="dashboard-content"  >
@@ -51,6 +57,19 @@
           <p *ngIf="returnOnEquity !== null" [ngClass]="getCardClass(returnOnEquity)">{{ returnOnEquity ? returnOnEquity + '%' : 'No data' }}</p>
         </div>
       </div>
+      <!-- New Section: Important Messages -->
+    
+  </div>
+</div>
+
+<!-- Modal for Messages -->
+<div *ngIf="showMessages" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeMessagesTab()">&times;</span>
+    <h2>Important Messages</h2>
+    <ul>
+      <li *ngFor="let message of messages">{{ message.text }}</li>
+    </ul>
     </div>
   </div>
   
