@@ -79,4 +79,7 @@ export class AuthService {
   resetPassword(resetPasswordDTO: ResetPasswordDTO): Observable<void> {
     return this.http.patch<void>(`${environment.apiBaseUrl}/resetPassword`, resetPasswordDTO );
   }
+  getEmail(email: string): Observable<void> {
+    return this.http.get<void>(`${environment.apiBaseUrl}/userSecurityQuestions/${email}`);
+  }
 }

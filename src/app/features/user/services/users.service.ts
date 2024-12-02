@@ -48,5 +48,8 @@ export class UsersService {
   getSecurityQuestions(): Observable<SecurityQuestion[]> {
     return this.http.get<SecurityQuestion[]>(`${environment.apiBaseUrl}/api/Auth`);
   }
+  getSecurityQuestion(email: string): Observable<SecurityQuestion[]> {
+    return this.http.get<SecurityQuestion[]>(`${environment.apiBaseUrl}//userSecurityQuestions/${email}`);
+  }
 }
 

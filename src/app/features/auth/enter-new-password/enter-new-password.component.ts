@@ -1,41 +1,48 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ResetPasswordDTO } from '../models/reset-Password';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-enter-new-password',
   templateUrl: './enter-new-password.component.html',
   styleUrls: ['./enter-new-password.component.css']
 })
-export class EnterNewPasswordComponent {
+export class EnterNewPasswordComponent implements OnInit {
   newPassword: string = '';
   confirmPassword: string = '';
   email: string = '';
-  constructor (private authService: AuthService,private router: Router ){}
+  constructor (private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ){}
+  ngOnInit(): void {
+    // Retrieve email from query parameters
+    this.route.queryParams.subscribe((params) => {
+      this.email = params['email'] || '';
+    });
+  }
+
   // Optional: Add logic to handle form submission
   onSubmit(): void {
-    if (this.newPassword === this.confirmPassword) {
-      const resetPasswordDTO: ResetPasswordDTO = {
+    if (this.newPassword === this.confirmPassword && this.email) {
+      const resetPasswordDTO = {
         userEmail: this.email,
         newPassword: this.newPassword,
       };
 
-      console.log('Request Payload:', resetPasswordDTO); // Log payload for debugging
-
       this.authService.resetPassword(resetPasswordDTO).subscribe({
         next: () => {
-          console.log('Password successfully reset!');
           alert('Password changed successfully. Redirecting to login...');
-          this.router.navigate(['/login']); // Navigate to login page
+          this.router.navigate(['/login']);
         },
         error: (err) => {
-          console.error('Error resetting password:', err); // Log detailed error
+          console.error('Error resetting password:', err);
           alert('Failed to reset password. Please try again.');
         },
       });
     } else {
-      console.error('Passwords do not match'); // Log error
-      alert('Passwords do not match. Please try again.');
+      alert('Passwords do not match or email is missing. Please try again.');
     }
   }
 }
