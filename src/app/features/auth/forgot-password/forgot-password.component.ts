@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 export class ForgotPasswordComponent implements OnInit {
   email: string = '';
   securityQuestions: SecurityQuestion[] = [];
-
+  selectedSecurityQuestionId: string = '';
+  securityQuestionOneAnswer: string = '';
 
   constructor(private userService: UsersService,
     private authService: AuthService,
@@ -21,25 +22,25 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getSecurityQuestions()
-    .subscribe({
-      next: (response) => {
-        this.securityQuestions = response
-      }
-    });
+      .subscribe({
+        next: (response) => this.securityQuestions = response,
+        error: (err) => {
+          console.error('Error fetching security questions:', err);
+          alert('Failed to load security questions. Please try again.');
+        }
+      });
   }
   onContinue(): void {
     if (this.email) {
-      // Call API to check if email exists
       this.authService.getEmail(this.email).subscribe({
         next: (response) => {
-          console.log('Security questions retrieved:', response); // Debugging
-          // Navigate to the next page and pass the email
+          console.log('Security questions retrieved:', response);
           this.router.navigate(['/enter-new-password'], { queryParams: { email: this.email } });
         },
         error: (err) => {
-          console.error('Error retrieving security questions:', err);
-          alert('Failed to retrieve security questions. Please try again.');
-        },
+          console.error('Error verifying email:', err);
+          alert('Failed to verify email. Please try again.');
+        }
       });
     } else {
       alert('Please enter a valid email address.');
