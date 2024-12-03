@@ -1,75 +1,110 @@
 <div class="dashboard-container">
-    <h1>Dashboard</h1>
-  
-    <!-- Loading spinner -->
-    <div *ngIf="isLoading" class="loading-spinner">
+  <h1>Dashboard</h1>
+
+  <!-- Loading spinner -->
+  <div *ngIf="isLoading" class="loading-spinner">
       Loading dashboard data...
-    </div>
-  
-    <!-- Error message -->
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-    <!-- Bell Icon -->
-  <div *ngIf="!isLoading && !errorMessage" class="bell-container">
-    <div class="bell-icon" (click)="openMessagesTab()">
-      <i class="fa fa-bell"></i>
-    </div>
   </div>
-  
-    <!-- Dashboard content -->
-    <div *ngIf="!isLoading && !errorMessage" class="dashboard-content"  >
+
+  <!-- Error message -->
+  <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+  </div>
+
+  <!-- Bell Icon -->
+  <div *ngIf="!isLoading && !errorMessage" class="bell-container">
+      <div class="bell-icon" (click)="openMessagesTab()">
+          <i class="fa fa-bell"></i>
+      </div>
+  </div>
+
+  <!-- Dashboard content -->
+  <div *ngIf="!isLoading && !errorMessage" class="dashboard-content">
       <div class="dashboard-row mb-2">
-        <div class="dashboard-card" >
-          <h2>Asset Turnover</h2>
-          <p *ngIf="assetTurnover === null">Loading...</p>
-          <p *ngIf="assetTurnover !== null" [ngClass]="getCardClass(assetTurnover)">{{ assetTurnover ? assetTurnover + '%' : 'No data' }}</p>
-        </div>
-  
-        <div class="dashboard-card">
-          <h2>Current Ratio</h2>
-          <p *ngIf="currentRatio === null">Loading...</p>
-          <p *ngIf="currentRatio !== null"  [ngClass]="getCardClass(currentRatio)">{{ currentRatio ? currentRatio + '%' : 'No data' }}</p>
-        </div>
-  
-        <div class="dashboard-card" >
-          <h2>Net Profit</h2>
-          <p *ngIf="netProfit === null">Loading...</p>
-          <p *ngIf="netProfit !== null" [ngClass]="getCardClass(netProfit)">{{ netProfit ? netProfit + '%' : 'No data' }}</p>
-        </div>
+          <div class="dashboard-card">
+              <h2>Asset Turnover</h2>
+              <p *ngIf="assetTurnover === null">Loading...</p>
+              <p *ngIf="assetTurnover !== null" [ngClass]="getCardClass(assetTurnover)">
+                  {{ assetTurnover ? assetTurnover + '%' : 'No data' }}
+              </p>
+          </div>
+
+          <div class="dashboard-card">
+              <h2>Current Ratio</h2>
+              <p *ngIf="currentRatio === null">Loading...</p>
+              <p *ngIf="currentRatio !== null" [ngClass]="getCardClass(currentRatio)">
+                  {{ currentRatio ? currentRatio + '%' : 'No data' }}
+              </p>
+          </div>
+
+          <div class="dashboard-card">
+              <h2>Net Profit</h2>
+              <p *ngIf="netProfit === null">Loading...</p>
+              <p *ngIf="netProfit !== null" [ngClass]="getCardClass(netProfit)">
+                  {{ netProfit ? netProfit + '%' : 'No data' }}
+              </p>
+          </div>
       </div>
-  
-      <div class="dashboard-row" >
-        <div class="dashboard-card" >
-          <h2>Quick Ratio</h2>
-          <p *ngIf="quickRatio === null">Loading...</p>
-          <p *ngIf="quickRatio !== null" [ngClass]="getCardClass(quickRatio)">{{ quickRatio ? quickRatio + '%' : 'No data' }}</p>
-        </div>
-  
-        <div class="dashboard-card" >
-          <h2>Return on Assets</h2>
-          <p *ngIf="returnOnAssets === null">Loading...</p>
-          <p *ngIf="returnOnAssets !== null" [ngClass]="getCardClass(returnOnAssets)">{{ returnOnAssets ? returnOnAssets + '%' : 'No data' }}</p>
-        </div>
-        <div class="dashboard-card" >
-          <h2>Return on Equity</h2>
-          <p *ngIf="returnOnEquity === null">Loading...</p>
-          <p *ngIf="returnOnEquity !== null" [ngClass]="getCardClass(returnOnEquity)">{{ returnOnEquity ? returnOnEquity + '%' : 'No data' }}</p>
-        </div>
+
+      <div class="dashboard-row">
+          <div class="dashboard-card">
+              <h2>Quick Ratio</h2>
+              <p *ngIf="quickRatio === null">Loading...</p>
+              <p *ngIf="quickRatio !== null" [ngClass]="getCardClass(quickRatio)">
+                  {{ quickRatio ? quickRatio + '%' : 'No data' }}
+              </p>
+          </div>
+
+          <div class="dashboard-card">
+              <h2>Return on Assets</h2>
+              <p *ngIf="returnOnAssets === null">Loading...</p>
+              <p *ngIf="returnOnAssets !== null" [ngClass]="getCardClass(returnOnAssets)">
+                  {{ returnOnAssets ? returnOnAssets + '%' : 'No data' }}
+              </p>
+          </div>
+
+          <div class="dashboard-card">
+              <h2>Return on Equity</h2>
+              <p *ngIf="returnOnEquity === null">Loading...</p>
+              <p *ngIf="returnOnEquity !== null" [ngClass]="getCardClass(returnOnEquity)">
+                  {{ returnOnEquity ? returnOnEquity + '%' : 'No data' }}
+              </p>
+          </div>
       </div>
-      <!-- New Section: Important Messages -->
-    
   </div>
 </div>
 
 <!-- Modal for Messages -->
 <div *ngIf="showMessages" class="modal">
   <div class="modal-content">
-    <span class="close" (click)="closeMessagesTab()">&times;</span>
-    <h2>Important Messages</h2>
-    <ul>
-      <li *ngFor="let message of messages">{{ message.text }}</li>
-    </ul>
+      <span class="close" (click)="closeMessagesTab()">&times;</span>
+      <h2>Important Messages</h2>
+      <ul>
+          <li *ngFor="let message of messages">
+              {{ message.text }}
+              <a *ngIf="message.action" [routerLink]="message.action">{{ message.actionText }}</a>
+          </li>
+      </ul>
+
+      <!-- Pending Journal Entries -->
+      <div *ngIf="pendingJournalEntries.length > 0">
+        <h3>Pending Journal Entries: {{ pendingJournalEntries.length }}</h3>
+        <button (click)="goToJournalApproval()">Go to Journal Approval</button>
     </div>
-  </div>
-  
+
+    <div *ngIf="pendingJournalEntries.length === 0">
+        <p>No pending journal entries at this time.</p>
+    </div>
+
+    <!-- Pending User Creation Requests -->
+    <div *ngIf="pendingUserRequests.length > 0">
+        <h3>Pending User Creation Requests: {{ pendingUserRequests.length }}</h3>
+        <button (click)="goToUserCreationRequests()">Go to User Creation Requests</button>
+    </div>
+
+    <div *ngIf="pendingUserRequests.length === 0">
+        <p>No user creation requests at this time.</p>
+    </div>
+</div>
+</div>
+ 

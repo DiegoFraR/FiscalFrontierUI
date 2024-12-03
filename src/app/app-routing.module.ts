@@ -36,6 +36,10 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'manager/journal-approval/:entryId',
+    component: JournalApprovalComponent
+  },
+  {
     path: 'accountant/create-adjust-journal-entry/:accountId',
     component: CreateAdjustingJournalEntryComponent
   },

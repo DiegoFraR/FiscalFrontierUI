@@ -181,4 +181,29 @@
   .modal-content h2 {
     margin-top: 0;
   }
+  .important-messages {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
   
+  .important-messages h3 {
+    margin-bottom: 10px;
+  }
+  
+  .important-messages ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .important-messages li a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  .important-messages li a:hover {
+    text-decoration: underline;
+  }
