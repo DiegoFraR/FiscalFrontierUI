@@ -10,29 +10,35 @@ import { BroadDetailJournalEntry } from '../../admin/models/BroadDetailJournalEn
   styleUrls: ['./journal-approval.component.css']
 })
 export class JournalApprovalComponent implements OnInit {
-  entries?: BroadDetailJournalEntry [];
+  entries?: BroadDetailJournalEntry[];
   pendingEntries?: BroadDetailJournalEntry[];
-  createOn: string='';
-  updateOn: string='';
-  approvalSearchTerm: string='';
+  createOn: string = '';
+  updateOn: string = '';
+  approvalSearchTerm: string = '';
   showRejectModal: boolean = false;
   rejectReason: string = '';
   selectedEntry: any;
-  userId: string |null  = '';
+  userId: string | null = '';
+  userRole: string | null = '';
+  isManagerOrAdmin: boolean = false;
 
   constructor(private journalEntryService: JournalEntryService) {}
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId');
-    this.journalEntryService.getAllPendingJournalEntries()
-    .subscribe({
-      next: (response) =>{
+    this.userRole = localStorage.getItem('userRole'); // Assuming the role is stored in localStorage
+
+    // Set visibility flag based on role
+    this.isManagerOrAdmin = this.userRole === 'Manager' || this.userRole === 'Administrator';
+
+    this.journalEntryService.getAllPendingJournalEntries().subscribe({
+      next: (response) => {
         this.pendingEntries = response;
-        console.log(this.pendingEntries)
+        console.log(this.pendingEntries);
       }
-    })
-    console.log(this.userId)
-    console.log(this.pendingEntries)
+    });
+    console.log(this.userId);
+    console.log(this.pendingEntries);
   }
 
   filterPendingByDate(): void {
@@ -49,24 +55,25 @@ export class JournalApprovalComponent implements OnInit {
   searchPendingJournal(): void {
     const query = this.approvalSearchTerm.toLowerCase();
 
-  this.pendingEntries = this.entries?.filter(entry => 
-    entry.chartOfAccountId.toString().includes(query) || // Search by account ID
-    entry.journalEntryDescription.toLowerCase().includes(query) || // Search by description
-    entry.creditTotal.toString().includes(query) || // Search by debit amount
-    entry.debitTotal.toString().includes(query) || // Search by credit amount
-    new Date(entry.createdOn).toLocaleDateString().includes(query) // Search by date
-  ) || [];
-}
-  approveEntry(entry: number): void { 
+    this.pendingEntries = this.entries?.filter(entry =>
+      entry.chartOfAccountId.toString().includes(query) || // Search by account ID
+      entry.journalEntryDescription.toLowerCase().includes(query) || // Search by description
+      entry.creditTotal.toString().includes(query) || // Search by debit amount
+      entry.debitTotal.toString().includes(query) || // Search by credit amount
+      new Date(entry.createdOn).toLocaleDateString().includes(query) // Search by date
+    ) || [];
+  }
+
+  approveEntry(entry: number): void {
     const approveRequest: ApproveJournalEntry = {
       journalEntryId: entry,
       updatedBy: this.userId // Replace with actual user if available
     };
     this.journalEntryService.approveJournalEntry(approveRequest).subscribe({
-      next: () =>{
-        console.log('journal approved :)')
+      next: () => {
+        console.log('journal approved :)');
       }
-    })
+    });
   }
 
   rejectEntry(entry: any): void {
@@ -80,19 +87,18 @@ export class JournalApprovalComponent implements OnInit {
   }
 
   submitRejection(journalEntryId: number): void {
-    console.log(this.userId)
-      const denyRequest: DenyJournalEntry = {
-      
-        journalEntryId: journalEntryId,
-        journalEntryDeniedReason: 'Rejected',
-        updatedBy: this.userId // Replace with actual user if available
-      };
-     
-      this.journalEntryService.denyJournalEntry(denyRequest).subscribe({
-        next: () =>{
-          console.log('journal entry denied sucessfully')
-        }
-      })
-      console.log(denyRequest)
+    console.log(this.userId);
+    const denyRequest: DenyJournalEntry = {
+      journalEntryId: journalEntryId,
+      journalEntryDeniedReason: 'Rejected',
+      updatedBy: this.userId // Replace with actual user if available
+    };
+
+    this.journalEntryService.denyJournalEntry(denyRequest).subscribe({
+      next: () => {
+        console.log('journal entry denied successfully');
+      }
+    });
+    console.log(denyRequest);
   }
 }
